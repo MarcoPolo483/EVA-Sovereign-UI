@@ -1,0 +1,165 @@
+/**
+ * Official Canada.ca Design System - CSS Custom Properties
+ * 
+ * Import this file to use GC design tokens as CSS variables.
+ * These values are mandatory on all Canada.ca pages.
+ * 
+ * Usage:
+ * ```css
+ * .my-heading {
+ *   font-family: var(--gc-font-heading);
+ *   font-size: var(--gc-font-size-h1-desktop);
+ *   color: var(--gc-color-text-primary);
+ * }
+ * ```
+ */
+
+:root {
+  /* Typography - Fonts */
+  --gc-font-heading: 'Lato', sans-serif;
+  --gc-font-body: 'Noto Sans', sans-serif;
+
+  /* Typography - Desktop/Tablet Sizes */
+  --gc-font-size-h1-desktop: 41px;
+  --gc-font-size-h2-desktop: 39px;
+  --gc-font-size-h3-desktop: 29px;
+  --gc-font-size-h4-desktop: 27px;
+  --gc-font-size-h5-desktop: 24px;
+  --gc-font-size-h6-desktop: 22px;
+  --gc-font-size-body-desktop: 20px;
+
+  /* Typography - Mobile Sizes */
+  --gc-font-size-h1-mobile: 37px;
+  --gc-font-size-h2-mobile: 35px;
+  --gc-font-size-h3-mobile: 26px;
+  --gc-font-size-h4-mobile: 22px;
+  --gc-font-size-h5-mobile: 20px;
+  --gc-font-size-h6-mobile: 18px;
+  --gc-font-size-body-mobile: 18px;
+
+  /* Typography - Weights */
+  --gc-font-weight-normal: 400;
+  --gc-font-weight-bold: 700;
+
+  /* Typography - Line Heights */
+  --gc-line-height-tight: 1.2;
+  --gc-line-height-normal: 1.3;
+  --gc-line-height-relaxed: 1.4;
+  --gc-line-height-loose: 1.6;
+
+  /* H1 Red Bar (gc-thickline) */
+  --gc-h1-bar-color: #A62A1E;
+  --gc-h1-bar-width: 72px;
+  --gc-h1-bar-height: 6px;
+  --gc-h1-bar-spacing: 0.2em; /* 7.6px below H1 */
+
+  /* Colors - Backgrounds */
+  --gc-color-bg-default: #FFFFFF;
+  --gc-color-bg-secondary: #F5F5F5;
+
+  /* Colors - Text */
+  --gc-color-text-primary: #333333;
+  --gc-color-text-secondary: #666666;
+  --gc-color-text-inverse: #FFFFFF;
+
+  /* Colors - Links (Mandatory) */
+  --gc-color-link: #284162;
+  --gc-color-link-hover: #0535d2;
+  --gc-color-link-visited: #7834bc;
+  --gc-color-link-focus: #0535d2;
+
+  /* Colors - Accents */
+  --gc-color-accent-primary: #26374A;
+  --gc-color-error: #d3080c;
+  --gc-color-success: #2e7d32;
+  --gc-color-warning: #f57c00;
+  --gc-color-info: #0288d1;
+
+  /* Colors - Brand */
+  --gc-color-canada-red: #C8102E;
+  --gc-color-h1-bar: #A62A1E;
+
+  /* Spacing - 8px Grid System */
+  --gc-spacing-0: 0;
+  --gc-spacing-1: 8px;
+  --gc-spacing-2: 16px;
+  --gc-spacing-3: 24px;
+  --gc-spacing-4: 32px;
+  --gc-spacing-5: 40px;
+  --gc-spacing-6: 48px;
+  --gc-spacing-8: 64px;
+  --gc-spacing-10: 80px;
+  --gc-spacing-12: 96px;
+  --gc-spacing-16: 128px;
+
+  /* Breakpoints */
+  --gc-breakpoint-mobile: 375px;
+  --gc-breakpoint-tablet: 768px;
+  --gc-breakpoint-desktop: 1200px;
+  --gc-breakpoint-wide: 1600px;
+
+  /* Accessibility */
+  --gc-a11y-min-touch-target: 44px;
+  --gc-a11y-focus-outline-width: 3px;
+  --gc-a11y-focus-outline-color: #0535d2;
+  --gc-a11y-focus-outline-offset: 2px;
+
+  /* Buttons */
+  --gc-button-height-default: 44px;
+  --gc-button-height-large: 52px;
+  --gc-button-height-small: 36px;
+  --gc-button-height-xs: 28px;
+  --gc-button-padding-x: 16px;
+  --gc-button-padding-y: 8px;
+
+  /* Z-index */
+  --gc-z-skip-link: 9999;
+  --gc-z-modal: 1000;
+  --gc-z-dropdown: 100;
+  --gc-z-header: 50;
+  --gc-z-footer: 10;
+
+  /* Transitions */
+  --gc-transition-fast: 150ms ease-in-out;
+  --gc-transition-base: 200ms ease-in-out;
+  --gc-transition-slow: 300ms ease-in-out;
+
+  /* Shadows */
+  --gc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --gc-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --gc-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --gc-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* Border Radius */
+  --gc-radius-none: 0;
+  --gc-radius-sm: 2px;
+  --gc-radius-base: 4px;
+  --gc-radius-md: 6px;
+  --gc-radius-lg: 8px;
+  --gc-radius-full: 9999px;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  :root {
+    --gc-font-size-h1: var(--gc-font-size-h1-mobile);
+    --gc-font-size-h2: var(--gc-font-size-h2-mobile);
+    --gc-font-size-h3: var(--gc-font-size-h3-mobile);
+    --gc-font-size-h4: var(--gc-font-size-h4-mobile);
+    --gc-font-size-h5: var(--gc-font-size-h5-mobile);
+    --gc-font-size-h6: var(--gc-font-size-h6-mobile);
+    --gc-font-size-body: var(--gc-font-size-body-mobile);
+  }
+}
+
+@media (min-width: 769px) {
+  :root {
+    --gc-font-size-h1: var(--gc-font-size-h1-desktop);
+    --gc-font-size-h2: var(--gc-font-size-h2-desktop);
+    --gc-font-size-h3: var(--gc-font-size-h3-desktop);
+    --gc-font-size-h4: var(--gc-font-size-h4-desktop);
+    --gc-font-size-h5: var(--gc-font-size-h5-desktop);
+    --gc-font-size-h6: var(--gc-font-size-h6-desktop);
+    --gc-font-size-body: var(--gc-font-size-body-desktop);
+  }
+}

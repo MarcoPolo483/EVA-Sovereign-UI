@@ -1,0 +1,165 @@
+/**
+ * Official Canada.ca Design System - Typography Styles
+ * Mandatory on all Canada.ca pages
+ * 
+ * Source: https://design.canada.ca/styles/typography.html
+ */
+
+@import './tokens.css';
+
+/* Font imports - Lato and Noto Sans */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans:wght@400;700&display=swap');
+
+/* Base typography */
+body {
+  font-family: var(--gc-font-body);
+  font-size: var(--gc-font-size-body);
+  line-height: var(--gc-line-height-loose);
+  color: var(--gc-color-text-primary);
+  background-color: var(--gc-color-bg-default);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--gc-font-heading);
+  font-weight: var(--gc-font-weight-bold);
+  margin-top: var(--gc-spacing-4);
+  margin-bottom: var(--gc-spacing-2);
+}
+
+h1 {
+  font-size: var(--gc-font-size-h1);
+  line-height: var(--gc-line-height-tight);
+  position: relative;
+}
+
+/* H1 Red Bar (gc-thickline) - Main page title indicator */
+h1.gc-h1-main::after {
+  content: '';
+  display: block;
+  width: var(--gc-h1-bar-width);
+  height: var(--gc-h1-bar-height);
+  background-color: var(--gc-h1-bar-color);
+  margin-top: var(--gc-h1-bar-spacing);
+}
+
+h2 {
+  font-size: var(--gc-font-size-h2);
+  line-height: var(--gc-line-height-tight);
+}
+
+h3 {
+  font-size: var(--gc-font-size-h3);
+  line-height: var(--gc-line-height-normal);
+}
+
+h4 {
+  font-size: var(--gc-font-size-h4);
+  line-height: var(--gc-line-height-normal);
+}
+
+h5 {
+  font-size: var(--gc-font-size-h5);
+  line-height: var(--gc-line-height-relaxed);
+}
+
+h6 {
+  font-size: var(--gc-font-size-h6);
+  line-height: var(--gc-line-height-relaxed);
+}
+
+/* Line length constraint - 65 characters max for readability */
+p, ul, ol, dl {
+  max-width: 65ch;
+}
+
+/* Links - Mandatory underline style that skips descenders */
+a {
+  color: var(--gc-color-link);
+  text-decoration: underline;
+  text-decoration-skip-ink: auto;
+  transition: color var(--gc-transition-fast);
+}
+
+a:hover,
+a:focus {
+  color: var(--gc-color-link-hover);
+}
+
+a:visited {
+  color: var(--gc-color-link-visited);
+}
+
+a:focus {
+  outline: var(--gc-a11y-focus-outline-width) solid var(--gc-a11y-focus-outline-color);
+  outline-offset: var(--gc-a11y-focus-outline-offset);
+}
+
+/* Lists */
+ul, ol {
+  padding-left: var(--gc-spacing-4);
+  margin-bottom: var(--gc-spacing-3);
+}
+
+li {
+  margin-bottom: var(--gc-spacing-1);
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: var(--gc-spacing-3);
+}
+
+/* Code and preformatted text */
+code {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: var(--gc-color-bg-secondary);
+  padding: 2px 4px;
+  border-radius: var(--gc-radius-sm);
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: var(--gc-color-bg-secondary);
+  padding: var(--gc-spacing-2);
+  border-radius: var(--gc-radius-base);
+  overflow-x: auto;
+  margin-bottom: var(--gc-spacing-3);
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid var(--gc-color-accent-primary);
+  padding-left: var(--gc-spacing-3);
+  margin-left: 0;
+  margin-bottom: var(--gc-spacing-3);
+  font-style: italic;
+  color: var(--gc-color-text-secondary);
+}
+
+/* Strong and emphasis */
+strong, b {
+  font-weight: var(--gc-font-weight-bold);
+}
+
+em, i {
+  font-style: italic;
+}
+
+/* Small text */
+small {
+  font-size: 0.875em;
+}
+
+/* Horizontal rule */
+hr {
+  border: 0;
+  border-top: 1px solid var(--gc-color-text-secondary);
+  margin: var(--gc-spacing-4) 0;
+  opacity: 0.3;
+}

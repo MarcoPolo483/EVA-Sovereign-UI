@@ -1,0 +1,244 @@
+/**
+ * Official Canada.ca Design System - Button Styles
+ * 
+ * 6 button variants as per Canada.ca design guidance:
+ * 1. Supertask - Main task/primary CTA
+ * 2. Primary - Next/Submit actions
+ * 3. Secondary - Alternative actions
+ * 4. Danger - Destructive actions
+ * 5. Link - Low-priority actions
+ * 6. Contextual Sign-in - Authentication
+ * 
+ * Source: https://design.canada.ca/common-design-patterns/buttons.html
+ */
+
+@import './tokens.css';
+
+/* Base button styles */
+.gc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--gc-button-height-default);
+  padding: var(--gc-button-padding-y) var(--gc-button-padding-x);
+  font-family: var(--gc-font-body);
+  font-size: var(--gc-font-size-body);
+  font-weight: var(--gc-font-weight-bold);
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: var(--gc-radius-base);
+  cursor: pointer;
+  transition: all var(--gc-transition-base);
+  white-space: nowrap;
+  user-select: none;
+  
+  /* Accessibility - minimum touch target */
+  min-width: var(--gc-a11y-min-touch-target);
+}
+
+.gc-button:focus-visible {
+  outline: var(--gc-a11y-focus-outline-width) solid var(--gc-a11y-focus-outline-color);
+  outline-offset: var(--gc-a11y-focus-outline-offset);
+}
+
+.gc-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* 1. Supertask Button - Launch main task */
+.gc-button-supertask {
+  background-color: #2572b4;
+  color: #FFFFFF;
+  border-color: #2572b4;
+  font-size: 1.125em; /* Slightly larger */
+  padding: 12px 24px;
+  box-shadow: var(--gc-shadow-md);
+}
+
+.gc-button-supertask:hover {
+  background-color: #1f5d94;
+  border-color: #1f5d94;
+  transform: translateY(-1px);
+  box-shadow: var(--gc-shadow-lg);
+}
+
+.gc-button-supertask:active {
+  background-color: #184a75;
+  transform: translateY(0);
+}
+
+/* 2. Primary Button - Next/Submit */
+.gc-button-primary {
+  background-color: #2572b4;
+  color: #FFFFFF;
+  border-color: #2572b4;
+}
+
+.gc-button-primary:hover {
+  background-color: #1f5d94;
+  border-color: #1f5d94;
+}
+
+.gc-button-primary:active {
+  background-color: #184a75;
+}
+
+/* 3. Secondary Button - Alternative actions */
+.gc-button-secondary {
+  background-color: #FFFFFF;
+  color: var(--gc-color-text-primary);
+  border-color: #333333;
+}
+
+.gc-button-secondary:hover {
+  background-color: #f5f5f5;
+  border-color: #1f1f1f;
+}
+
+.gc-button-secondary:active {
+  background-color: #e8e8e8;
+}
+
+/* 4. Danger Button - Destructive actions */
+.gc-button-danger {
+  background-color: var(--gc-color-error);
+  color: #FFFFFF;
+  border-color: var(--gc-color-error);
+}
+
+.gc-button-danger:hover {
+  background-color: #b30000;
+  border-color: #b30000;
+}
+
+.gc-button-danger:active {
+  background-color: #8b0000;
+}
+
+/* 5. Link Button - Low-priority actions */
+.gc-button-link {
+  background-color: transparent;
+  color: var(--gc-color-link);
+  border-color: transparent;
+  text-decoration: underline;
+  padding: 4px 8px;
+  min-height: auto;
+}
+
+.gc-button-link:hover {
+  color: var(--gc-color-link-hover);
+  background-color: transparent;
+}
+
+.gc-button-link:active {
+  color: #042a5f;
+}
+
+/* 6. Contextual Sign-in Button - Top-right authentication */
+.gc-button-signin {
+  background-color: #26374A;
+  color: #FFFFFF;
+  border-color: #26374A;
+  border-radius: 0; /* Square button */
+  min-width: 100px;
+  font-weight: normal;
+}
+
+.gc-button-signin:hover {
+  background-color: #1c2938;
+  border-color: #1c2938;
+}
+
+.gc-button-signin:active {
+  background-color: #151f2b;
+}
+
+/* Button Modifiers */
+
+/* Full width */
+.gc-button-block {
+  display: flex;
+  width: 100%;
+}
+
+/* Button group (grouped side by side) */
+.gc-button-group {
+  display: inline-flex;
+  gap: var(--gc-spacing-1);
+}
+
+.gc-button-group .gc-button {
+  border-radius: 0;
+}
+
+.gc-button-group .gc-button:first-child {
+  border-top-left-radius: var(--gc-radius-base);
+  border-bottom-left-radius: var(--gc-radius-base);
+}
+
+.gc-button-group .gc-button:last-child {
+  border-top-right-radius: var(--gc-radius-base);
+  border-bottom-right-radius: var(--gc-radius-base);
+}
+
+/* Size variants */
+.gc-button-lg {
+  min-height: var(--gc-button-height-large);
+  padding: 12px 24px;
+  font-size: 1.125em;
+}
+
+.gc-button-sm {
+  min-height: var(--gc-button-height-small);
+  padding: 6px 12px;
+  font-size: 0.875em;
+}
+
+.gc-button-xs {
+  min-height: var(--gc-button-height-xs);
+  padding: 4px 8px;
+  font-size: 0.75em;
+}
+
+/* Loading state */
+.gc-button-loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.gc-button-loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: gc-button-spin 0.6s linear infinite;
+}
+
+@keyframes gc-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Icon buttons */
+.gc-button-icon {
+  padding: var(--gc-spacing-2);
+  min-width: var(--gc-a11y-min-touch-target);
+  min-height: var(--gc-a11y-min-touch-target);
+}
+
+.gc-button-icon svg {
+  width: 20px;
+  height: 20px;
+}
