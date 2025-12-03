@@ -1,3 +1,3 @@
 # EVA-Sovereign-UI
 
-Initial scaffold for EVA 2.0 module.
+Initial scaffold for EVA module: EVA-Sovereign-UI.
