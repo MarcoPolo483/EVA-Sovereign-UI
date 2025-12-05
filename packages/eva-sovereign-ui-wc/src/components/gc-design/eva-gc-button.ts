@@ -1,7 +1,7 @@
 /**
  * EVA GC Button Component
- * Government of Canada button with enhanced Spark styling
- * Features: oklch() colors, smooth transitions, modern shadows
+ * Government of Canada button component
+ * Features: WCAG AA compliant, smooth transitions
  */
 
 import { EVABaseComponent } from '../../utils/base-component';

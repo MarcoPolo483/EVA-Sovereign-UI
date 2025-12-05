@@ -47,7 +47,7 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Text input component with Spark styling. Supports validation states, labels, and various input types.',
+        component: 'Text input component with validation states, labels, and various input types.',
       },
     },
     a11y: {

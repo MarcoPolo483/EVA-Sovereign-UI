@@ -28,7 +28,7 @@ export const Welcome = () => `
     ">
       <h1 style="font-size: 3rem; margin: 0 0 1rem 0;">🇨🇦 EVA Sovereign UI</h1>
       <p style="font-size: 1.5rem; opacity: 0.95; margin: 0;">
-        Production-ready Web Components for Government Applications
+        Web Components for Canadian Government Applications
       </p>
       <div style="
         display: flex;

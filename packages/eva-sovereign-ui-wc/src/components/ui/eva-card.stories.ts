@@ -9,7 +9,7 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Content container component with header, title, description, content, and footer slots. Uses Spark styling with shadow-sm.',
+        component: 'Content container component with header, title, description, content, and footer slots.',
       },
     },
   },

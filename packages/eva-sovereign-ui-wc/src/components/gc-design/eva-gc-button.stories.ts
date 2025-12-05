@@ -38,7 +38,7 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Government of Canada styled button component with enhanced Spark styling. Supports WCAG 2.2 AAA accessibility standards with oklch() colors and smooth transitions.',
+        component: 'Government of Canada styled button component with WCAG 2.2 AA accessibility standards.',
       },
     },
     a11y: {
