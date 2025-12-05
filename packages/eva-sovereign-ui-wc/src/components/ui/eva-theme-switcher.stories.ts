@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../components/ui/eva-theme-switcher';
-import { themeEngine } from '../themes/theme-engine';
+import './eva-theme-switcher';
+import { themeEngine } from '../../themes/theme-engine';
 
 const meta: Meta = {
   title: 'Theming/Theme Switcher',
