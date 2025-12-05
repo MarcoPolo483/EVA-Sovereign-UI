@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/web-components';
 
 const meta: Meta = {
-  title: 'Introduction',
+  title: 'Introduction/Welcome',
   parameters: {
     layout: 'fullscreen',
     options: {

@@ -33,9 +33,6 @@ jobs:
       - name: Build Dev Kit
         run: npm run build:devkit
 
-      - name: Build Agency Demo
-        run: npm run build:agency
-
       - name: Build Performance Dashboard
         run: npm run build:perf
 
@@ -47,8 +44,6 @@ jobs:
           mkdir -p public
           mkdir -p public/devkit
           cp -r dist-devkit/* public/devkit/
-          mkdir -p public/agency
-          cp -r dist-agency/* public/agency/
           mkdir -p public/performance
           cp -r dist-performance/* public/performance/
           mkdir -p public/storybook
