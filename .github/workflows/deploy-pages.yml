@@ -45,7 +45,8 @@ jobs:
       - name: Create deployment structure
         run: |
           mkdir -p public
-          cp -r dist-devkit/* public/
+          mkdir -p public/devkit
+          cp -r dist-devkit/* public/devkit/
           mkdir -p public/agency
           cp -r dist-agency/* public/agency/
           mkdir -p public/performance

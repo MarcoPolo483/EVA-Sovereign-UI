@@ -14,6 +14,12 @@ const config: StorybookConfig = {
     name: '@storybook/web-components-vite',
     options: {},
   },
+  async viteFinal(config) {
+    return {
+      ...config,
+      base: '/EVA-Sovereign-UI/storybook/',
+    };
+  },
 };
 
 export default config;

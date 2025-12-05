@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
+  base: '/EVA-Sovereign-UI/devkit/',
   root: __dirname,
   server: {
     port: 5173,
