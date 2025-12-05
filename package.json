@@ -23,16 +23,18 @@
   "jsdelivr": "./dist/eva-sovereign-ui.es.js",
   "unpkg": "./dist/eva-sovereign-ui.umd.js",
   "scripts": {
-    "dev": "npm run dev:devkit",
+    "dev": "npm run dev:lab",
+    "dev:lab": "vite --config apps/sovereign-ui-lab/vite.config.ts",
     "dev:devkit": "vite --config apps/dev-kit-demo/vite.config.ts",
     "dev:agency": "vite --config apps/agency-demo/vite.config.ts",
     "dev:perf": "vite --config apps/performance-dashboard/vite.config.ts",
-    "build": "npm run build:wc && npm run build:react && npm run build:vue && npm run build:angular && npm run build:svelte && npm run build:devkit && npm run build:agency && npm run build:perf",
+    "build": "npm run build:wc && npm run build:react && npm run build:vue && npm run build:angular && npm run build:svelte && npm run build:lab",
     "build:wc": "tsc && vite build",
     "build:react": "cd packages/eva-sovereign-ui-react && npm install --no-audit --no-fund && npm run build",
     "build:vue": "cd packages/eva-sovereign-ui-vue && npm install --no-audit --no-fund && npm run build",
     "build:angular": "cd packages/eva-sovereign-ui-angular && npm install --no-audit --no-fund && npm run build",
     "build:svelte": "cd packages/eva-sovereign-ui-svelte && npm install --no-audit --no-fund && npm run build",
+    "build:lab": "vite build --config apps/sovereign-ui-lab/vite.config.ts",
     "build:devkit": "vite build --config apps/dev-kit-demo/vite.config.ts --outDir ../../dist-devkit",
     "build:showcase": "vite build --config apps/showcase-demo/vite.config.ts",
     "build:agency": "vite build --config apps/agency-demo/vite.config.ts --outDir ../../dist-agency",
@@ -58,9 +60,9 @@
     "test:perf": "playwright test tests/performance",
     "test:e2e": "playwright test tests/integration",
     "test:e2e:agency": "playwright test tests/integration/agency.spec.ts --config=playwright.agency.config.ts --project=chromium",
-      "lighthouse:devkit": "lighthouse http://localhost:5173/apps/dev-kit-demo/index.html --output=html --output-path=playwright-report/lh-devkit.html --chrome-flags=\"--headless --no-sandbox --disable-dev-shm-usage --disable-setuid-sandbox --no-first-run --disable-features=BlockInsecurePrivateNetworkRequests\"",
-      "ci:smoke": "npm run preview:devkit & npm run lighthouse:devkit && npm run test:e2e:agency",
-      "ci:smoke:pwsh": "powershell -NoProfile -Command \"$job = Start-Job -ScriptBlock { Set-Location \"C:\\Users\\marco\\Documents\\_AI Dev\\EVA Suite\\EVA-Sovereign-UI\"; npm run preview:devkit }; $deadline = (Get-Date).AddMinutes(2); do { try { $resp = Invoke-WebRequest -Uri \"http://localhost:5173/apps/dev-kit-demo/index.html\" -UseBasicParsing -TimeoutSec 3; if ($resp.StatusCode -eq 200) { break } } catch {} Start-Sleep -Seconds 1 } while ((Get-Date) -lt $deadline); npm run lighthouse:devkit; Stop-Job $job | Out-Null; Remove-Job $job | Out-Null; npm run test:e2e:esdc\"",
+    "lighthouse:devkit": "lighthouse http://localhost:5173/apps/dev-kit-demo/index.html --output=html --output-path=playwright-report/lh-devkit.html --chrome-flags=\"--headless --no-sandbox --disable-dev-shm-usage --disable-setuid-sandbox --no-first-run --disable-features=BlockInsecurePrivateNetworkRequests\"",
+    "ci:smoke": "npm run preview:devkit & npm run lighthouse:devkit && npm run test:e2e:agency",
+    "ci:smoke:pwsh": "powershell -NoProfile -Command \"$job = Start-Job -ScriptBlock { Set-Location \"C:\\Users\\marco\\Documents\\_AI Dev\\EVA Suite\\EVA-Sovereign-UI\"; npm run preview:devkit }; $deadline = (Get-Date).AddMinutes(2); do { try { $resp = Invoke-WebRequest -Uri \"http://localhost:5173/apps/dev-kit-demo/index.html\" -UseBasicParsing -TimeoutSec 3; if ($resp.StatusCode -eq 200) { break } } catch {} Start-Sleep -Seconds 1 } while ((Get-Date) -lt $deadline); npm run lighthouse:devkit; Stop-Job $job | Out-Null; Remove-Job $job | Out-Null; npm run test:e2e:esdc\"",
     "lint": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -151,6 +153,7 @@
   },
   "dependencies": {
     "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3"
+    "@types/react-dom": "^19.2.3",
+    "@vaadin/router": "^2.0.1"
   }
 }

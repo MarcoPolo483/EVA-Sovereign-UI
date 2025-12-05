@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Build Showcase Demo
-        run: npm run build:showcase
+      - name: Build Lab
+        run: npm run build:lab
 
       - name: Build Storybook
         run: npm run build-storybook
@@ -39,7 +39,9 @@ jobs:
       - name: Create deployment structure
         run: |
           mkdir -p public
-          cp -r dist-showcase/* public/
+          cp public-root/index.html public/
+          mkdir -p public/lab
+          cp -r dist/lab/* public/lab/
           mkdir -p public/storybook
           cp -r storybook-static/* public/storybook/
 
