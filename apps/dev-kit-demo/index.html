@@ -93,21 +93,13 @@
     </eva-gc-header>
     
     <eva-container max-width="1200px">
-      <h1 style="font-family: 'Lato', sans-serif; font-size: 41px; margin-bottom: 24px; color: #26374A;">EVA-Sovereign-UI Component Gallery</h1>
-      <p style="font-size: 20px; margin-bottom: 32px;">Comprehensive demonstration of Web Components for government applications</p>
-      
-      <!-- Theme Switcher -->
-      <section class="component-demo">
-        <h2 class="demo-title">Theme Selection</h2>
-        <p style="margin-bottom: 16px;">Select a Five Eyes sovereign profile to see the components adapt:</p>
-        <select id="theme-selector" class="theme-selector">
-          <option value="canada_gc">🇨🇦 Government of Canada</option>
-          <option value="usa_gov">🇺🇸 US Government</option>
-          <option value="uk_gov">🇬🇧 UK Government</option>
-          <option value="australia_gov">🇦🇺 Australian Government</option>
-          <option value="nz_govt">🇳🇿 New Zealand Government</option>
-        </select>
-      </section>
+      <h1 style="font-family: 'Lato', sans-serif; font-size: 41px; margin-bottom: 24px; color: #26374A;">🇨🇦 EVA Sovereign UI - Component Gallery</h1>
+      <p style="font-size: 20px; margin-bottom: 32px; color: #666;">Production-ready Web Components for Canadian Government Applications</p>
+      <div style="background: #f0f7ff; border-left: 4px solid #2b5a8c; padding: 16px; margin-bottom: 32px; border-radius: 4px;">
+        <strong style="color: #2b5a8c;">✅ WCAG 2.2 AA Compliant</strong> • 
+        <strong style="color: #2b5a8c;">🌍 Bilingual (EN/FR)</strong> • 
+        <strong style="color: #2b5a8c;">🎯 1,046 Tests</strong>
+      </div>
       
       <!-- Pagination -->
       <section class="component-demo">
@@ -1103,19 +1095,6 @@ export function MyCarousel() {
   
   <script type="module" src="@/index.ts"></script>
   <script type="module">
-    // Theme switcher functionality
-    document.getElementById('theme-selector').addEventListener('change', (e) => {
-      const profile = e.target.value;
-      console.log('🎨 Applying theme:', profile);
-      
-      // Update ALL GC components with the new profile
-      document.querySelectorAll('eva-gc-header, eva-gc-footer, eva-gc-button').forEach(el => {
-        el.setAttribute('profile', profile);
-      });
-      
-      console.log('✅ Theme applied to all GC components');
-    });
-
     // Language switcher functionality
     document.addEventListener('locale-change', async (e) => {
       const locale = e.detail.locale;

@@ -33,9 +33,6 @@ jobs:
       - name: Build Dev Kit
         run: npm run build:devkit
 
-      - name: Build Performance Dashboard
-        run: npm run build:perf
-
       - name: Build Storybook
         run: npm run build-storybook
 
@@ -44,8 +41,6 @@ jobs:
           mkdir -p public
           mkdir -p public/devkit
           cp -r dist-devkit/* public/devkit/
-          mkdir -p public/performance
-          cp -r dist-performance/* public/performance/
           mkdir -p public/storybook
           cp -r storybook-static/* public/storybook/
           cp public-index.html public/index.html
