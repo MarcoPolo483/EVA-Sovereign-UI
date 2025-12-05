@@ -7,8 +7,8 @@
 
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../src/components/ui/eva-spinner';
-import '../src/components/ui/eva-skeleton';
+import '../components/ui/eva-spinner';
+import '../components/ui/eva-skeleton';
 
 const meta: Meta = {
   title: 'Animation System/Overview',
