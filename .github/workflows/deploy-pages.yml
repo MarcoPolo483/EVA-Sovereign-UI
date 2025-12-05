@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Build Dev Kit
-        run: npm run build:devkit
+      - name: Build Showcase Demo
+        run: npm run build:showcase
 
       - name: Build Storybook
         run: npm run build-storybook
@@ -39,11 +39,9 @@ jobs:
       - name: Create deployment structure
         run: |
           mkdir -p public
-          mkdir -p public/devkit
-          cp -r dist-devkit/* public/devkit/
+          cp -r dist-showcase/* public/
           mkdir -p public/storybook
           cp -r storybook-static/* public/storybook/
-          cp public-index.html public/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

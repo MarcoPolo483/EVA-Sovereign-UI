@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Canada - My Service Canada Account | Mon dossier Service Canada</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Noto Sans", sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #26374a 0%, #2b5a8c 100%);
+      color: white;
+      padding: 3rem 1rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+    }
+
+    .hero h1 {
+      font-family: 'Lato', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.95;
+      max-width: 800px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-left: 4px solid #26374a;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+      font-family: 'Lato', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #26374a;
+    }
+
+    .card p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .form-section {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .form-section h2 {
+      font-family: 'Lato', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #26374a;
+      border-bottom: 3px solid #26374a;
+      padding-bottom: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #26374a;
+      box-shadow: 0 0 0 3px rgba(38, 55, 74, 0.1);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .alert {
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid;
+    }
+
+    .alert-info {
+      background: #e6f3ff;
+      border-left-color: #0066cc;
+      color: #003d7a;
+    }
+
+    .alert-success {
+      background: #e6f7ed;
+      border-left-color: #00a854;
+      color: #006633;
+    }
+
+    .alert-warning {
+      background: #fff7e6;
+      border-left-color: #faad14;
+      color: #7a5c00;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #26374a;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .stat-label {
+      color: #666;
+      margin-top: 0.5rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <eva-page-shell>
+    <eva-gc-header slot="header"
+      app-name-key="showcase.title"
+      profile="canada_gc">
+      <eva-language-switcher slot="actions"></eva-language-switcher>
+    </eva-gc-header>
+    
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="hero">
+        <h1 data-i18n="hero.title">Welcome to My Service Canada Account</h1>
+        <p data-i18n="hero.description">
+          Access your employment insurance, pension, and other Government of Canada benefits securely online.
+        </p>
+      </div>
+
+      <!-- Alert -->
+      <div class="alert alert-info">
+        <strong data-i18n="alert.title">Important Notice:</strong>
+        <span data-i18n="alert.message"> Your application has been received and is being processed. Check back in 3-5 business days for updates.</span>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value" data-i18n="stats.applications.value">3</div>
+          <div class="stat-label" data-i18n="stats.applications.label">Active Applications</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" data-i18n="stats.messages.value">2</div>
+          <div class="stat-label" data-i18n="stats.messages.label">New Messages</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" data-i18n="stats.documents.value">12</div>
+          <div class="stat-label" data-i18n="stats.documents.label">Documents</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" data-i18n="stats.payments.value">$1,240</div>
+          <div class="stat-label" data-i18n="stats.payments.label">Last Payment</div>
+        </div>
+      </div>
+
+      <!-- Service Cards -->
+      <div class="cards">
+        <div class="card">
+          <h3 data-i18n="services.ei.title">Employment Insurance</h3>
+          <p data-i18n="services.ei.description">
+            Apply for EI benefits, submit bi-weekly reports, and check your claim status.
+          </p>
+          <eva-gc-button variant="default" data-i18n="services.ei.button">View EI Services</eva-gc-button>
+        </div>
+
+        <div class="card">
+          <h3 data-i18n="services.cpp.title">Canada Pension Plan</h3>
+          <p data-i18n="services.cpp.description">
+            Manage your CPP contributions, view your statement, and plan for retirement.
+          </p>
+          <eva-gc-button variant="default" data-i18n="services.cpp.button">View CPP Services</eva-gc-button>
+        </div>
+
+        <div class="card">
+          <h3 data-i18n="services.oas.title">Old Age Security</h3>
+          <p data-i18n="services.oas.description">
+            Check your OAS eligibility, apply for benefits, and manage your payments.
+          </p>
+          <eva-gc-button variant="default" data-i18n="services.oas.button">View OAS Services</eva-gc-button>
+        </div>
+      </div>
+
+      <!-- Form Section -->
+      <div class="form-section">
+        <h2 data-i18n="form.title">Contact Service Canada</h2>
+        
+        <div class="alert alert-warning">
+          <strong data-i18n="form.alert.title">Before you contact us:</strong>
+          <span data-i18n="form.alert.message"> Please check our FAQ section. Many questions can be answered immediately.</span>
+        </div>
+
+        <form id="contact-form">
+          <div class="form-group">
+            <label for="inquiry-type" data-i18n="form.inquiryType.label">Type of Inquiry *</label>
+            <select id="inquiry-type" required>
+              <option value="" data-i18n="form.inquiryType.placeholder">Select an option</option>
+              <option value="ei" data-i18n="form.inquiryType.ei">Employment Insurance</option>
+              <option value="cpp" data-i18n="form.inquiryType.cpp">Canada Pension Plan</option>
+              <option value="oas" data-i18n="form.inquiryType.oas">Old Age Security</option>
+              <option value="sin" data-i18n="form.inquiryType.sin">Social Insurance Number</option>
+              <option value="other" data-i18n="form.inquiryType.other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="full-name" data-i18n="form.fullName.label">Full Name *</label>
+            <input type="text" id="full-name" required data-i18n-placeholder="form.fullName.placeholder">
+          </div>
+
+          <div class="form-group">
+            <label for="email" data-i18n="form.email.label">Email Address *</label>
+            <input type="email" id="email" required data-i18n-placeholder="form.email.placeholder">
+          </div>
+
+          <div class="form-group">
+            <label for="phone" data-i18n="form.phone.label">Phone Number (Optional)</label>
+            <input type="tel" id="phone" data-i18n-placeholder="form.phone.placeholder">
+          </div>
+
+          <div class="form-group">
+            <label for="message" data-i18n="form.message.label">Your Message *</label>
+            <textarea id="message" rows="6" required data-i18n-placeholder="form.message.placeholder"></textarea>
+          </div>
+
+          <div class="button-group">
+            <eva-gc-button type="submit" variant="default" data-i18n="form.submit">Submit Request</eva-gc-button>
+            <eva-gc-button type="button" variant="secondary" data-i18n="form.reset">Reset Form</eva-gc-button>
+          </div>
+        </form>
+
+        <div id="success-message" class="alert alert-success hidden">
+          <strong data-i18n="form.success.title">Success!</strong>
+          <span data-i18n="form.success.message"> Your message has been sent. We'll respond within 2-3 business days.</span>
+        </div>
+      </div>
+
+    </div>
+    
+    <eva-gc-footer slot="footer" profile="canada_gc"></eva-gc-footer>
+  </eva-page-shell>
+
+  <script type="module" src="./src/main.ts"></script>
+  <script type="module">
+    // Translation data
+    const translations = {
+      'en-CA': {
+        'hero.title': 'Welcome to My Service Canada Account',
+        'hero.description': 'Access your employment insurance, pension, and other Government of Canada benefits securely online.',
+        'alert.title': 'Important Notice:',
+        'alert.message': ' Your application has been received and is being processed. Check back in 3-5 business days for updates.',
+        'stats.applications.value': '3',
+        'stats.applications.label': 'Active Applications',
+        'stats.messages.value': '2',
+        'stats.messages.label': 'New Messages',
+        'stats.documents.value': '12',
+        'stats.documents.label': 'Documents',
+        'stats.payments.value': '$1,240',
+        'stats.payments.label': 'Last Payment',
+        'services.ei.title': 'Employment Insurance',
+        'services.ei.description': 'Apply for EI benefits, submit bi-weekly reports, and check your claim status.',
+        'services.ei.button': 'View EI Services',
+        'services.cpp.title': 'Canada Pension Plan',
+        'services.cpp.description': 'Manage your CPP contributions, view your statement, and plan for retirement.',
+        'services.cpp.button': 'View CPP Services',
+        'services.oas.title': 'Old Age Security',
+        'services.oas.description': 'Check your OAS eligibility, apply for benefits, and manage your payments.',
+        'services.oas.button': 'View OAS Services',
+        'form.title': 'Contact Service Canada',
+        'form.alert.title': 'Before you contact us:',
+        'form.alert.message': ' Please check our FAQ section. Many questions can be answered immediately.',
+        'form.inquiryType.label': 'Type of Inquiry *',
+        'form.inquiryType.placeholder': 'Select an option',
+        'form.inquiryType.ei': 'Employment Insurance',
+        'form.inquiryType.cpp': 'Canada Pension Plan',
+        'form.inquiryType.oas': 'Old Age Security',
+        'form.inquiryType.sin': 'Social Insurance Number',
+        'form.inquiryType.other': 'Other',
+        'form.fullName.label': 'Full Name *',
+        'form.fullName.placeholder': 'Enter your full name',
+        'form.email.label': 'Email Address *',
+        'form.email.placeholder': 'your.email@example.com',
+        'form.phone.label': 'Phone Number (Optional)',
+        'form.phone.placeholder': '(555) 123-4567',
+        'form.message.label': 'Your Message *',
+        'form.message.placeholder': 'Please describe your inquiry in detail...',
+        'form.submit': 'Submit Request',
+        'form.reset': 'Reset Form',
+        'form.success.title': 'Success!',
+        'form.success.message': ' Your message has been sent. We\'ll respond within 2-3 business days.'
+      },
+      'fr-CA': {
+        'hero.title': 'Bienvenue à Mon dossier Service Canada',
+        'hero.description': 'Accédez en toute sécurité à vos prestations d\'assurance-emploi, de pension et autres services du gouvernement du Canada.',
+        'alert.title': 'Avis important :',
+        'alert.message': ' Votre demande a été reçue et est en cours de traitement. Revenez dans 3 à 5 jours ouvrables pour des mises à jour.',
+        'stats.applications.value': '3',
+        'stats.applications.label': 'Demandes actives',
+        'stats.messages.value': '2',
+        'stats.messages.label': 'Nouveaux messages',
+        'stats.documents.value': '12',
+        'stats.documents.label': 'Documents',
+        'stats.payments.value': '1 240 $',
+        'stats.payments.label': 'Dernier paiement',
+        'services.ei.title': 'Assurance-emploi',
+        'services.ei.description': 'Présentez une demande de prestations d\'AE, soumettez vos déclarations bihebdomadaires et vérifiez l\'état de votre demande.',
+        'services.ei.button': 'Voir les services d\'AE',
+        'services.cpp.title': 'Régime de pensions du Canada',
+        'services.cpp.description': 'Gérez vos cotisations au RPC, consultez votre relevé et planifiez votre retraite.',
+        'services.cpp.button': 'Voir les services du RPC',
+        'services.oas.title': 'Sécurité de la vieillesse',
+        'services.oas.description': 'Vérifiez votre admissibilité à la SV, présentez une demande de prestations et gérez vos paiements.',
+        'services.oas.button': 'Voir les services de la SV',
+        'form.title': 'Communiquer avec Service Canada',
+        'form.alert.title': 'Avant de nous contacter :',
+        'form.alert.message': ' Veuillez consulter notre section FAQ. De nombreuses questions peuvent être répondues immédiatement.',
+        'form.inquiryType.label': 'Type de demande *',
+        'form.inquiryType.placeholder': 'Sélectionnez une option',
+        'form.inquiryType.ei': 'Assurance-emploi',
+        'form.inquiryType.cpp': 'Régime de pensions du Canada',
+        'form.inquiryType.oas': 'Sécurité de la vieillesse',
+        'form.inquiryType.sin': 'Numéro d\'assurance sociale',
+        'form.inquiryType.other': 'Autre',
+        'form.fullName.label': 'Nom complet *',
+        'form.fullName.placeholder': 'Entrez votre nom complet',
+        'form.email.label': 'Adresse courriel *',
+        'form.email.placeholder': 'votre.courriel@exemple.com',
+        'form.phone.label': 'Numéro de téléphone (facultatif)',
+        'form.phone.placeholder': '(555) 123-4567',
+        'form.message.label': 'Votre message *',
+        'form.message.placeholder': 'Veuillez décrire votre demande en détail...',
+        'form.submit': 'Soumettre la demande',
+        'form.reset': 'Réinitialiser le formulaire',
+        'form.success.title': 'Succès !',
+        'form.success.message': ' Votre message a été envoyé. Nous vous répondrons dans 2 à 3 jours ouvrables.'
+      }
+    };
+
+    let currentLocale = 'en-CA';
+
+    function updateTranslations(locale) {
+      currentLocale = locale;
+      const t = translations[locale];
+      
+      // Update all elements with data-i18n attribute
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+          if (el.tagName === 'EVA-GC-BUTTON') {
+            el.textContent = t[key];
+          } else {
+            el.textContent = t[key];
+          }
+        }
+      });
+
+      // Update placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key]) {
+          el.placeholder = t[key];
+        }
+      });
+
+      // Update select options
+      document.querySelectorAll('option[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+          el.textContent = t[key];
+        }
+      });
+
+      // Update document title
+      document.title = locale === 'fr-CA' 
+        ? 'Service Canada - Mon dossier Service Canada'
+        : 'Service Canada - My Service Canada Account';
+    }
+
+    // Listen for language change
+    document.addEventListener('locale-change', (e) => {
+      const newLocale = e.detail.locale;
+      console.log('Language changed to:', newLocale);
+      updateTranslations(newLocale);
+    });
+
+    // Form handling
+    const form = document.getElementById('contact-form');
+    const successMessage = document.getElementById('success-message');
+    
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Show success message
+      successMessage.classList.remove('hidden');
+      
+      // Scroll to success message
+      successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+      // Reset form after short delay
+      setTimeout(() => {
+        form.reset();
+        setTimeout(() => {
+          successMessage.classList.add('hidden');
+        }, 5000);
+      }, 1000);
+    });
+
+    // Reset button
+    form.querySelector('eva-gc-button[variant="secondary"]').addEventListener('click', () => {
+      form.reset();
+      successMessage.classList.add('hidden');
+    });
+
+    // Initialize with current locale
+    updateTranslations(currentLocale);
+  </script>
+</body>
+</html>

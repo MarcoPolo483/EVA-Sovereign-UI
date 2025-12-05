@@ -34,6 +34,7 @@
     "build:angular": "cd packages/eva-sovereign-ui-angular && npm install --no-audit --no-fund && npm run build",
     "build:svelte": "cd packages/eva-sovereign-ui-svelte && npm install --no-audit --no-fund && npm run build",
     "build:devkit": "vite build --config apps/dev-kit-demo/vite.config.ts --outDir ../../dist-devkit",
+    "build:showcase": "vite build --config apps/showcase-demo/vite.config.ts",
     "build:agency": "vite build --config apps/agency-demo/vite.config.ts --outDir ../../dist-agency",
     "build:perf": "vite build --config apps/performance-dashboard/vite.config.ts",
     "build:standalone": "vite build --config apps/dev-kit-demo/vite.config.ts --outDir ../../dist-standalone --mode standalone",
