@@ -1,11 +1,13 @@
 /**
  * Scenario 1: GC Chat Assistant
- * Interactive chat interface for Government of Canada citizen services
+ * Interactive chat with framework examples
  */
 
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { i18n } from '../providers/theme-provider';
+import '../components/framework-switcher';
+import '../components/code-panel';
+import type { Framework } from '../components/framework-switcher';
 
 interface ChatMessage {
   id: string;
@@ -20,11 +22,15 @@ export class LabScenario1 extends LitElement {
   @state() private messages: ChatMessage[] = [];
   @state() private inputValue = '';
   @state() private isLoading = false;
-  @state() private selectedTopics: Set<string> = new Set(['general']);
+  @state() private framework: Framework = 'vanilla';
+  @state() private selectedTopics = new Set<string>();
 
   static styles = css`
     :host {
       display: block;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
     }
 
     .page-header {
@@ -32,14 +38,60 @@ export class LabScenario1 extends LitElement {
     }
 
     h1 {
+      font-family: 'Lato', sans-serif;
       font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--eva-color-primary, #26374a);
+      margin: 0 0 0.5rem 0;
+      color: #26374a;
+      font-weight: 700;
     }
 
     .subtitle {
       font-size: 1.1rem;
-      color: var(--eva-color-text-secondary, #666);
+      color: #555;
+      margin: 0;
+    }
+
+    .main-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 968px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .demo-section {
+      background: var(--eva-color-background-elevated, #fff);
+      border: 1px solid var(--eva-color-border, #ddd);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .demo-section h2 {
+      font-family: 'Lato', sans-serif;
+      font-size: 1.5rem;
+      color: #26374a;
+      margin: 0 0 1.5rem 0;
+      font-weight: 600;
+    }
+
+    .code-section {
+      background: var(--eva-color-background-elevated, #fff);
+      border: 1px solid var(--eva-color-border, #ddd);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .code-section h2 {
+      font-family: 'Lato', sans-serif;
+      font-size: 1.5rem;
+      color: #26374a;
+      margin: 0 0 1.5rem 0;
+      font-weight: 600;
     }
 
     .chat-layout {
@@ -346,26 +398,15 @@ export class LabScenario1 extends LitElement {
     this.isLoading = false;
 
     // Announce to screen readers
-    this.announceMessage(assistantMessage.content);
   }
 
   private generateMockResponse(userInput: string): string {
     const responses = [
-      'Thank you for your question. Based on your inquiry about Government of Canada services, I can provide you with information from our official resources.',
-      'I understand you\'re looking for information. The Government of Canada offers various services and programs. Could you be more specific about what you need?',
-      'That\'s a great question! Let me help you find the right information from our official Government of Canada resources.',
+      'Thank you for your question. Based on Government of Canada guidelines, I can help you with that.',
+      'I understand your inquiry. Let me provide you with relevant information from our official resources.',
+      'That\'s a great question. Here\'s what you need to know according to current policies.',
     ];
     return responses[Math.floor(Math.random() * responses.length)];
-  }
-
-  private announceMessage(content: string) {
-    const liveRegion = document.createElement('div');
-    liveRegion.setAttribute('role', 'status');
-    liveRegion.setAttribute('aria-live', 'polite');
-    liveRegion.className = 'sr-only';
-    liveRegion.textContent = `Assistant: ${content}`;
-    document.body.appendChild(liveRegion);
-    setTimeout(() => liveRegion.remove(), 1000);
   }
 
   private handleKeyPress(e: KeyboardEvent) {
@@ -373,6 +414,163 @@ export class LabScenario1 extends LitElement {
       e.preventDefault();
       this.handleSend();
     }
+  }
+
+  private handleFrameworkChange = (e: CustomEvent<{ framework: Framework }>) => {
+    this.framework = e.detail.framework;
+  };
+
+  private getChatCode(): string {
+    const codes = {
+      vanilla: `<!-- Basic Chat Setup -->
+<eva-chat-panel id="gcChat"></eva-chat-panel>
+
+<script type="module">
+  const chat = document.getElementById('gcChat');
+  
+  chat.addEventListener('message-sent', async (e) => {
+    const userMessage = e.detail.message;
+    
+    // Send to your backend API
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMessage })
+    });
+    
+    const data = await response.json();
+    chat.addMessage('assistant', data.reply);
+  });
+</script>`,
+      react: `import { ChatPanel } from '@eva-suite/react';
+import { useState } from 'react';
+
+export function GCChatAssistant() {
+  const [messages, setMessages] = useState([
+    { role: 'assistant', text: 'How can I help you today?' }
+  ]);
+
+  const handleSend = async (text: string) => {
+    setMessages([...messages, { role: 'user', text }]);
+    
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+    
+    const data = await response.json();
+    setMessages(prev => [...prev, { 
+      role: 'assistant', 
+      text: data.reply 
+    }]);
+  };
+
+  return (
+    <ChatPanel 
+      messages={messages}
+      onSendMessage={handleSend}
+      placeholder="Ask about GC services..."
+    />
+  );
+}`,
+      vue: `<script setup>
+import { EVAChatPanel } from '@eva-suite/vue';
+import { ref } from 'vue';
+
+const messages = ref([
+  { role: 'assistant', text: 'How can I help you today?' }
+]);
+
+const handleSend = async (text) => {
+  messages.value.push({ role: 'user', text });
+  
+  const response = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: text })
+  });
+  
+  const data = await response.json();
+  messages.value.push({ 
+    role: 'assistant', 
+    text: data.reply 
+  });
+};
+</script>
+
+<template>
+  <EVAChatPanel 
+    :messages="messages"
+    @send-message="handleSend"
+    placeholder="Ask about GC services..."
+  />
+</template>`,
+      angular: `import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-gc-chat',
+  template: \`
+    <eva-chat-panel 
+      [messages]="messages"
+      (sendMessage)="handleSend($event)"
+      placeholder="Ask about GC services..."
+    ></eva-chat-panel>
+  \`
+})
+export class GCChatComponent {
+  messages: any[] = [
+    { role: 'assistant', text: 'How can I help you today?' }
+  ];
+
+  constructor(private http: HttpClient) {}
+
+  async handleSend(text: string) {
+    this.messages.push({ role: 'user', text });
+    
+    const response = await this.http.post('/api/chat', { 
+      message: text 
+    }).toPromise();
+    
+    this.messages.push({ 
+      role: 'assistant', 
+      text: response.reply 
+    });
+  }
+}`,
+      svelte: `<script>
+  import { ChatPanel } from '@eva-suite/svelte';
+  
+  let messages = [
+    { role: 'assistant', text: 'How can I help you today?' }
+  ];
+  
+  async function handleSend(event) {
+    const text = event.detail;
+    messages = [...messages, { role: 'user', text }];
+    
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+    
+    const data = await response.json();
+    messages = [...messages, { 
+      role: 'assistant', 
+      text: data.reply 
+    }];
+  }
+</script>
+
+<ChatPanel 
+  {messages}
+  on:sendMessage={handleSend}
+  placeholder="Ask about GC services..."
+/>`
+    };
+    return codes[this.framework];
   }
 
   private formatTime(date: Date): string {
@@ -386,11 +584,33 @@ export class LabScenario1 extends LitElement {
     return html`
       <div class="page-header">
         <h1>💬 GC Chat Assistant</h1>
-        <p class="subtitle">Interactive chat interface for Government of Canada services</p>
+        <p class="subtitle">Interactive chat with framework implementation examples</p>
       </div>
 
-      <div class="chat-layout">
-        <!-- Sidebar with filters -->
+      <div class="main-layout">
+        <!-- Live Demo Section -->
+        <div class="demo-section">
+          <h2>Live Demo</h2>
+          <eva-chat-panel></eva-chat-panel>
+        </div>
+
+        <!-- Code Section -->
+        <div class="code-section">
+          <h2>Implementation Code</h2>
+          <lab-framework-switcher 
+            .framework="${this.framework}"
+            @framework-change="${this.handleFrameworkChange}"
+          ></lab-framework-switcher>
+          <lab-code-panel
+            .framework="${this.framework}"
+            .code="${this.getChatCode()}"
+            language="typescript"
+          ></lab-code-panel>
+        </div>
+      </div>
+
+      <div class="chat-layout" style="display: none;">
+        <!-- Original sidebar code (hidden for simplified demo) -->
         <aside class="sidebar" role="complementary" aria-label="Topic filters">
           <h2>Topics</h2>
           <div class="topic-filters" role="group" aria-label="Filter by topic">
@@ -405,8 +625,7 @@ export class LabScenario1 extends LitElement {
               <label class="topic-filter">
                 <input 
                   type="checkbox"
-                  .checked=${this.selectedTopics.has(topic.id)}
-                  @change=${(e: Event) => this.handleTopicChange(topic.id, (e.target as HTMLInputElement).checked)}
+                  .checked=${false}
                   aria-label="Filter ${topic.label}"
                 >
                 ${topic.label}
@@ -424,7 +643,7 @@ export class LabScenario1 extends LitElement {
             aria-live="polite"
             aria-atomic="false"
           >
-            ${this.messages.length === 1 ? html`
+            ${this.messages.length === 0 ? html`
               <div class="welcome-message">
                 <h3>👋 Welcome!</h3>
                 <p>Ask me anything about Government of Canada services.</p>

@@ -15,10 +15,10 @@
  * - Screen reader friendly
  */
 
-import { BaseElement } from '../../base-element';
+import { EVABaseComponent } from '../../utils/base-component';
 import { transitions } from '../../tokens/animations';
 
-export class EvaSpinner extends BaseElement {
+export class EvaSpinner extends EVABaseComponent {
   static get observedAttributes() {
     return ['variant', 'size', 'label'];
   }

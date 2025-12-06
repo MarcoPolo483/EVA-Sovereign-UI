@@ -61,6 +61,10 @@ export class EVAGCLanguageSwitcher extends EVABaseComponent {
 
   private async onSelect(code: string) {
     await i18n.setLocale(code);
+    
+    // Always emit locale-change event first for SPA routing
+    this.dispatchEvent(new CustomEvent('locale-change', { detail: { locale: code }, bubbles: true }));
+    
     const mode = this.getAttribute('url-mode') || 'prefix';
     if (mode === 'prefix') {
       const prefix = toLangPrefix(code);
@@ -71,7 +75,7 @@ export class EVAGCLanguageSwitcher extends EVABaseComponent {
         return;
       }
     }
-    this.dispatchEvent(new CustomEvent('locale-change', { detail: { locale: code }, bubbles: true }));
+    
     this.open = false;
     this.render();
   }
