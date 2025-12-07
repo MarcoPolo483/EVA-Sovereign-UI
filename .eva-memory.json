@@ -7,20 +7,22 @@
     "purpose": "Foundation library for ALL EVA UI products. GC Design System implementation. Web Components (Lit 3.x) + React/Vue/Angular/Svelte wrappers. WCAG 2.2 AAA + bilingual EN-CA/FR-CA.",
     "status": "active",
     "owner": "P04-LIB + P15-DVM",
-    "dependencies": ["eva-orchestrator (specification)"],
+    "dependencies": [
+      "eva-orchestrator (specification)"
+    ],
     "lastUpdated": "2025-12-07T18:45:00Z"
   },
   "context": {
-    "summary": "CRITICAL: BEFORE ANY WORK, read complete specification from eva-orchestrator repo: ../eva-orchestrator/docs/features/eva-sovereign-ui/README.md (733 lines). Contains ALL requirements: 11 deliverables, visual standards (official GC assets only, NO video game icons), licensing (MIT/Apache 2.0), autonomous implementation model, 12 quality gates. DO NOT start coding without reading this file.",
+    "summary": "CRITICAL: BEFORE ANY WORK, read complete specification: docs/SPECIFICATION.md (733 lines). Contains ALL requirements: 11 deliverables, visual standards (official GC assets only, NO video game icons), licensing (MIT/Apache 2.0), autonomous implementation model, 12 quality gates. DO NOT start coding without reading this file.",
     "keyFiles": [
-      "../eva-orchestrator/docs/features/eva-sovereign-ui/README.md",
+      "docs/SPECIFICATION.md",
       ".eva-housekeeping.json",
       ".eva-memory.json"
     ],
-    "currentPhase": "BLOCKED: Must read ../eva-orchestrator/docs/features/eva-sovereign-ui/README.md (733 lines) FIRST before any implementation work.",
+    "currentPhase": "BLOCKED: Must read docs/SPECIFICATION.md (733 lines) FIRST before any implementation work.",
     "openIssues": 0,
     "blockers": [
-      "CRITICAL: Cannot start implementation without reading complete specification from ../eva-orchestrator/docs/features/eva-sovereign-ui/README.md (733 lines). Contains: 11 deliverables (6 packages + 3 demos + 2 doc sites), visual standards (official GC assets only, SVG, professional grade, NO video game icons/colorful icons), licensing (MIT/Apache 2.0, PUBLIC, self-service), autonomous implementation model (Marco NOT available for approvals), 12 quality gates (100% coverage, 100/100 Lighthouse, WCAG 2.2 AAA, official GC assets). DO NOT make assumptions. DO NOT use outdated Five Eyes information."
+      "CRITICAL: Cannot start implementation without reading complete specification from docs/SPECIFICATION.md (733 lines). Contains: 11 deliverables (6 packages + 3 demos + 2 doc sites), visual standards (official GC assets only, SVG, professional grade, NO video game icons/colorful icons), licensing (MIT/Apache 2.0, PUBLIC, self-service), autonomous implementation model (Marco NOT available for approvals), 12 quality gates (100% coverage, 100/100 Lighthouse, WCAG 2.2 AAA, official GC assets). DO NOT make assumptions. DO NOT use outdated Five Eyes information."
     ]
   },
   "quality": {
@@ -35,9 +37,9 @@
       {
         "id": "LESSON-001",
         "title": "Specification Location is Critical",
-        "summary": "ALWAYS read ../eva-orchestrator/docs/features/eva-sovereign-ui/README.md FIRST. 733 lines of complete requirements. DO NOT start coding without reading this file.",
+        "summary": "ALWAYS read docs/SPECIFICATION.md FIRST. 733 lines of complete requirements. DO NOT start coding without reading this file.",
         "impact": "CRITICAL - prevents vibe coding, ensures context engineering",
-        "reference": "../eva-orchestrator/docs/features/eva-sovereign-ui/README.md"
+        "reference": "docs/SPECIFICATION.md"
       }
     ],
     "tools": [],
@@ -45,8 +47,8 @@
       {
         "id": "PATTERN-001",
         "name": "Cross-Repo Specification Pattern",
-        "summary": "EVA-Sovereign-UI specification lives in eva-orchestrator repo (single source of truth). Read ../eva-orchestrator/docs/features/eva-sovereign-ui/README.md before any work.",
-        "reference": "../eva-orchestrator/docs/features/eva-sovereign-ui/README.md"
+        "summary": "EVA-Sovereign-UI specification is in docs/SPECIFICATION.md. Read this file before any work. Copy kept in sync with eva-orchestrator master version.",
+        "reference": "docs/SPECIFICATION.md"
       }
     ]
   },
@@ -68,6 +70,6 @@
     "templateVersion": "1.0.0",
     "lastModifiedBy": "Memory Fix - Add Specification Blocker",
     "lastModifiedAt": "2025-12-07T18:45:00Z",
-    "sessionContext": "CRITICAL: This repo's specification is in ../eva-orchestrator/docs/features/eva-sovereign-ui/README.md (733 lines). MUST read that file FIRST before any coding. Contains all requirements, visual standards, licensing, autonomous model, quality gates."
+    "sessionContext": "CRITICAL: This repo's specification is in docs/SPECIFICATION.md (733 lines). MUST read that file FIRST before any coding. Contains all requirements, visual standards, licensing, autonomous model, quality gates."
   }
 }
