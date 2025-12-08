@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canada.ca AI Assistant | Government of Canada</title>
+  
+  <!-- GC Design System Styles -->
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Noto Sans", Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    /* GC Header */
+    .gc-header {
+      background-color: #26374a;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+    }
+
+    .gc-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .gc-logo-text {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .gc-lang-toggle {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .gc-lang-toggle:hover {
+      text-decoration: none;
+    }
+
+    /* Main Content */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero-section {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      color: #26374a;
+      margin-bottom: 1rem;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .feature-card {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 6px;
+      border-left: 4px solid #26374a;
+    }
+
+    .feature-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #26374a;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-description {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* Chat Container */
+    .chat-container {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #e5e5e5;
+    }
+
+    .chat-title {
+      font-size: 1.5rem;
+      color: #26374a;
+      font-weight: 600;
+    }
+
+    .chat-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #4caf50;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Suggested Questions */
+    .suggestions {
+      margin-top: 1.5rem;
+    }
+
+    .suggestions-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #26374a;
+      margin-bottom: 1rem;
+    }
+
+    .suggestion-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .suggestion-chip {
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .suggestion-chip:hover {
+      background: #26374a;
+      color: white;
+      border-color: #26374a;
+    }
+
+    /* GC Footer */
+    .gc-footer {
+      background-color: #26374a;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    .gc-footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .gc-footer-link {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .gc-footer-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 1rem;
+      }
+
+      .hero-title {
+        font-size: 1.5rem;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gc-header {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- GC Header -->
+  <header class="gc-header">
+    <div class="gc-logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" fill="white" rx="4"/>
+        <path d="M16 8L8 12V20L16 24L24 20V12L16 8Z" fill="#26374a"/>
+      </svg>
+      <span class="gc-logo-text" data-i18n="gov-canada">Government of Canada</span>
+    </div>
+    <button class="gc-lang-toggle" onclick="toggleLanguage()">
+      <span data-i18n="lang-toggle">Français</span>
+    </button>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1 class="hero-title" data-i18n="hero-title">Canada.ca AI Assistant</h1>
+      <p class="hero-description" data-i18n="hero-description">
+        Get instant answers to your questions about Government of Canada services, programs, and benefits. 
+        Our AI-powered assistant is available 24/7 in both official languages.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-title" data-i18n="feature-1-title">🌐 Bilingual Support</h3>
+          <p class="feature-description" data-i18n="feature-1-desc">
+            Seamlessly switch between English and French at any time during your conversation.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-title" data-i18n="feature-2-title">🔒 Secure & Private</h3>
+          <p class="feature-description" data-i18n="feature-2-desc">
+            Your conversations are encrypted and never stored. We respect your privacy.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-title" data-i18n="feature-3-title">⚡ Real-time Answers</h3>
+          <p class="feature-description" data-i18n="feature-3-desc">
+            Powered by advanced AI technology to provide accurate, up-to-date information.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-title" data-i18n="feature-4-title">♿ Accessible</h3>
+          <p class="feature-description" data-i18n="feature-4-desc">
+            WCAG 2.2 AAA compliant with full keyboard navigation and screen reader support.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chat Interface -->
+    <section class="chat-container">
+      <div class="chat-header">
+        <h2 class="chat-title" data-i18n="chat-title">Ask a Question</h2>
+        <div class="chat-status">
+          <span class="status-indicator"></span>
+          <span data-i18n="status-online">Online</span>
+        </div>
+      </div>
+
+      <!-- EVA Chat Panel Component -->
+      <eva-chat-panel id="chatPanel" placeholder-text="Type your question here..."></eva-chat-panel>
+
+      <!-- Suggested Questions -->
+      <div class="suggestions">
+        <h3 class="suggestions-title" data-i18n="suggestions-title">Popular Questions:</h3>
+        <div class="suggestion-chips">
+          <button class="suggestion-chip" data-question="en:How do I apply for a Canadian passport?|fr:Comment puis-je demander un passeport canadien?">
+            <span data-i18n="suggestion-1">How do I apply for a passport?</span>
+          </button>
+          <button class="suggestion-chip" data-question="en:What benefits am I eligible for?|fr:À quelles prestations ai-je droit?">
+            <span data-i18n="suggestion-2">What benefits am I eligible for?</span>
+          </button>
+          <button class="suggestion-chip" data-question="en:How do I file my taxes online?|fr:Comment puis-je produire ma déclaration de revenus en ligne?">
+            <span data-i18n="suggestion-3">How do I file my taxes online?</span>
+          </button>
+          <button class="suggestion-chip" data-question="en:Where can I find health services?|fr:Où puis-je trouver des services de santé?">
+            <span data-i18n="suggestion-4">Where can I find health services?</span>
+          </button>
+          <button class="suggestion-chip" data-question="en:How do I renew my driver's license?|fr:Comment puis-je renouveler mon permis de conduire?">
+            <span data-i18n="suggestion-5">How do I renew my driver's license?</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- GC Footer -->
+  <footer class="gc-footer">
+    <p data-i18n="footer-text">&copy; 2025 Government of Canada | Gouvernement du Canada</p>
+    <div class="gc-footer-links">
+      <a href="#" class="gc-footer-link" data-i18n="footer-privacy">Privacy</a>
+      <a href="#" class="gc-footer-link" data-i18n="footer-terms">Terms of Use</a>
+      <a href="#" class="gc-footer-link" data-i18n="footer-accessibility">Accessibility</a>
+      <a href="#" class="gc-footer-link" data-i18n="footer-contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <!-- Import EVA Web Components -->
+  <script type="module" src="../../packages/web-components/dist/index.js"></script>
+  
+  <!-- Demo Application Logic -->
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

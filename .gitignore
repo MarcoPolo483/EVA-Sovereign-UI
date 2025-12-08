@@ -8,3 +8,4 @@
 
 # But DO commit .eva-memory.json
 !.eva-memory.json
+node_modules

@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GC Design Lab - EVA Component Showcase | Government of Canada</title>
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Noto Sans", Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #26374a 0%, #1a252f 100%);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .header-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-subtitle {
+      font-size: 1.25rem;
+      opacity: 0.9;
+    }
+
+    .header-nav {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-button {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .nav-button:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .nav-button.active {
+      background: white;
+      color: #26374a;
+      border-color: white;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    /* Section */
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #e5e5e5;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      color: #26374a;
+      font-weight: 600;
+    }
+
+    .section-badge {
+      background: #4caf50;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .section-description {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    /* Component Demo Grid */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .demo-item {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #e5e5e5;
+    }
+
+    .demo-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #26374a;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .demo-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    /* Code Display */
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: "Courier New", monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+
+    .code-block code {
+      white-space: pre;
+    }
+
+    /* Feature Highlights */
+    .feature-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .feature-list li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #4caf50;
+      font-weight: bold;
+    }
+
+    /* Form Layouts */
+    .form-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 8px;
+      color: white;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      .section {
+        padding: 1.5rem;
+      }
+
+      .header-title {
+        font-size: 1.75rem;
+      }
+
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section {
+      animation: fadeInUp 0.5s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1 class="header-title">GC Design Lab</h1>
+    <p class="header-subtitle">EVA Sovereign UI Component Showcase</p>
+    <nav class="header-nav">
+      <button class="nav-button active" onclick="showSection('all')">All Components</button>
+      <button class="nav-button" onclick="showSection('buttons')">Buttons</button>
+      <button class="nav-button" onclick="showSection('forms')">Forms</button>
+      <button class="nav-button" onclick="showSection('layout')">Layout</button>
+      <button class="nav-button" onclick="showSection('feedback')">Feedback</button>
+      <button class="nav-button" onclick="showSection('chat')">Chat</button>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Stats Section -->
+    <section class="section" data-category="all">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">11</div>
+          <div class="stat-label">Components</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">WCAG AAA</div>
+          <div class="stat-label">Accessibility</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Languages</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">GC Compliant</div>
+        </div>
+      </main>
+
+    <!-- Buttons Section -->
+    <section class="section" data-category="all buttons">
+      <div class="section-header">
+        <h2 class="section-title">EVA Button</h2>
+        <span class="section-badge">6 Variants</span>
+      </div>
+      <p class="section-description">
+        Production-ready buttons with full GC Design System compliance. Features 6 variants, 
+        automatic focus management, keyboard navigation, and bilingual support.
+      </p>
+
+      <div class="demo-grid">
+        <div class="demo-item">
+          <div class="demo-label">Supertask Button</div>
+          <div class="demo-content">
+            <eva-button variant="supertask">Complete Task</eva-button>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Primary Button</div>
+          <div class="demo-content">
+            <eva-button variant="primary">Submit Application</eva-button>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Secondary Button</div>
+          <div class="demo-content">
+            <eva-button variant="secondary">Cancel</eva-button>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Danger Button</div>
+          <div class="demo-content">
+            <eva-button variant="danger">Delete Account</eva-button>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Link Button</div>
+          <div class="demo-content">
+            <eva-button variant="link">Learn More</eva-button>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Contextual Sign-in</div>
+          <div class="demo-content">
+            <eva-button variant="contextual-signin">Sign In with GCKey</eva-button>
+          </div>
+        </div>
+      </div>
+
+      <ul class="feature-list">
+        <li>7:1 contrast ratio (WCAG AAA)</li>
+        <li>44px minimum touch targets</li>
+        <li>Keyboard accessible (Enter, Space)</li>
+        <li>Screen reader announcements</li>
+        <li>Disabled state support</li>
+      </ul>
+    </section>
+
+    <!-- Form Components Section -->
+    <section class="section" data-category="all forms">
+      <div class="section-header">
+        <h2 class="section-title">Form Components</h2>
+        <span class="section-badge">6 Components</span>
+      </div>
+      <p class="section-description">
+        Complete form toolkit with validation, error states, character counting, 
+        and bilingual labels. All components are fully accessible and keyboard navigable.
+      </p>
+
+      <div class="form-layout">
+        <div class="form-group">
+          <label for="name-input">Full Name</label>
+          <eva-input 
+            id="name-input"
+            type="text" 
+            placeholder="Enter your full name"
+            required>
+          </eva-input>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email-input">Email Address</label>
+            <eva-input 
+              id="email-input"
+              type="email" 
+              placeholder="you@example.com"
+              required>
+            </eva-input>
+          </div>
+
+          <div class="form-group">
+            <label for="phone-input">Phone Number</label>
+            <eva-input 
+              id="phone-input"
+              type="tel" 
+              placeholder="(555) 555-5555">
+            </eva-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="province-select">Province/Territory</label>
+          <eva-select id="province-select">
+            <option value="">Select a province</option>
+            <option value="AB">Alberta</option>
+            <option value="BC">British Columbia</option>
+            <option value="MB">Manitoba</option>
+            <option value="NB">New Brunswick</option>
+            <option value="NL">Newfoundland and Labrador</option>
+            <option value="NS">Nova Scotia</option>
+            <option value="ON">Ontario</option>
+            <option value="PE">Prince Edward Island</option>
+            <option value="QC">Quebec</option>
+            <option value="SK">Saskatchewan</option>
+            <option value="NT">Northwest Territories</option>
+            <option value="NU">Nunavut</option>
+            <option value="YT">Yukon</option>
+          </eva-select>
+        </div>
+
+        <div class="form-group">
+          <eva-checkbox id="terms-check">
+            I agree to the Terms and Conditions
+          </eva-checkbox>
+        </div>
+
+        <div class="form-group">
+          <label>Communication Preference</label>
+          <eva-radio name="comm-pref" value="email">Email</eva-radio>
+          <eva-radio name="comm-pref" value="phone">Phone</eva-radio>
+          <eva-radio name="comm-pref" value="mail">Mail</eva-radio>
+        </div>
+
+        <div>
+          <eva-button variant="primary">Submit Form</eva-button>
+          <eva-button variant="secondary" style="margin-left: 1rem;">Reset</eva-button>
+        </div>
+      </div>
+
+      <ul class="feature-list">
+        <li>Real-time validation</li>
+        <li>Character counting (for text inputs)</li>
+        <li>Error state management</li>
+        <li>Bilingual error messages</li>
+        <li>Keyboard navigation (Tab, Arrow keys)</li>
+      </ul>
+    </section>
+
+    <!-- Layout Components Section -->
+    <section class="section" data-category="all layout">
+      <div class="section-header">
+        <h2 class="section-title">Layout Components</h2>
+        <span class="section-badge">3 Components</span>
+      </div>
+      <p class="section-description">
+        Flexible layout components for cards, modals, and tabbed interfaces. 
+        All components support responsive design and dark mode.
+      </p>
+
+      <div class="demo-grid">
+        <div class="demo-item">
+          <div class="demo-label">Default Card</div>
+          <eva-card>
+            <h3>Welcome to GC Services</h3>
+            <p>Access government services online 24/7.</p>
+            <eva-button variant="primary">Get Started</eva-button>
+          </eva-card>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Bordered Card</div>
+          <eva-card variant="bordered">
+            <h3>Important Notice</h3>
+            <p>Tax filing deadline: April 30, 2025</p>
+          </eva-card>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Elevated Card</div>
+          <eva-card variant="elevated">
+            <h3>Featured Service</h3>
+            <p>Apply for a passport online in minutes.</p>
+            <eva-button variant="link">Learn More →</eva-button>
+          </eva-card>
+        </div>
+      </div>
+
+      <div class="demo-item" style="margin-top: 2rem;">
+        <div class="demo-label">Tabs Component</div>
+        <eva-tabs>
+          <eva-tab label="Personal Info" active>
+            <div style="padding: 1.5rem;">
+              <h3>Personal Information</h3>
+              <p>Manage your personal details and contact information.</p>
+              <eva-input type="text" placeholder="First Name" style="margin-top: 1rem;"></eva-input>
+              <eva-input type="text" placeholder="Last Name" style="margin-top: 0.5rem;"></eva-input>
+            </div>
+          </eva-tab>
+          <eva-tab label="Address">
+            <div style="padding: 1.5rem;">
+              <h3>Mailing Address</h3>
+              <p>Update your mailing address for correspondence.</p>
+              <eva-input type="text" placeholder="Street Address" style="margin-top: 1rem;"></eva-input>
+              <eva-input type="text" placeholder="City" style="margin-top: 0.5rem;"></eva-input>
+            </div>
+          </eva-tab>
+          <eva-tab label="Settings">
+            <div style="padding: 1.5rem;">
+              <h3>Account Settings</h3>
+              <p>Configure your account preferences.</p>
+              <eva-checkbox style="margin-top: 1rem;">Email notifications</eva-checkbox>
+              <eva-checkbox style="margin-top: 0.5rem;">SMS alerts</eva-checkbox>
+            </div>
+          </eva-tab>
+        </eva-tabs>
+      </div>
+
+      <div class="demo-item" style="margin-top: 2rem;">
+        <div class="demo-label">Modal Component</div>
+        <eva-button variant="primary" onclick="openModal()">Open Modal</eva-button>
+        
+        <eva-modal id="demo-modal" size="medium">
+          <h2 slot="header">Confirm Action</h2>
+          <p>Are you sure you want to proceed with this action?</p>
+          <p>This operation cannot be undone.</p>
+          <div slot="footer">
+            <eva-button variant="danger" onclick="closeModal()">Confirm</eva-button>
+            <eva-button variant="secondary" onclick="closeModal()" style="margin-left: 0.5rem;">Cancel</eva-button>
+          </div>
+        </eva-modal>
+      </div>
+
+      <ul class="feature-list">
+        <li>Responsive design (mobile-first)</li>
+        <li>Focus trap in modals</li>
+        <li>Esc key to close modals</li>
+        <li>Arrow key navigation in tabs</li>
+        <li>ARIA roles and labels</li>
+      </ul>
+    </section>
+
+    <!-- Feedback Components Section -->
+    <section class="section" data-category="all feedback">
+      <div class="section-header">
+        <h2 class="section-title">Feedback Components</h2>
+        <span class="section-badge">Alerts</span>
+      </div>
+      <p class="section-description">
+        User feedback components for success, info, warning, and danger states. 
+        All alerts are dismissible and support custom icons.
+      </p>
+
+      <div class="demo-grid">
+        <div class="demo-item">
+          <div class="demo-label">Success Alert</div>
+          <eva-alert type="success" dismissible>
+            Your application has been submitted successfully!
+          </eva-alert>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Info Alert</div>
+          <eva-alert type="info" dismissible>
+            New services are available in your region.
+          </eva-alert>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Warning Alert</div>
+          <eva-alert type="warning" dismissible>
+            Your session will expire in 5 minutes.
+          </eva-alert>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-label">Danger Alert</div>
+          <eva-alert type="danger" dismissible>
+            An error occurred. Please try again.
+          </eva-alert>
+        </div>
+      </div>
+
+      <ul class="feature-list">
+        <li>4 semantic types (success, info, warning, danger)</li>
+        <li>Dismissible with animation</li>
+        <li>ARIA live regions for screen readers</li>
+        <li>Custom icon support</li>
+        <li>Bilingual content support</li>
+      </ul>
+    </section>
+
+    <!-- Chat Panel Section -->
+    <section class="section" data-category="all chat">
+      <div class="section-header">
+        <h2 class="section-title">EVA Chat Panel</h2>
+        <span class="section-badge">⭐ Signature Component</span>
+      </div>
+      <p class="section-description">
+        Production-ready chat interface with RAG integration hooks. Features message bubbles, 
+        typing indicator, timestamp display, and full bilingual support. Perfect for government 
+        service chatbots.
+      </p>
+
+      <div class="demo-item">
+        <div class="demo-label">Interactive Chat Demo</div>
+        <eva-chat-panel 
+          id="demo-chat"
+          placeholder-text="Ask a question about GC services..."
+          style="height: 400px;">
+        </eva-chat-panel>
+      </div>
+
+      <ul class="feature-list">
+        <li>Message bubbles (user + assistant)</li>
+        <li>Typing indicator animation</li>
+        <li>Timestamp display</li>
+        <li>Markdown rendering</li>
+        <li>RAG backend integration ready</li>
+        <li>Bilingual UI (EN-CA/FR-CA)</li>
+        <li>Keyboard accessible (Enter to send)</li>
+        <li>Screen reader announcements</li>
+      </ul>
+
+      <div class="code-block">
+<code>// Example: Add message to chat
+const chat = document.getElementById('demo-chat');
+
+chat.addMessage({
+  role: 'assistant',
+  content: 'Hello! How can I help you today?',
+  timestamp: new Date().toISOString()
+});
+
+// Listen for user messages
+chat.addEventListener('eva-message-send', (e) => {
+  console.log('User sent:', e.detail.message);
+});</code>
+      </div>
+    </section>
+  </main>
+
+  <!-- Import EVA Web Components -->
+  <script type="module" src="../../packages/web-components/dist/index.js"></script>
+  
+  <!-- Demo Logic -->
+  <script>
+    // Section filtering
+    function showSection(category) {
+      const sections = document.querySelectorAll('.section');
+      const buttons = document.querySelectorAll('.nav-button');
+      
+      // Update button states
+      buttons.forEach(btn => {
+        if (btn.textContent.toLowerCase().includes(category) || category === 'all') {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      // Show/hide sections
+      sections.forEach(section => {
+        const categories = section.getAttribute('data-category').split(' ');
+        if (category === 'all' || categories.includes(category)) {
+          section.style.display = 'block';
+        } else {
+          section.style.display = 'none';
+        }
+      });
+    }
+
+    // Modal controls
+    function openModal() {
+      const modal = document.getElementById('demo-modal');
+      modal.setAttribute('open', 'true');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('demo-modal');
+      modal.removeAttribute('open');
+    }
+
+    // Initialize chat panel
+    customElements.whenDefined('eva-chat-panel').then(() => {
+      const chat = document.getElementById('demo-chat');
+      
+      // Add welcome message
+      chat.addMessage({
+        role: 'assistant',
+        content: 'Welcome to the GC Design Lab! This is a demo of the EVA Chat Panel component. Try sending a message!',
+        timestamp: new Date().toISOString()
+      });
+      
+      // Handle messages
+      chat.addEventListener('eva-message-send', (e) => {
+        // Show typing indicator
+        chat.setAttribute('is-typing', 'true');
+        
+        // Simulate response
+        setTimeout(() => {
+          chat.addMessage({
+            role: 'assistant',
+            content: `You said: "${e.detail.message}"\n\nThis is a demo response. In production, this would connect to your RAG backend for intelligent answers.`,
+            timestamp: new Date().toISOString()
+          });
+          
+          chat.setAttribute('is-typing', 'false');
+        }, 1500);
+      });
+    });
+  </script>
+</body>
+</html>

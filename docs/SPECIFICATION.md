@@ -80,7 +80,7 @@ Build a **TOP NOTCH, 100% production-ready, enterprise & government-grade Web Co
 ## 📦 Deliverables (11 Production-Ready Packages + Demos)
 
 ### npm Packages (6)
-1. **@eva-sovereign/web-components** - Lit 3.x core library (11+ Web Components)
+1. **@eva-sovereign/web-components** - Lit 3.x core library (128+ Web Components)
 2. **@eva-sovereign/react** - React 18+ wrapper package
 3. **@eva-sovereign/vue** - Vue 3+ wrapper package
 4. **@eva-sovereign/angular** - Angular 17+ wrapper package
@@ -95,6 +95,217 @@ Build a **TOP NOTCH, 100% production-ready, enterprise & government-grade Web Co
 ### Documentation (2)
 10. **Storybook** - Complete API documentation for all components
 11. **Docs Site** - Separate documentation website with guides, tutorials, examples
+
+---
+
+## 🎯 COMPLETE COMPONENT INVENTORY (128+ Components)
+
+**Updated: December 7, 2025**  
+**Source**: https://design.canada.ca/ + https://wet-boew.github.io/GCWeb/  
+
+### **Category 1: WET-BOEW Core Plugins (43 components)**
+
+#### Data & Content Management
+1. ❌ **wb-data-ajax** - AJAX content loading with overlays
+2. ❌ **wb-data-json** - JSON data templating and rendering
+3. ❌ **wb-data-picture** - Responsive images (picturefill port)
+4. ❌ **wb-data-inview** - Viewport-triggered content loading
+5. ❌ **wb-data-fusion-query** - Query parameter mapping to form inputs
+6. ❌ **wb-feeds** - RSS/Atom feed aggregation and display
+7. ❌ **wb-filter** - Content filtering by keywords
+8. ❌ **wb-tagfilter** - Tag-based content filtering
+
+#### Form Components
+9. ✅ **wb-checkbox** - Checkboxes (implemented as `eva-checkbox`)
+10. ✅ **wb-radio** - Radio buttons (implemented as `eva-radio`)
+11. ✅ **wb-input** - Text inputs (implemented as `eva-input`)
+12. ✅ **wb-select** - Select dropdowns (implemented as `eva-select`)
+13. ❌ **wb-formvalid** - Client-side form validation with error handling
+14. ❌ **wb-postback** - AJAX form submission
+15. ❌ **wb-stepsform** - Multi-step wizard forms
+16. ❌ **wb-pii-scrub** - Personal information removal before submit
+
+#### Interactive UI Components
+17. ✅ **wb-tabs** - Tabbed interfaces (implemented as `eva-tabs`)
+18. ❌ **wb-accordion** - Expand/collapse panels (details/summary pattern)
+19. ❌ **wb-toggle** - Show/hide content toggles
+20. ❌ **wb-details-close** - Auto-close details elements
+21. ❌ **wb-overlay** - Modal overlays (implemented as `eva-modal` - partial)
+22. ❌ **wb-lightbox** - Image/video galleries with popups
+23. ❌ **wb-dismissable** - User-dismissible content
+
+#### Navigation & Menus
+24. ❌ **wb-menu** - Interactive navigation menus with submenus
+25. ❌ **wb-pagination** - Page navigation controls
+26. ❌ **wb-breadcrumbs** - Breadcrumb trail navigation (MANDATORY)
+
+#### Visualization & Media
+27. ❌ **wb-charts** - Charts and graphs (bar, line, pie, donut, etc.)
+28. ❌ **wb-tables** - DataTables integration (sorting, filtering, pagination)
+29. ❌ **wb-geomap** - Interactive maps with overlays
+30. ❌ **wb-calendar** - Calendar of events
+31. ❌ **wb-multimedia** - Accessible video/audio player with captions
+
+#### Utility Components
+32. ❌ **wb-add-cal** - Add to calendar functionality
+33. ❌ **wb-bgimg** - Background image management
+34. ❌ **wb-equalheight** - Equal height columns (CSS + JS)
+35. ❌ **wb-favicon** - Dynamic favicon management
+36. ❌ **wb-footnotes** - Accessible footnote handling
+37. ❌ **wb-prettify** - Syntax highlighting for code blocks
+38. ❌ **wb-texthighlight** - Keyword highlighting in text
+39. ❌ **wb-zebra** - Zebra striping for tables/lists
+
+#### Social & External Integration
+40. ❌ **wb-share** - Social media sharing widget
+41. ❌ **wb-facebook** - Facebook embedded pages
+42. ❌ **wb-twitter** - Twitter embedded timelines
+43. ❌ **wb-country-content** - Geolocation-based content
+
+#### Session & Security
+44. ❌ **wb-session-timeout** - Session timeout warnings
+45. ❌ **wb-exitscript** - Exit confirmation for external links
+46. ❌ **wb-feedback** - Page feedback form
+
+### **Category 2: GCWeb Mandatory Site-Wide Patterns (10 components - REQUIRED)**
+
+47. ❌ **gc-global-header** - Global header with FIP signature (MANDATORY)
+48. ❌ **gc-global-footer** - Global footer with bands (MANDATORY)
+49. ❌ **gc-signature** - Government of Canada wordmark (MANDATORY)
+50. ❌ **gc-language-toggle** - EN ⇄ FR language switcher (MANDATORY)
+51. ❌ **gc-date-modified** - Date modified display (MANDATORY)
+52. ❌ **gc-breadcrumbs** - Breadcrumb navigation (MANDATORY)
+53. ❌ **gc-site-search** - Site search box (MANDATORY)
+54. ❌ **gc-theme-menu** - Theme and topic menu (MANDATORY)
+55. ❌ **gc-colours** - Colour system/tokens (MANDATORY)
+56. ❌ **gc-typography** - Typography system (Lato, Noto Sans) (MANDATORY)
+
+### **Category 3: GCWeb Design Patterns (40 components)**
+
+#### Buttons & Form Controls
+57. ✅ **gc-button** - Button component with 6 variants (implemented as `eva-button`)
+58. ❌ **gc-button-signin** - Sign in button (header element)
+
+#### Alerts & Notifications
+59. ✅ **gc-alert** - Contextual alerts (implemented as `eva-alert`)
+60. ❌ **gc-alert-collapsible** - Collapsible/dismissible alerts
+61. ❌ **gc-alert-service-disruption** - Service disruption notices
+
+#### Navigation Patterns
+62. ❌ **gc-services-info** - Services and information link blocks
+63. ❌ **gc-most-requested** - Most requested links
+64. ❌ **gc-subway-nav** - Step-by-step subway navigation
+65. ❌ **gc-ordered-nav** - Ordered multi-page navigation
+66. ❌ **gc-in-page-toc** - In-page table of contents
+67. ❌ **gc-contact-band** - Contact us band
+
+#### Content Patterns
+68. ❌ **gc-featured-link** - Featured/promoted links
+69. ❌ **gc-context-features** - Context-specific promotional features
+70. ❌ **gc-intro-block** - Introduction block for landing pages
+71. ❌ **gc-contributors** - Contributors/partners display
+72. ❌ **gc-latest-news** - Latest news feed
+73. ❌ **gc-minister-profile** - Minister/institutional head profile
+74. ❌ **gc-what-we-are-doing** - Government activities section
+75. ❌ **gc-about-institution** - About the institution section
+
+#### Media & Visualization
+76. ❌ **gc-carousel** - Image/content carousels
+77. ❌ **gc-images** - Image display patterns
+78. ❌ **gc-multimedia** - Video/audio embedding
+79. ❌ **gc-data-tables** - Government data tables
+80. ❌ **gc-charts-graphs** - Data visualization
+
+#### Interactive Elements
+81. ❌ **gc-expand-collapse** - Expand/collapse (accordion) pattern
+82. ❌ **gc-interactive-questions** - Question wizard/decision tree
+83. ❌ **gc-privacy-disclaimer** - Privacy disclaimer component
+84. ❌ **gc-gc-feedback** - GC Feedback widget (optional)
+
+#### Social & Sharing
+85. ❌ **gc-social-follow** - Social media follow box
+86. ❌ **gc-social-feeds** - Social media feed widget
+87. ❌ **gc-download-links** - File download links with icons
+
+#### Misc Patterns
+88. ❌ **gc-labels** - Visual label tags
+89. ❌ **gc-contact-info** - Contact information display
+
+### **Category 4: GCWeb Page Templates (25 templates)**
+
+#### Government-Wide Templates
+90. ❌ **tpl-home** - Canada.ca home page template (MANDATORY)
+91. ❌ **tpl-theme** - Theme page template (MANDATORY)
+92. ❌ **tpl-topic** - Topic page template (MANDATORY)
+93. ❌ **tpl-search** - Search results page template
+94. ❌ **tpl-news-landing** - News landing page
+95. ❌ **tpl-news-results** - News search results
+96. ❌ **tpl-dept-agencies** - Departments and agencies page
+
+#### Institutional Templates
+97. ❌ **tpl-institutional-landing** - Institutional landing page (MANDATORY)
+98. ❌ **tpl-ministerial-profile** - Ministerial profile page (MANDATORY)
+99. ❌ **tpl-news-product** - News product page (MANDATORY)
+100. ❌ **tpl-contact-us** - Contact us page
+101. ❌ **tpl-service-performance** - Service performance reporting
+102. ❌ **tpl-transparency** - Transparency and corporate reporting
+103. ❌ **tpl-program-description** - Program description page
+104. ❌ **tpl-partnering-profile** - Partnering arrangement profile
+
+#### Navigation Templates
+105. ❌ **tpl-basic-page** - Basic page layout (most common)
+106. ❌ **tpl-service-initiation** - Service initiation page
+107. ❌ **tpl-long-index** - Long index page (50+ links)
+108. ❌ **tpl-short-index** - Short index page (10-50 links)
+109. ❌ **tpl-finder** - Finder page (100+ filterable links)
+110. ❌ **tpl-faceted-finder** - Faceted finder with complex filters
+
+#### Content Templates
+111. ❌ **tpl-consultation** - Consultation profile page
+112. ❌ **tpl-regulation-profile** - Regulation profile page
+113. ❌ **tpl-act-profile** - Act profile page
+114. ❌ **tpl-guidance-legislation** - Guidance on legislation page
+115. ❌ **tpl-promotional-events** - Promotional events page (decommissioning)
+116. ❌ **tpl-govt-audience** - Government-wide audience page (decommissioning)
+
+#### Accessibility Templates
+117. ❌ **tpl-accessibility-plan** - Accessibility plan page
+118. ❌ **tpl-accessibility-progress** - Accessibility progress reports
+119. ❌ **tpl-accessibility-feedback** - Accessibility feedback form/process
+
+### **Category 5: Experimental Features (Méli-Mélo) (10+ components)**
+
+120. ❌ **exp-math-grid** - Mathematical grid layout (2025-06)
+121. ❌ **exp-datatable-utilities** - Advanced DataTable utilities (2024-10)
+122. ❌ **exp-conjunction** - Conjunction pattern (2021-05)
+123. ❌ **exp-steps-pattern** - Steps navigation pattern (2021-05)
+124. ❌ **exp-theme-canadaday** - Canada Day promotional theme
+125. ❌ **exp-theme-winterlude** - Winterlude promotional theme
+126. ❌ **exp-theme-zev** - Zero-emission vehicle theme
+127. ❌ **exp-theme-empathy** - Empathy theme
+128. ❌ **exp-theme-choose-canada** - Choose Canada theme
+129. ❌ **exp-theme-ai-answers** - AI Answers theme
+
+### **Category 6: EVA Custom Components (2 components - Not in GC Design System)**
+
+130. ⚠️ **eva-card** - Card component (custom, not official GC pattern)
+131. ⚠️ **eva-chat-panel** - Chat interface (custom, for EVA RAG integration)
+
+---
+
+## 📊 Implementation Status Summary
+
+| Category | Total | Implemented | Missing | % Complete |
+|----------|-------|-------------|---------|------------|
+| **WET-BOEW Core Plugins** | 43 | 5 | 38 | 12% |
+| **GCWeb Mandatory Patterns** | 10 | 0 | 10 | 0% ⚠️ |
+| **GCWeb Design Patterns** | 40 | 3 | 37 | 8% |
+| **GCWeb Page Templates** | 25 | 0 | 25 | 0% |
+| **Experimental (Méli-Mélo)** | 10 | 0 | 10 | 0% |
+| **EVA Custom Components** | 2 | 2 | 0 | 100% |
+| **GRAND TOTAL** | **130** | **10** | **120** | **7.7%** |
+
+**Critical Finding**: **0% of mandatory patterns implemented** (blocks production deployment to Canada.ca)
 
 ---
 
@@ -547,90 +758,323 @@ export class EVAElement extends LitElement {
 
 ---
 
-## 📅 Implementation Phases
+## 📅 REVISED Implementation Phases (130 Components)
+
+**Updated**: December 7, 2025  
+**Strategy**: 4-phase rollout prioritizing mandatory patterns first  
+**Timeline**: 6-12 months for 100% GC Design System coverage
 
 ### ✅ Phase 0: Research & Planning (COMPLETE)
 - [x] Five Eyes design system research (FIVE-EYES-RESEARCH.md)
-- [x] Sovereign token files created (5 files + registry)
+- [x] GC Design System comprehensive audit (128+ components catalogued)
+- [x] WET-BOEW plugin inventory (43 plugins identified)
 - [x] Architecture decisions documented (PROJECT-ANALYSIS.md)
-- [x] Dual-copilot execution plan (DUAL-COPILOT-PLAN.md)
-- [x] Coordination protocol (COORDINATION-PROTOCOL.md)
-- [x] Traceability directory (docs/TRACEABILITY-DIRECTORY.md)
-
-### 🚧 Phase 1: Foundation (IN PROGRESS - Copilot A)
-**Tasks A1-A6** (3 hours estimated)
-
-- [x] **A1: Five Eyes Sovereign Research** (40 min actual) ✅ COMPLETE
-- [ ] **A2: Package Setup** (20 min)
-  - [ ] Create `packages/web-components` structure
-  - [ ] Configure Vite, TypeScript, Vitest
-  - [ ] Setup ESLint + Prettier
-- [ ] **A3: Core Components** (45 min)
-  - [ ] EVAElement base class
-  - [ ] eva-button component
-  - [ ] eva-card component
-  - [ ] eva-alert component
-- [ ] **A4: i18n System** (30 min)
-  - [ ] Message registry
-  - [ ] Locale context provider
-  - [ ] Intl API integration
-- [ ] **A5: Sovereign Profile System** (30 min)
-  - [ ] Sovereign context provider
-  - [ ] Runtime profile switching
-  - [ ] CSS custom properties integration
-- [ ] **A6: A11y Utilities** (30 min)
-  - [ ] Focus trap
-  - [ ] Live region manager
-  - [ ] Keyboard navigation helpers
-
-**Milestone M1**: Foundation complete → Signal Copilot B
+- [x] Component prioritization matrix created
 
 ---
 
-### 🔜 Phase 2: Advanced Components (PENDING - Copilot B)
-**Tasks B1-B4** (5 hours estimated)
+### 🚧 Phase 1: Mandatory Foundation (15 components) - **CRITICAL PRIORITY**
+**Status**: 33% complete (5/15 implemented)  
+**Timeline**: 4-6 weeks  
+**Blocks**: Production deployment to Canada.ca
 
-- [ ] **B1: Advanced Components** (2h)
-  - [ ] eva-input, eva-select
-  - [ ] eva-checkbox, eva-radio
-  - [ ] eva-modal, eva-tabs
-- [ ] **B2: EVA Chat Panel** (2h)
-  - [ ] Chat message rendering
-  - [ ] Input field with sovereign styling
-  - [ ] RAG backend integration
-  - [ ] Bilingual message support
-- [ ] **B3: Demo & Storybook** (45 min)
-  - [ ] Storybook setup
-  - [ ] Stories per component
-  - [ ] Sovereign profile switcher
-  - [ ] Live demo deployment
-- [ ] **B4: Documentation** (15 min)
-  - [ ] API docs (typedoc)
-  - [ ] Usage examples
-  - [ ] Migration guide
+#### Mandatory Site-Wide Patterns (10 components - 0% complete)
+**These are REQUIRED by C&IA Specification for ALL Canada.ca pages**
 
-**Milestone M2**: Advanced components complete  
-**Milestone M3**: Demo ready
+- [ ] **gc-global-header** - Global header with FIP signature, search, language toggle
+  - FIP wordmark, site menu, search box integration
+  - WCAG 2.2 AAA compliant, keyboard navigation
+  - Responsive mobile/desktop layouts
+
+- [ ] **gc-global-footer** - Three-band footer (contextual, main, sub-footer)
+  - Main band with Government of Canada links
+  - Contextual band for page-specific links
+  - Sub-footer with wordmark and social links
+
+- [ ] **gc-signature** - Government of Canada official wordmark
+  - SVG format, bilingual EN/FR
+  - Correct FIP branding specifications
+  - High-resolution for print/screen
+
+- [ ] **gc-language-toggle** - EN ⇄ FR switcher
+  - Runtime locale switching without page reload
+  - URL parameter persistence (lang=fr)
+  - Updates all component text instantly
+
+- [ ] **gc-date-modified** - Date modified display
+  - ISO 8601 format (YYYY-MM-DD)
+  - Bilingual labels ("Date modified" / "Date de modification")
+  - Configurable date formats
+
+- [ ] **gc-breadcrumbs** - Breadcrumb navigation trail
+  - Hierarchical navigation from Home → Current page
+  - ARIA landmark role="navigation"
+  - Structured data (schema.org/BreadcrumbList)
+
+- [ ] **gc-site-search** - Site search box
+  - Integration with Canada.ca search engine
+  - Autocomplete suggestions
+  - Keyboard shortcuts (Ctrl+K or /)
+
+- [ ] **gc-theme-menu** - Theme and topic menu
+  - Dropdown navigation for 15+ themes
+  - Mega-menu pattern for large link sets
+  - Touch-friendly mobile interface
+
+- [ ] **gc-colours** - Colour system/tokens
+  - Official FIP colours as CSS custom properties
+  - WCAG 2.2 AAA contrast ratios validated
+  - Dark mode variants (if applicable)
+
+- [ ] **gc-typography** - Typography system
+  - Self-hosted Lato (headings) and Noto Sans (body)
+  - Font-weight: 400 (regular), 700 (bold)
+  - Responsive font sizes (rem-based)
+
+#### High-Priority Interactive Components (5 components - 100% complete ✅)
+
+- [x] **eva-button** - Buttons (6 variants: supertask, primary, secondary, danger, link, contextual-signin)
+- [x] **eva-input** - Text inputs, textareas, email, tel, number inputs
+- [x] **eva-select** - Select dropdowns with optgroups
+- [x] **eva-checkbox** - Checkboxes with labels and fieldsets
+- [x] **eva-radio** - Radio button groups
+
+**Milestone M1**: All mandatory patterns implemented → Ready for Canada.ca pilot
 
 ---
 
-### 📦 Phase 3: Release & Integration (FUTURE)
-- [ ] npm package publication
-- [ ] CDN distribution
-- [ ] Integration with POD-S solutions (Jurisprudence, AssistMe)
-- [ ] Portal navigation integration (eva-portal-navigation-ux)
-- [ ] EVA Chat integration
+### 🔜 Phase 2: Core WET-BOEW Plugins (20 components)
+**Status**: 15% complete (3/20 implemented)  
+**Timeline**: 8-10 weeks  
+**Focus**: Most commonly used interactive components
+
+#### Form & Validation (5 components)
+- [ ] **wb-formvalid** - Client-side form validation with inline error messages
+- [ ] **wb-stepsform** - Multi-step wizard forms with progress indicator
+- [ ] **wb-postback** - AJAX form submission without page reload
+- [ ] **wb-pii-scrub** - Remove PII before form submit (privacy compliance)
+- [ ] **wb-session-timeout** - Session timeout warnings (30-min, 20-min, 10-min alerts)
+
+#### Navigation & Interaction (7 components)
+- [x] **eva-tabs** - Tabbed interfaces (horizontal/vertical) ✅
+- [x] **eva-modal** - Modal overlays with focus trap ✅
+- [x] **eva-alert** - Contextual alerts ✅
+- [ ] **wb-accordion** - Expand/collapse accordion panels
+- [ ] **wb-toggle** - Show/hide content toggles
+- [ ] **wb-menu** - Dropdown navigation menus
+- [ ] **wb-pagination** - Page navigation controls (1 2 3 ... 10 Next)
+
+#### Data Display (5 components)
+- [ ] **wb-tables** - DataTables integration (sort, filter, paginate, export)
+- [ ] **wb-charts** - Charts and graphs (Chart.js integration: bar, line, pie, donut)
+- [ ] **wb-calendar** - Calendar of events with month/week/day views
+- [ ] **wb-feeds** - RSS/Atom feed aggregation
+- [ ] **wb-filter** - Content filtering by keywords/tags
+
+#### Media & Visualization (3 components)
+- [ ] **wb-multimedia** - Accessible video/audio player with captions
+- [ ] **wb-lightbox** - Image/video galleries with popups
+- [ ] **wb-geomap** - Interactive maps with overlays (Leaflet/OpenLayers)
+
+**Milestone M2**: Core interactive components complete → Feature parity with WET-BOEW 4.x
 
 ---
 
-## ✅ Success Criteria
+### 🔜 Phase 3: GCWeb Design Patterns (30 components)
+**Status**: 8% complete (3/30 implemented)  
+**Timeline**: 10-12 weeks  
+**Focus**: Canada.ca-specific patterns and templates
+
+#### Navigation Patterns (10 components)
+- [ ] **gc-services-info** - Services and information link blocks
+- [ ] **gc-most-requested** - Most requested links (top tasks)
+- [ ] **gc-subway-nav** - Step-by-step subway navigation (multi-page tasks)
+- [ ] **gc-ordered-nav** - Ordered multi-page navigation (Prev/Next)
+- [ ] **gc-in-page-toc** - In-page table of contents (auto-generated from headings)
+- [ ] **gc-contact-band** - Contact us band for pages
+- [ ] **gc-featured-link** - Featured/promoted links
+- [ ] **gc-context-features** - Context-specific promotional features
+- [ ] **gc-intro-block** - Introduction block for landing pages
+- [ ] **gc-about-institution** - About the institution section
+
+#### Content Patterns (10 components)
+- [ ] **gc-contributors** - Contributors/partners display
+- [ ] **gc-latest-news** - Latest news feed widget
+- [ ] **gc-minister-profile** - Minister/institutional head profile card
+- [ ] **gc-what-we-are-doing** - Government activities section
+- [ ] **gc-social-follow** - Social media follow box
+- [ ] **gc-social-feeds** - Social media feed widget
+- [ ] **gc-download-links** - File download links with icons (PDF, CSV, XLS)
+- [ ] **gc-labels** - Visual label tags (status indicators)
+- [ ] **gc-contact-info** - Contact information display (address, phone, email)
+- [ ] **gc-privacy-disclaimer** - Privacy disclaimer component
+
+#### Interactive Patterns (5 components)
+- [ ] **gc-expand-collapse** - Expand/collapse (accordion) pattern
+- [ ] **gc-interactive-questions** - Question wizard/decision tree
+- [ ] **gc-gc-feedback** - GC Feedback widget (page rating)
+- [ ] **gc-carousel** - Image/content carousels (auto-rotate optional)
+- [ ] **gc-sign-in-button** - Sign in button (header element)
+
+#### Alert Patterns (3 components)
+- [ ] **gc-alert-collapsible** - Collapsible/dismissible alerts
+- [ ] **gc-alert-service-disruption** - Service disruption notices
+- [ ] **gc-alert-banner** - Site-wide alert banners
+
+#### Media Patterns (2 components)
+- [ ] **gc-images** - Image display patterns (figures, captions)
+- [ ] **gc-multimedia** - Video/audio embedding patterns
+
+**Milestone M3**: Canada.ca design patterns complete → Ready for institutional pages
+
+---
+
+### 🔜 Phase 4: Templates & Advanced Features (65 components)
+**Status**: 0% complete (0/65 implemented)  
+**Timeline**: 12-16 weeks  
+**Focus**: Page templates and specialized components
+
+#### Page Templates (25 templates)
+- [ ] **tpl-home** - Canada.ca home page template (MANDATORY)
+- [ ] **tpl-theme** - Theme page template (MANDATORY)
+- [ ] **tpl-topic** - Topic page template (MANDATORY)
+- [ ] **tpl-institutional-landing** - Institutional landing page (MANDATORY)
+- [ ] **tpl-ministerial-profile** - Ministerial profile page (MANDATORY)
+- [ ] **tpl-news-product** - News product page (MANDATORY)
+- [ ] **tpl-basic-page** - Basic page layout (most common)
+- [ ] **tpl-service-initiation** - Service initiation page
+- [ ] **tpl-contact-us** - Contact us page
+- [ ] **tpl-search** - Search results page
+- [ ] **tpl-finder** - Finder page (100+ filterable links)
+- [ ] **tpl-faceted-finder** - Faceted finder with complex filters
+- [ ] **tpl-long-index** - Long index page (50+ links)
+- [ ] **tpl-short-index** - Short index page (10-50 links)
+- [ ] **tpl-consultation** - Consultation profile page
+- [ ] **tpl-news-landing** - News landing page
+- [ ] **tpl-news-results** - News search results
+- [ ] **tpl-dept-agencies** - Departments and agencies page
+- [ ] **tpl-service-performance** - Service performance reporting
+- [ ] **tpl-transparency** - Transparency and corporate reporting
+- [ ] **tpl-program-description** - Program description page
+- [ ] **tpl-regulation-profile** - Regulation profile page
+- [ ] **tpl-act-profile** - Act profile page
+- [ ] **tpl-accessibility-plan** - Accessibility plan page
+- [ ] **tpl-accessibility-feedback** - Accessibility feedback form
+
+#### Advanced WET-BOEW Plugins (30 components)
+- [ ] **wb-data-ajax** - AJAX content loading
+- [ ] **wb-data-json** - JSON data templating
+- [ ] **wb-data-picture** - Responsive images
+- [ ] **wb-data-inview** - Viewport-triggered loading
+- [ ] **wb-data-fusion-query** - Query parameter mapping
+- [ ] **wb-tagfilter** - Tag-based filtering
+- [ ] **wb-add-cal** - Add to calendar
+- [ ] **wb-bgimg** - Background image management
+- [ ] **wb-equalheight** - Equal height columns
+- [ ] **wb-favicon** - Dynamic favicon
+- [ ] **wb-footnotes** - Accessible footnotes
+- [ ] **wb-prettify** - Code syntax highlighting
+- [ ] **wb-texthighlight** - Keyword highlighting
+- [ ] **wb-zebra** - Zebra striping
+- [ ] **wb-share** - Social media sharing
+- [ ] **wb-facebook** - Facebook embedded pages
+- [ ] **wb-twitter** - Twitter embedded timelines
+- [ ] **wb-country-content** - Geolocation-based content
+- [ ] **wb-exitscript** - Exit confirmation
+- [ ] **wb-feedback** - Page feedback form
+- [ ] **wb-details-close** - Auto-close details
+- [ ] **wb-dismissable** - User-dismissible content
+- [ ] **wb-randomize** - Random child selection
+- [ ] Plus 7 more specialized plugins...
+
+#### Experimental Features (10 components)
+- [ ] **exp-math-grid** - Mathematical grid layout
+- [ ] **exp-datatable-utilities** - Advanced DataTable utilities
+- [ ] **exp-conjunction** - Conjunction pattern
+- [ ] **exp-steps-pattern** - Steps navigation
+- [ ] **exp-theme-canadaday** - Canada Day promotional theme
+- [ ] **exp-theme-winterlude** - Winterlude theme
+- [ ] **exp-theme-zev** - Zero-emission vehicle theme
+- [ ] **exp-theme-empathy** - Empathy theme
+- [ ] **exp-theme-choose-canada** - Choose Canada theme
+- [ ] **exp-theme-ai-answers** - AI Answers theme
+
+**Milestone M4**: 100% GC Design System coverage → Enterprise-grade government UI library
+
+---
+
+## 🎯 Implementation Strategy & Best Practices
+
+### Development Workflow (Following CE, WM, HK protocols)
+
+#### CE (Coordination Engine) - Task Management
+- **GitHub Projects**: Track all 130 components in Kanban board
+- **Sprint Planning**: 2-week sprints, 10-15 components per sprint
+- **Daily Updates**: Update component status (Not Started → In Progress → Complete)
+- **Blockers**: Flag dependencies (e.g., gc-global-header blocks tpl-home)
+
+#### WM (Work Management) - Code Quality
+- **Branch Strategy**: `feature/gc-global-header`, `feature/wb-tables`, etc.
+- **Pull Requests**: One component per PR (easier review, faster merge)
+- **Code Reviews**: P06 (REV) agent reviews before merge
+- **Testing**: P07 (TST) agent generates tests (unit + integration)
+
+#### HK (Housekeeping) - Documentation & Maintenance
+- **Component Registry**: Auto-generated from source code
+- **Storybook**: One story per component (auto-deployed on merge)
+- **API Docs**: TypeDoc generates docs from JSDoc comments
+- **CHANGELOG.md**: Semantic versioning, release notes per component
+
+### Component Development Checklist
+
+For EACH of the 130 components, ensure:
+
+- [ ] **TypeScript implementation** with strict mode
+- [ ] **Lit 3.x decorators** (@customElement, @property, @state)
+- [ ] **Shadow DOM** for style encapsulation
+- [ ] **CSS custom properties** for theming
+- [ ] **ARIA attributes** (role, aria-label, aria-describedby)
+- [ ] **Keyboard navigation** (Tab, Enter, Space, Esc, Arrow keys)
+- [ ] **Focus management** (visible focus indicators, focus trap for modals)
+- [ ] **i18n support** (EN-CA/FR-CA labels, runtime switching)
+- [ ] **Responsive design** (mobile/tablet/desktop breakpoints)
+- [ ] **Unit tests** (Vitest, ≥80% coverage)
+- [ ] **Integration tests** (Testing Library, user interactions)
+- [ ] **Accessibility tests** (axe-core, 0 violations)
+- [ ] **Storybook story** (controls, actions, docs)
+- [ ] **JSDoc comments** (params, returns, examples)
+- [ ] **Usage examples** (React, Vue, Angular, Svelte, HTML)
+
+---
+
+## ✅ Success Criteria (Updated for 130 Components)
 
 ### Technical Success
-- [ ] ≥80% test coverage (Vitest)
-- [ ] 0 axe-core violations
-- [ ] <50KB gzipped bundle
-- [ ] TypeScript strict mode passes
-- [ ] CI/CD pipeline green
+- [ ] **130 components implemented** (100% GC Design System coverage)
+- [ ] **≥80% test coverage** (Vitest unit + integration tests)
+- [ ] **0 axe-core violations** (WCAG 2.2 AAA compliance)
+- [ ] **<50KB gzipped bundle** (core library without templates)
+- [ ] **TypeScript strict mode** passes for all components
+- [ ] **CI/CD pipeline green** (GitHub Actions: build, test, lint, deploy)
+- [ ] **Lighthouse 100/100** (Performance, Accessibility, Best Practices, SEO)
+
+### Business Success
+- [ ] **130 components** implemented and documented
+- [ ] **Bilingual EN/FR** operational for all components
+- [ ] **Live demos deployed** (Storybook + 3 production demos)
+- [ ] **Documentation complete** (API docs, guides, troubleshooting)
+- [ ] **npm packages published** (@eva-sovereign/web-components v1.0.0)
+- [ ] **CDN links active** (jsDelivr, unpkg)
+
+### Adoption Success
+- [ ] **Used in ≥1 Government of Canada department** (pilot deployment)
+- [ ] **Used in EVA Portal navigation** (internal adoption)
+- [ ] **Used in EVA Chat interface** (EVA Suite integration)
+- [ ] **Migration path validated** by ≥1 department migrating from WET-BOEW 4.x
+
+---
+
+## 📦 Phase 5: Release & Ecosystem (Post-130 Components)
 
 ### Business Success
 - [ ] 11+ components implemented
@@ -650,11 +1094,11 @@ export class EVAElement extends LitElement {
 ## 🔗 Dependencies
 
 ### EVA Repos
-- **eva-ui**: React components (API reference)
-- **eva-i11y**: Accessibility patterns
+- **eva-ui**: React components (API reference for migration)
+- **eva-i11y**: Accessibility patterns and utilities
 - **eva-i18n**: i18n infrastructure (if separate)
-- **eva-da-2**: EVA Chat interface (consumer)
-- **eva-orchestrator**: Backlog lanes, agent coordination
+- **eva-da-2**: EVA Chat interface (consumer of eva-chat-panel)
+- **eva-orchestrator**: Backlog lanes, agent coordination, sprint planning
 
 ### EVA CDDs
 - **eva-ui-cdd.md** (95% complete, standardized)
@@ -663,45 +1107,92 @@ export class EVAElement extends LitElement {
 - **eva-chat-widget.md** (active backlog)
 
 ### External Dependencies
-- Lit 3.x
-- TypeScript 5.x
-- Vite 5.x
-- Vitest + Testing Library
-- axe-core
-- Storybook 7.x
 
-### EVA Agents
-- **P02 (REQ)**: Requirements gathering (this document created by P02 pattern)
-- **P05 (SCA)**: Scaffolder for package setup
-- **P06 (REV)**: PR reviews
-- **P07 (TST)**: Test generation
-- **P08 (CICD)**: Pipeline setup
-- **P12 (UXA)**: Accessibility review
-- **P15 (DVM)**: Orchestration between Copilot A and B
+#### Core Libraries
+- **Lit 3.x** - Web Components framework
+- **TypeScript 5.7.2** - Type safety and IntelliSense
+- **Vite 5.x** - Build tool and dev server
+
+#### Testing & Quality
+- **Vitest** - Unit testing framework
+- **@testing-library/dom** - Integration testing
+- **axe-core** - Accessibility testing (WCAG compliance)
+- **Playwright** - E2E testing (optional)
+
+#### Documentation
+- **Storybook 8.x** - Component documentation and demos
+- **TypeDoc** - API documentation generator
+
+#### WET-BOEW Integration (for advanced components)
+- **Chart.js** - Charts and graphs (wb-charts)
+- **DataTables** - Table sorting/filtering (wb-tables)
+- **Leaflet or OpenLayers** - Maps (wb-geomap)
+- **Video.js or Plyr** - Video player (wb-multimedia)
+
+### EVA Agents (Agile Crew)
+- **P02 (REQ)**: Requirements gathering (created this specification)
+- **P05 (SCA)**: Scaffolder for package setup and project structure
+- **P06 (REV)**: PR reviews and code quality gates
+- **P07 (TST)**: Test generation (unit, integration, accessibility)
+- **P08 (CICD)**: CI/CD pipeline setup (GitHub Actions)
+- **P12 (UXA)**: Accessibility review (WCAG 2.2 AAA compliance)
+- **P15 (DVM)**: Orchestration and sprint planning for 130 components
 
 ---
 
 ## ❓ Open Questions
 
-### Q1: CDN Hosting Strategy?
+### Q1: Component Naming Convention?
+**Context**: Should components use `gc-` prefix (gc-button) or `eva-` prefix (eva-button)?  
+**Current**: Using `eva-` prefix for implemented components  
+**Recommendation**: Switch to `gc-` for GC Design System compliance, keep `eva-` for custom components (eva-chat-panel)  
+**Decision Required**: Marco/PO  
+**Impact**: Component naming, documentation, npm package exports
+
+### Q2: WET-BOEW 4.x Compatibility?
+**Context**: Should we provide a compatibility layer for existing WET-BOEW 4.x sites?  
+**Options**: 
+- Full compatibility mode (shadow `wb-` classes)
+- Migration CLI tool (`eva-sovereign migrate`)
+- Side-by-side coexistence (both libraries loaded)  
+**Decision Required**: Marco/PO  
+**Impact**: Adoption timeline, migration effort for departments
+
+### Q3: CDN Hosting Strategy?
 **Context**: Should we use unpkg, jsDelivr, or custom Azure CDN?  
+**Recommendation**: Use jsDelivr (primary) + unpkg (fallback) for public CDN  
 **Decision Required**: Marco/PO  
-**Impact**: Distribution strategy
+**Impact**: Distribution strategy, load times, reliability
 
-### Q2: Storybook Hosting?
+### Q4: Storybook Hosting?
 **Context**: GitHub Pages, Netlify, or Azure Static Web Apps?  
+**Recommendation**: GitHub Pages (free, auto-deploy from main branch, custom domain support)  
 **Decision Required**: Marco/PO  
-**Impact**: Demo accessibility
+**Impact**: Demo accessibility, public visibility
 
-### Q3: npm Organization Scope?
-**Context**: `@eva-suite/web-components` or `@gc-pubsec/eva-sovereign-ui`?  
+### Q5: npm Organization Scope?
+**Context**: `@eva-suite/web-components` or `@gc-design-system/web-components`?  
+**Current**: Using `@eva-sovereign/web-components`  
+**Recommendation**: Keep `@eva-sovereign` for EVA branding, clarify "sovereign" = GC Design System in docs  
 **Decision Required**: Marco/PO  
-**Impact**: Package naming
+**Impact**: Package naming, discoverability, government adoption
 
-### Q4: React Component Migration Timeline?
-**Context**: When should existing React apps migrate to Web Components?  
+### Q6: Phase 1 Timeline?
+**Context**: 15 mandatory components in 4-6 weeks = aggressive timeline  
+**Reality Check**: 10 mandatory patterns are complex (global header/footer = 20+ hours each)  
+**Recommendation**: 8-10 weeks for Phase 1, or reduce scope to 5 highest-priority mandatory patterns first  
 **Decision Required**: Marco/PO  
-**Impact**: Adoption strategy
+**Impact**: Sprint planning, resource allocation
+
+### Q7: Template Approach?
+**Context**: Should 25 page templates be actual Lit components or HTML examples?  
+**Options**:
+- **Option A**: Full Lit components (`<gc-home-page>`, `<gc-theme-page>`)
+- **Option B**: HTML templates with component composition examples
+- **Option C**: Hybrid (common layouts as components, specific pages as examples)  
+**Recommendation**: Option C (best balance of reusability and flexibility)  
+**Decision Required**: Marco/PO  
+**Impact**: 25 templates = 25 components vs 5 layout components + 20 HTML examples
 
 ### Q5: EVA Chat Backend Integration?
 **Context**: How does EVA Chat Panel connect to RAG backend?  
