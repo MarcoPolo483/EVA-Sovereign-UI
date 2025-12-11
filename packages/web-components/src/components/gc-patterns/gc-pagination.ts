@@ -3,6 +3,40 @@ import { customElement, property } from 'lit/decorators.js';
 import { EVAElement } from '../EVAElement.js';
 import { registerMessages } from '../../i18n/locale-manager.js';
 
+/**
+ * GC Pagination Component
+ * MANDATORY Government of Canada pagination pattern
+ * 
+ * Provides accessible multi-page navigation following GC Design System standards.
+ * Implements smart page number display with ellipsis for long lists.
+ * 
+ * Implements: https://design.canada.ca/common-design-patterns/pagination.html
+ * 
+ * @element gc-pagination
+ * 
+ * @fires gc-page-change - Fires when user changes page. Detail: { page: number, previousPage: number }
+ * 
+ * @example
+ * ```html
+ * <!-- Basic pagination -->
+ * <gc-pagination total-pages="10" current-page="1"></gc-pagination>
+ * 
+ * <!-- With item info -->
+ * <gc-pagination 
+ *   total-pages="20" 
+ *   current-page="5"
+ *   total-items="200"
+ *   items-per-page="10">
+ * </gc-pagination>
+ * 
+ * <!-- French -->
+ * <gc-pagination 
+ *   locale="fr-CA"
+ *   total-pages="10" 
+ *   current-page="3">
+ * </gc-pagination>
+ * ```
+ */
 @customElement('gc-pagination')
 export class GCPagination extends EVAElement {
   static override styles = css`
@@ -123,24 +157,48 @@ export class GCPagination extends EVAElement {
     }
   `;
 
+  /**
+   * Current active page number (1-indexed)
+   */
   @property({ type: Number })
   currentPage = 1;
 
+  /**
+   * Total number of pages available
+   */
   @property({ type: Number })
   totalPages = 1;
 
+  /**
+   * Maximum number of page buttons to show before adding ellipsis
+   */
   @property({ type: Number })
   maxVisible = 7;
 
+  /**
+   * Show item count info text (e.g., "Showing 1 to 10 of 100 items")
+   */
   @property({ type: Boolean })
   showInfo = false;
 
+  /**
+   * Total number of items across all pages
+   */
   @property({ type: Number })
   totalItems = 0;
 
+  /**
+   * Number of items displayed per page
+   */
   @property({ type: Number })
   itemsPerPage = 10;
 
+  /**
+   * Handles page change navigation
+   * Fires gc-page-change event with page details
+   * @param page - Target page number
+   * @private
+   */
   private handlePageChange(page: number) {
     if (page < 1 || page > this.totalPages || page === this.currentPage) {
       return;
