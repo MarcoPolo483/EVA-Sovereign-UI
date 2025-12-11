@@ -46,6 +46,20 @@ export class EVAElement extends LitElement {
   protected componentName = 'eva-element';
 
   /**
+   * Unique component ID for accessibility references
+   */
+  @property({ type: String, attribute: 'component-id' })
+  componentId: string = this._generateId();
+
+  /**
+   * Generate unique component ID
+   * @private
+   */
+  private _generateId(): string {
+    return `eva-${Math.random().toString(36).substr(2, 9)}`;
+  }
+
+  /**
    * Lifecycle: Connect to global locale
    */
   override connectedCallback(): void {
@@ -114,6 +128,39 @@ export class EVAElement extends LitElement {
   protected announce(message: string, priority: 'polite' | 'assertive' = 'polite'): void {
     const liveRegion = getLiveRegionManager();
     liveRegion.announce(message, priority);
+  }
+
+  /**
+   * Emit custom event with detail
+   * @param eventName Event name (without component prefix)
+   * @param detail Event detail object
+   * @param options Event options (bubbles, composed, cancelable)
+   * @returns True if event was not cancelled
+   */
+  protected emitEvent<T = any>(
+    eventName: string,
+    detail?: T,
+    options: { bubbles?: boolean; composed?: boolean; cancelable?: boolean } = {}
+  ): boolean {
+    const event = new CustomEvent(eventName, {
+      detail,
+      bubbles: options.bubbles ?? true,
+      composed: options.composed ?? true,
+      cancelable: options.cancelable ?? false
+    });
+    return this.dispatchEvent(event);
+  }
+
+  /**
+   * Focus management - move focus to first focusable element in component
+   */
+  public focusElement(): void {
+    const focusable = this.shadowRoot?.querySelector<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable) {
+      focusable.focus();
+    }
   }
 
   /**

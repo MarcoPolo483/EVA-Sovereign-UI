@@ -3,7 +3,7 @@ import { fixture, html } from '@open-wc/testing';
 import { GCReportProblem } from '../gc-report-problem';
 import type { ProblemReport } from '../gc-report-problem';
 import '../gc-report-problem';
-import { waitForUpdate } from '../../../../test/helpers.js';
+
 describe('GCReportProblem', () => {
   describe('Initialization', () => {
     it('creates element with default properties', async () => {
@@ -50,7 +50,7 @@ describe('GCReportProblem', () => {
       
       const el = document.createElement('gc-report-problem') as GCReportProblem;
       container.appendChild(el);
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(eventFired).to.be.true;
       container.remove();
@@ -58,19 +58,25 @@ describe('GCReportProblem', () => {
   });
 
   describe('Form Rendering', () => {
-      it('renders heading', async () => {
-        const el = await fixture<GCReportProblem>(html`<gc-report-problem lang="en-CA"></gc-report-problem>`);
-        await waitForUpdate(el);
+    it('renders heading', async () => {
+      const el = await fixture<GCReportProblem>(html`<gc-report-problem lang="en-CA"></gc-report-problem>`);
+      await el.updateComplete;
+      
+      const heading = el.shadowRoot!.querySelector('.heading');
+      expect(heading).to.exist;
+      expect(heading!.textContent).to.not.equal('reportProblem.heading');
+    });
 
-        const heading = el.shadowRoot!.querySelector('.heading, h1, h2');
-        expect(heading).to.exist;
-      });      it('renders intro text', async () => {
-        const el = await fixture<GCReportProblem>(html`<gc-report-problem lang="en-CA"></gc-report-problem>`);
-        await waitForUpdate(el);
+    it('renders intro text', async () => {
+      const el = await fixture<GCReportProblem>(html`<gc-report-problem lang="en-CA"></gc-report-problem>`);
+      await el.updateComplete;
+      
+      const intro = el.shadowRoot!.querySelector('.intro');
+      expect(intro).to.exist;
+      expect(intro!.textContent).to.not.equal('reportProblem.intro');
+    });
 
-        const intro = el.shadowRoot!.querySelector('.intro, .description, p');
-        expect(intro).to.exist;
-      });    it('renders all category checkboxes', async () => {
+    it('renders all category checkboxes', async () => {
       const el = await fixture<GCReportProblem>(html`<gc-report-problem></gc-report-problem>`);
       
       const checkboxes = el.shadowRoot!.querySelectorAll('.category-checkbox');
@@ -100,11 +106,11 @@ describe('GCReportProblem', () => {
 
     it('renders privacy note', async () => {
       const el = await fixture<GCReportProblem>(html`<gc-report-problem lang="en-CA"></gc-report-problem>`);
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const privacyNote = el.shadowRoot!.querySelector('.privacy-note');
       expect(privacyNote).to.exist;
-      
+      expect(privacyNote!.textContent).to.not.equal('reportProblem.privacyNote');
     });
   });
 
@@ -114,7 +120,7 @@ describe('GCReportProblem', () => {
       
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(checkbox.checked).to.be.true;
     });
@@ -125,7 +131,7 @@ describe('GCReportProblem', () => {
       const checkboxes = el.shadowRoot!.querySelectorAll('.category-checkbox') as NodeListOf<HTMLInputElement>;
       checkboxes[0].click();
       checkboxes[1].click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(checkboxes[0].checked).to.be.true;
       expect(checkboxes[1].checked).to.be.true;
@@ -136,11 +142,11 @@ describe('GCReportProblem', () => {
       
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       expect(checkbox.checked).to.be.true;
       
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       expect(checkbox.checked).to.be.false;
     });
   });
@@ -152,7 +158,7 @@ describe('GCReportProblem', () => {
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = 'This is a test description';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(textarea.value).to.equal('This is a test description');
     });
@@ -164,7 +170,7 @@ describe('GCReportProblem', () => {
       const multilineText = 'Line 1\nLine 2\nLine 3';
       textarea.value = multilineText;
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(textarea.value).to.equal(multilineText);
     });
@@ -176,7 +182,7 @@ describe('GCReportProblem', () => {
       
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const errorMessage = el.shadowRoot!.querySelector('.error-message');
       expect(errorMessage).to.exist;
@@ -188,12 +194,12 @@ describe('GCReportProblem', () => {
       // Select a category
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Try to submit without description
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const errorMessage = el.shadowRoot!.querySelector('.error-message');
       expect(errorMessage).to.exist;
@@ -205,18 +211,18 @@ describe('GCReportProblem', () => {
       // Select a category
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Enter whitespace-only description
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = '   \n  \t  ';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Try to submit
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const errorMessage = el.shadowRoot!.querySelector('.error-message');
       expect(errorMessage).to.exist;
@@ -228,7 +234,7 @@ describe('GCReportProblem', () => {
       // Try to submit without data (triggers error)
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       let errorMessage = el.shadowRoot!.querySelector('.error-message');
       expect(errorMessage).to.exist;
@@ -236,7 +242,7 @@ describe('GCReportProblem', () => {
       // Make a selection
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Error should be cleared
       errorMessage = el.shadowRoot!.querySelector('.error-message');
@@ -251,12 +257,12 @@ describe('GCReportProblem', () => {
       // Fill form
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = 'Test problem description';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Listen for submit event
       let eventDetail: ProblemReport | null = null;
@@ -267,7 +273,7 @@ describe('GCReportProblem', () => {
       // Submit
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(eventDetail).to.exist;
       expect(eventDetail!.categories.length).to.be.greaterThan(0);
@@ -282,12 +288,12 @@ describe('GCReportProblem', () => {
       // Fill form
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = 'Test problem description';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Listen for submit event
       let eventDetail: ProblemReport | null = null;
@@ -298,7 +304,7 @@ describe('GCReportProblem', () => {
       // Submit
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(eventDetail!.url).to.equal(window.location.href);
     });
@@ -309,16 +315,16 @@ describe('GCReportProblem', () => {
       // Fill and submit form
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = 'Test problem description';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Check for success message
       const successMessage = el.shadowRoot!.querySelector('.success-message');
@@ -331,16 +337,16 @@ describe('GCReportProblem', () => {
       // Fill and submit form
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = 'Test problem description';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Form should be hidden
       const container = el.shadowRoot!.querySelector('.container');
@@ -353,12 +359,12 @@ describe('GCReportProblem', () => {
       // Fill form
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = 'Test problem description';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Listen for submit event
       let eventDetail: ProblemReport | null = null;
@@ -369,7 +375,7 @@ describe('GCReportProblem', () => {
       // Submit
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Validate timestamp format
       expect(eventDetail!.timestamp).to.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
@@ -381,12 +387,12 @@ describe('GCReportProblem', () => {
       // Fill form with whitespace
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = '  Test description with spaces  \n';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Listen for submit event
       let eventDetail: ProblemReport | null = null;
@@ -397,7 +403,7 @@ describe('GCReportProblem', () => {
       // Submit
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(eventDetail!.description).to.equal('Test description with spaces');
     });
@@ -414,7 +420,7 @@ describe('GCReportProblem', () => {
       
       const cancelButton = el.shadowRoot!.querySelector('.button-secondary') as HTMLButtonElement;
       cancelButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(eventFired).to.be.true;
     });
@@ -425,17 +431,17 @@ describe('GCReportProblem', () => {
       // Fill form
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = 'Test description';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Cancel
       const cancelButton = el.shadowRoot!.querySelector('.button-secondary') as HTMLButtonElement;
       cancelButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       // Check form is reset
       const resetCheckbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
@@ -457,7 +463,7 @@ describe('GCReportProblem', () => {
       const el = await fixture<GCReportProblem>(html`<gc-report-problem></gc-report-problem>`);
       
       el.compact = true;
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(el.hasAttribute('compact')).to.be.true;
     });
@@ -498,7 +504,7 @@ describe('GCReportProblem', () => {
       // Submit without data
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const textarea = el.shadowRoot!.querySelector('.description-textarea');
       expect(textarea!.getAttribute('aria-invalid')).to.equal('true');
@@ -510,7 +516,7 @@ describe('GCReportProblem', () => {
       // Trigger error
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const errorMessage = el.shadowRoot!.querySelector('.error-message');
       expect(errorMessage!.getAttribute('role')).to.equal('alert');
@@ -522,16 +528,16 @@ describe('GCReportProblem', () => {
       // Submit valid form
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = 'Test';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const successMessage = el.shadowRoot!.querySelector('.success-message');
       expect(successMessage!.getAttribute('role')).to.equal('status');
@@ -549,20 +555,20 @@ describe('GCReportProblem', () => {
   describe('Bilingual Support', () => {
     it('displays English labels when lang="en-CA"', async () => {
       const el = await fixture<GCReportProblem>(html`<gc-report-problem lang="en-CA"></gc-report-problem>`);
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const heading = el.shadowRoot!.querySelector('.heading');
       expect(heading).to.exist;
-      
+      expect(heading!.textContent).to.not.equal('reportProblem.heading');
     });
 
     it('displays French labels when lang="fr-CA"', async () => {
       const el = await fixture<GCReportProblem>(html`<gc-report-problem lang="fr-CA"></gc-report-problem>`);
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const heading = el.shadowRoot!.querySelector('.heading');
       expect(heading).to.exist;
-      
+      expect(heading!.textContent).to.not.equal('reportProblem.heading');
     });
   });
 
@@ -604,7 +610,7 @@ describe('GCReportProblem', () => {
       const el = await fixture<GCReportProblem>(html`<gc-report-problem></gc-report-problem>`);
       
       el.compact = true;
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       expect(el.hasAttribute('compact')).to.be.true;
     });
@@ -652,22 +658,19 @@ describe('GCReportProblem', () => {
       // Submit valid form to show success
       const checkbox = el.shadowRoot!.querySelector('.category-checkbox') as HTMLInputElement;
       checkbox.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const textarea = el.shadowRoot!.querySelector('.description-textarea') as HTMLTextAreaElement;
       textarea.value = 'Test';
       textarea.dispatchEvent(new Event('input', { bubbles: true }));
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const submitButton = el.shadowRoot!.querySelector('.button-primary') as HTMLButtonElement;
       submitButton.click();
-      await waitForUpdate(el);
+      await el.updateComplete;
       
       const success = el.shadowRoot!.querySelector('[part="success"]');
       expect(success).to.exist;
     });
   });
 });
-
-
-

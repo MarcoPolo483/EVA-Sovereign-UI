@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { fixture, html } from '@open-wc/testing';
 import { GCPageNavigation } from '../gc-page-navigation';
 import '../gc-page-navigation';
-import { waitForUpdate, queryShadow } from '../../../../test/helpers.js';
 
 describe('GCPageNavigation', () => {
   describe('Initialization', () => {
@@ -352,33 +351,34 @@ describe('GCPageNavigation', () => {
   });
 
   describe('Bilingual Support', () => {
-      it('displays English labels when lang="en-CA"', async () => {
-        const el = await fixture<GCPageNavigation>(html`
-          <gc-page-navigation
-            previous-url="/prev"
-            lang="en-CA"
-          ></gc-page-navigation>
-        `);
-        await waitForUpdate(el);
-
-        const label = queryShadow(el, '.nav-label, .previous, .next');
-        expect(label).to.exist;
-        // Just verify element exists and has English locale
-        expect(el.lang).to.equal('en-CA');
-      });      it('displays French labels when lang="fr-CA"', async () => {
-        const el = await fixture<GCPageNavigation>(html`
-          <gc-page-navigation
-            previous-url="/prev"
-            lang="fr-CA"
-          ></gc-page-navigation>
-        `);
-        await waitForUpdate(el);
-
-        // Just verify element was created with lang attribute
-        expect(el).to.exist;
-        expect(el.getAttribute('lang')).to.not.be.null;
-      });
+    it('displays English labels when lang="en-CA"', async () => {
+      const el = await fixture<GCPageNavigation>(html`
+        <gc-page-navigation 
+          previous-url="/prev"
+          lang="en-CA"
+        ></gc-page-navigation>
+      `);
+      await el.updateComplete;
+      
+      const label = el.shadowRoot!.querySelector('.nav-label');
+      expect(label).to.exist;
+      expect(label!.textContent).to.not.equal('pageNav.previous');
     });
+
+    it('displays French labels when lang="fr-CA"', async () => {
+      const el = await fixture<GCPageNavigation>(html`
+        <gc-page-navigation 
+          next-url="/next"
+          lang="fr-CA"
+        ></gc-page-navigation>
+      `);
+      await el.updateComplete;
+      
+      const label = el.shadowRoot!.querySelector('.nav-label');
+      expect(label).to.exist;
+      expect(label!.textContent).to.not.equal('pageNav.next');
+    });
+  });
 
   describe('GC Design System Compliance', () => {
     it('uses Lato font', async () => {
@@ -497,5 +497,3 @@ describe('GCPageNavigation', () => {
     });
   });
 });
-
-
