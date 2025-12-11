@@ -1,4 +1,4 @@
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent, expect as wcExpect } from '@open-wc/testing';
 import '../src/components/gc-patterns/gc-global-footer.js';
 import type { GCGlobalFooter } from '../src/components/gc-patterns/gc-global-footer.js';
 
@@ -418,6 +418,37 @@ describe('gc-global-footer', () => {
       links.forEach((link) => {
         expect(link.tagName.toLowerCase()).to.equal('a');
       });
+    });
+
+    it('passes aXe accessibility audit', async () => {
+      const el = await fixture<GCGlobalFooter>(html`
+        <gc-global-footer></gc-global-footer>
+      `);
+      
+      await wcExpect(el).to.be.accessible();
+    });
+
+    it('passes aXe audit with context band', async () => {
+      const el = await fixture<GCGlobalFooter>(html`
+        <gc-global-footer 
+          .showContextBand="${true}"
+          contextBandTitle="About this service">
+        </gc-global-footer>
+      `);
+      
+      await wcExpect(el).to.be.accessible();
+    });
+
+    it('passes aXe audit with all features enabled', async () => {
+      const el = await fixture<GCGlobalFooter>(html`
+        <gc-global-footer 
+          .showContextBand="${true}"
+          contextBandTitle="Context"
+          .showCorporateBand="${true}">
+        </gc-global-footer>
+      `);
+      
+      await wcExpect(el).to.be.accessible();
     });
   });
 

@@ -1,4 +1,4 @@
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent, expect as wcExpect } from '@open-wc/testing';
 import '../src/components/gc-patterns/gc-global-header.js';
 import type { GCGlobalHeader } from '../src/components/gc-patterns/gc-global-header.js';
 
@@ -413,6 +413,38 @@ describe('gc-global-header', () => {
       
       const styles = getComputedStyle(languageToggle);
       expect(styles.outline).to.exist;
+    });
+
+    it('passes aXe accessibility audit', async () => {
+      const el = await fixture<GCGlobalHeader>(html`
+        <gc-global-header siteTitle="Test Service"></gc-global-header>
+      `);
+      
+      await wcExpect(el).to.be.accessible();
+    });
+
+    it('passes aXe audit with all features enabled', async () => {
+      const el = await fixture<GCGlobalHeader>(html`
+        <gc-global-header 
+          siteTitle="Government Service"
+          .showSearch="${true}"
+          .showLanguageToggle="${true}">
+          <a href="/services">Services</a>
+          <a href="/departments">Departments</a>
+        </gc-global-header>
+      `);
+      
+      await wcExpect(el).to.be.accessible();
+    });
+
+    it('passes aXe audit with mobile menu open', async () => {
+      const el = await fixture<GCGlobalHeader>(html`
+        <gc-global-header .mobileMenuOpen="${true}">
+          <a href="/home">Home</a>
+        </gc-global-header>
+      `);
+      
+      await wcExpect(el).to.be.accessible();
     });
   });
 
