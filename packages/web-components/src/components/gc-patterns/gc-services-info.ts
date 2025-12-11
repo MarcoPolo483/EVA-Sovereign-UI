@@ -1,6 +1,6 @@
 import { html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { EVAElement } from '../base/EVAElement.js';
+import { EVAElement } from '../EVAElement.js';
 
 interface ServiceSection {
   heading: string;

@@ -1,6 +1,6 @@
 import { html, css } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { EVAElement } from '../base/EVAElement.js';
+import { EVAElement } from '../EVAElement.js';
 
 interface SubwayStep {
   label: string;
