@@ -28,9 +28,20 @@
       "packages/web-components/src/components/wet-boew/",
       "packages/web-components/src/components/gc-patterns/"
     ],
-    "currentPhase": "Phase 4: GC Mandatory Site-Wide Patterns (0/10) - Ready to start",
+    "currentPhase": "Phase 4: GC Mandatory Site-Wide Patterns (0/10) - In Progress (Test Suite Remediation)",
     "openIssues": 7,
-    "blockers": []
+    "blockers": [
+      {
+        "id": "BLOCKER-002",
+        "title": "Test Suite Integrity Failure - 646/3021 Tests Failing (21.4%)",
+        "description": "Discovered Dec 11, 2025: Test suite has 646 failing tests across 69 failed suites. Root causes: (1) gc-pagination had 184 lines of orphaned CSS causing syntax error [FIXED in 7afc587], (2) many components showing untranslated i18n keys instead of actual text (e.g., 'reportProblem.heading' instead of English/French text), suggesting registerMessages() partially broken. SPEC-07 Gate 1 requires 100% tests passing. Current state blocks Phase 4 refinement work.",
+        "severity": "CRITICAL",
+        "impact": "Prevents Phase 4 refinement, violates SPEC-07 quality gates, contradicts memory file claim of '0 errors'",
+        "discoveredAt": "2025-12-11T19:40:00Z",
+        "status": "PARTIALLY RESOLVED",
+        "resolution": "gc-pagination syntax error fixed (commit 7afc587). Remaining: 646 test failures need investigation and fixes before proceeding with Phase 4 i18n migration work."
+      }
+    ]
   },
   "quality": {
     "testCoverage": 100,
@@ -82,6 +93,13 @@
         "summary": "40 consecutive components implemented with 0 final errors. Pattern: import EVAElement from '../EVAElement.js', registerMessages() function call, static override styles = css`...` (single template), override keyword on all methods, getMessage() with .replace() for templates, unknown instead of any, proper null checks. 60%+ perfect first compiles. Velocity: 6-9 components per session.",
         "impact": "HIGH - Pattern proven across 83 total components, ready for Phase 4-7 implementation",
         "reference": "All component files in wet-boew/ and gc-patterns/"
+      },
+      {
+        "id": "LESSON-007",
+        "title": "CRITICAL: Memory File Can Become Outdated - Test Suite Revealed Truth",
+        "summary": "Dec 11, 2025: Memory file claimed 'Phase 3 COMPLETE, 0 TypeScript errors' but actual test run revealed 646/3021 failing tests (21.4% failure rate). Root cause: gc-pagination had 184 lines of orphaned CSS causing syntax error, plus widespread i18n message registration failures. LESSON: Always run `npm test` to verify actual state before believing memory file claims. Context Engineering requires validation, not just documentation.",
+        "impact": "CRITICAL - Establishes 'Trust But Verify' principle: Memory file is documentation, not source of truth. Actual code state discovered via tooling (npm test, TypeScript compiler, etc.)",
+        "reference": "Commit 7afc587 (gc-pagination fix), BLOCKER-002"
       }
     ],
     "tools": [],
@@ -110,8 +128,8 @@
     "createdBy": "EVA-Sovereign-UI Memory Fix (Dec 7, 2025)",
     "createdAt": "2025-12-07T18:45:00Z",
     "templateVersion": "1.0.0",
-    "lastModifiedBy": "Phase 3 COMPLETE - All 40/40 GC Design Patterns Implemented",
-    "lastModifiedAt": "2025-12-11T18:00:00Z",
-    "sessionContext": "Phase 2: 43/43 WET-BOEW components COMPLETE (100%). Phase 3: 40/40 GC Design Patterns COMPLETE (100%). Total: 83/83 base components (100%). All components follow proven pattern: correct EVAElement import, registerMessages i18n, 0 TypeScript errors, WCAG 2.2 AAA, bilingual EN-CA/FR-CA. Ready for Phase 4: GC Mandatory Site-Wide Patterns (10 components) per SPEC-03."
+    "lastModifiedBy": "BLOCKER-002 Discovered: Test Suite Integrity Failure (646/3021 failing). gc-pagination syntax error FIXED (commit 7afc587)",
+    "lastModifiedAt": "2025-12-11T19:45:00Z",
+    "sessionContext": "Phase 2: 43/43 WET-BOEW components COMPLETE. Phase 3: 40/40 GC Design Patterns COMPLETE. CRITICAL DISCOVERY: Memory file claimed '0 errors' but test suite shows 646/3021 failures (21.4%). gc-pagination had 184 lines of orphaned CSS (FIXED). Widespread i18n failures remain. BLOCKER-002 added. Must remediate test suite before Phase 4 i18n migration work can proceed safely."
   }
 }
