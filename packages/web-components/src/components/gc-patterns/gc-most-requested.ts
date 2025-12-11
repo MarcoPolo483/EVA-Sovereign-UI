@@ -1,6 +1,7 @@
 import { html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { EVAElement } from '../EVAElement.js';
+import { registerMessages } from '../../i18n/locale-manager.js';
 
 interface MostRequestedLink {
   label: string;
@@ -33,9 +34,7 @@ interface MostRequestedLink {
  */
 @customElement('gc-most-requested')
 export class GCMostRequested extends EVAElement {
-  static styles = [
-    EVAElement.styles,
-    css`
+  static override styles = css`
       :host {
         display: block;
         margin: var(--eva-spacing-xl, 2rem) 0;
@@ -131,8 +130,7 @@ export class GCMostRequested extends EVAElement {
           font-size: var(--eva-font-size-lg, 1.25rem);
         }
       }
-    `
-  ];
+    `;
 
   /**
    * Heading text for the section
@@ -154,7 +152,7 @@ export class GCMostRequested extends EVAElement {
     });
   }
 
-  protected render() {
+  protected override render() {
     const hasSlot = this.childElementCount > 0;
     const displayHeading = this.heading || this.getMessage('mostRequested');
 
@@ -194,7 +192,7 @@ export class GCMostRequested extends EVAElement {
 }
 
 // Register i18n messages
-GCMostRequested.registerMessages({
+registerMessages('gc-most-requested', {
   'en-CA': {
     mostRequested: 'Most requested'
   },

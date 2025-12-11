@@ -13,9 +13,7 @@ interface FeatureTile {
 
 @customElement('gc-feature-tiles')
 export class GCFeatureTiles extends EVAElement {
-  static styles = [
-    EVAElement.styles,
-    css`
+  static override styles = css`
       :host {
         display: block;
         margin: var(--eva-spacing-xl, 2rem) 0;
@@ -100,8 +98,7 @@ export class GCFeatureTiles extends EVAElement {
           grid-template-columns: 1fr;
         }
       }
-    `
-  ];
+    `;
 
   @property({ type: Array })
   features: FeatureTile[] = [];
@@ -109,11 +106,11 @@ export class GCFeatureTiles extends EVAElement {
   @property({ type: Number })
   columns: 2 | 3 | 4 = 3;
 
-  protected firstUpdated(): void {
+  protected override firstUpdated(): void {
     this.style.setProperty('--gc-tiles-columns', this.columns.toString());
   }
 
-  protected updated(changedProperties: Map<string, unknown>): void {
+  protected override updated(changedProperties: Map<string, unknown>): void {
     if (changedProperties.has('columns')) {
       this.style.setProperty('--gc-tiles-columns', this.columns.toString());
     }
@@ -126,7 +123,7 @@ export class GCFeatureTiles extends EVAElement {
     });
   }
 
-  protected render() {
+  protected override render() {
     return html`
       <div class="tiles-grid">
         ${this.features.map(feature => html`

@@ -1,6 +1,7 @@
 import { html, css } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { EVAElement } from '../EVAElement.js';
+import { registerMessages } from '../../i18n/locale-manager.js';
 
 interface SubwayStep {
   label: string;
@@ -32,9 +33,7 @@ interface SubwayStep {
  */
 @customElement('gc-subway-nav')
 export class GCSubwayNav extends EVAElement {
-  static styles = [
-    EVAElement.styles,
-    css`
+  static override styles = css`
       :host {
         display: block;
         margin: var(--eva-spacing-xl, 2rem) 0;
@@ -176,8 +175,7 @@ export class GCSubwayNav extends EVAElement {
           top: 44px;
         }
       }
-    `
-  ];
+    `;
 
   /**
    * Array of steps in the process
@@ -200,7 +198,7 @@ export class GCSubwayNav extends EVAElement {
   @state()
   private totalSteps: number = 0;
 
-  protected updated(changedProperties: Map<string, unknown>): void {
+  protected override updated(changedProperties: Map<string, unknown>): void {
     if (changedProperties.has('steps')) {
       this.totalSteps = this.steps.length;
     }
@@ -218,17 +216,11 @@ export class GCSubwayNav extends EVAElement {
       status: step.status
     });
 
-    this.announce(this.getMessage('stepChanged', { step: index + 1, total: this.totalSteps }));
+    const stepMsg = this.getMessage('stepChanged').replace('{step}', String(index + 1)).replace('{total}', String(this.totalSteps));
+    this.announce(stepMsg);
   }
 
-  private getStepNumber(index: number, status: string): string {
-    if (status === 'completed') {
-      return '✓';
-    }
-    return (index + 1).toString();
-  }
-
-  protected render() {
+  protected override render() {
     return html`
       <nav aria-label="${this.getMessage('stepsNavigation')}" role="navigation">
         <ol class="subway-list">
@@ -264,7 +256,7 @@ export class GCSubwayNav extends EVAElement {
                   `}
                   ${isCurrent ? html`
                     <div class="progress-text" aria-live="polite">
-                      ${this.getMessage('stepProgress', { current: stepNumber, total: this.totalSteps })}
+                      ${this.getMessage('stepProgress').replace('{current}', String(stepNumber)).replace('{total}', String(this.totalSteps))}
                     </div>
                   ` : ''}
                 </div>
@@ -278,7 +270,7 @@ export class GCSubwayNav extends EVAElement {
 }
 
 // Register i18n messages
-GCSubwayNav.registerMessages({
+registerMessages('gc-subway-nav', {
   'en-CA': {
     stepsNavigation: 'Steps navigation',
     stepProgress: 'Step {current} of {total}',

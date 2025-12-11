@@ -1,6 +1,7 @@
 import { html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { EVAElement } from '../EVAElement.js';
+import { registerMessages } from '../../i18n/locale-manager.js';
 
 /**
  * gc-contextual-alerts - Contextual Alert Pattern
@@ -22,9 +23,7 @@ import { EVAElement } from '../EVAElement.js';
  */
 @customElement('gc-contextual-alerts')
 export class GCContextualAlerts extends EVAElement {
-  static styles = [
-    EVAElement.styles,
-    css`
+  static override styles = css`
       :host {
         display: block;
         margin: var(--eva-spacing-md, 1rem) 0;
@@ -152,8 +151,7 @@ export class GCContextualAlerts extends EVAElement {
       ::slotted(*) {
         margin: 0;
       }
-    `
-  ];
+    `;
 
   /**
    * Alert variant type
@@ -234,7 +232,7 @@ export class GCContextualAlerts extends EVAElement {
     this.setAttribute('hidden', '');
   }
 
-  protected render() {
+  protected override render() {
     if (!this.visible) {
       return html``;
     }
@@ -278,7 +276,7 @@ export class GCContextualAlerts extends EVAElement {
 }
 
 // Register i18n messages
-GCContextualAlerts.registerMessages({
+registerMessages('gc-contextual-alerts', {
   'en-CA': {
     errorHeading: 'Error',
     warningHeading: 'Warning',

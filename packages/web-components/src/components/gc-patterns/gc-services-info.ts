@@ -1,6 +1,7 @@
 import { html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { EVAElement } from '../EVAElement.js';
+import { registerMessages } from '../../i18n/locale-manager.js';
 
 interface ServiceSection {
   heading: string;
@@ -38,9 +39,7 @@ interface ServiceSection {
  */
 @customElement('gc-services-info')
 export class GCServicesInfo extends EVAElement {
-  static styles = [
-    EVAElement.styles,
-    css`
+  static override styles = css`
       :host {
         display: block;
         margin: var(--eva-spacing-xl, 2rem) 0;
@@ -130,8 +129,7 @@ export class GCServicesInfo extends EVAElement {
           font-size: var(--eva-font-size-md, 1.125rem);
         }
       }
-    `
-  ];
+    `;
 
   /**
    * Service sections to display
@@ -145,11 +143,11 @@ export class GCServicesInfo extends EVAElement {
   @property({ type: Number })
   columns: 2 | 3 = 3;
 
-  protected firstUpdated(): void {
+  protected override firstUpdated(): void {
     this.style.setProperty('--gc-services-columns', this.columns.toString());
   }
 
-  protected updated(changedProperties: Map<string, unknown>): void {
+  protected override updated(changedProperties: Map<string, unknown>): void {
     if (changedProperties.has('columns')) {
       this.style.setProperty('--gc-services-columns', this.columns.toString());
     }
@@ -163,7 +161,7 @@ export class GCServicesInfo extends EVAElement {
     });
   }
 
-  protected render() {
+  protected override render() {
     const hasSlot = this.childElementCount > 0;
 
     if (hasSlot) {
@@ -205,7 +203,7 @@ export class GCServicesInfo extends EVAElement {
 }
 
 // Register i18n messages
-GCServicesInfo.registerMessages({
+registerMessages('gc-services-info', {
   'en-CA': {
     servicesAndInfo: 'Services and information'
   },
