@@ -622,10 +622,9 @@ Built with Lit 3.x, Custom Elements v1 API, Shadow DOM encapsulation:
 - [ ] ES2020+ target for modern browsers
 
 ### FR-2: Sovereign Token System
-- [ ] Token files for all 5 Five Eyes countries ✅ COMPLETE
+- [ ] GC Design System token file (gc-tokens.ts) ✅ COMPLETE
 - [ ] Registry system with helper functions ✅ COMPLETE
   - `getSovereignProfile(id)`
-  - `getFiveEyesMember(id)`
   - `getAllSovereignProfileIds()`
   - `isValidSovereignProfile(id)`
   - `getSovereignProfileByLocale(locale)`
@@ -653,7 +652,7 @@ Built with Lit 3.x, Custom Elements v1 API, Shadow DOM encapsulation:
 - [ ] Runtime locale switching
 - [ ] Intl API for formatting
 - [ ] Bilingual EN/FR by default
-- [ ] Extensible to other Five Eyes languages
+- [ ] Foundation for bilingual EN-CA/FR-CA support
 
 ### FR-6: Comprehensive Testing
 - [ ] Vitest unit tests per component
@@ -765,7 +764,7 @@ export class EVAElement extends LitElement {
 **Timeline**: 6-12 months for 100% GC Design System coverage
 
 ### ✅ Phase 0: Research & Planning (COMPLETE)
-- [x] Five Eyes design system research (FIVE-EYES-RESEARCH.md)
+- [x] GC Design System comprehensive audit
 - [x] GC Design System comprehensive audit (128+ components catalogued)
 - [x] WET-BOEW plugin inventory (43 plugins identified)
 - [x] Architecture decisions documented (PROJECT-ANALYSIS.md)
@@ -1078,7 +1077,7 @@ For EACH of the 130 components, ensure:
 
 ### Business Success
 - [ ] 11+ components implemented
-- [ ] 5 sovereign profiles working
+- [ ] GC Design System tokens operational
 - [ ] Bilingual EN/FR operational
 - [ ] Live demo deployed
 - [ ] Documentation complete
