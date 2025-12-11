@@ -152,6 +152,9 @@ export class GCExpandCollapse extends EVAElement {
     const panelIndex = this.panels.findIndex(p => p.id === id);
     if (panelIndex === -1) return;
 
+    const panel = this.panels[panelIndex];
+    if (!panel) return;
+
     if (!this.allowMultiple) {
       this.panels = this.panels.map(p => ({ ...p, expanded: p.id === id }));
     } else {
@@ -160,8 +163,8 @@ export class GCExpandCollapse extends EVAElement {
       );
     }
 
-    this.emitEvent('gc-panel-expand', { id, heading: this.panels[panelIndex].heading });
-    this.announce(this.getMessage('panelExpanded').replace('{heading}', this.panels[panelIndex].heading));
+    this.emitEvent('gc-panel-expand', { id, heading: panel.heading });
+    this.announce(this.getMessage('panelExpanded').replace('{heading}', panel.heading));
     this.requestUpdate();
   }
 
