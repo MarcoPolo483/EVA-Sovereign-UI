@@ -85,7 +85,8 @@ export class GCPageDetails extends EVAElement {
     
     try {
       const date = new Date(isoDate);
-      return date.toISOString().split('T')[0];
+      const formatted = date.toISOString().split('T')[0];
+      return formatted || '';
     } catch {
       return isoDate;
     }
@@ -152,12 +153,6 @@ export class GCPageDetails extends EVAElement {
         ` : ''}
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'gc-page-details': GCPageDetails;
   }
 }
 
