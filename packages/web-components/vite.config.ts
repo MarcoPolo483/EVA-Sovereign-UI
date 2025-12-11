@@ -18,7 +18,16 @@ export default defineConfig({
       }
     },
     sourcemap: true,
-    minify: 'esbuild'
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.log in production
+        drop_debugger: true
+      },
+      format: {
+        comments: false // Remove comments
+      }
+    }
   },
   test: {
     globals: true,

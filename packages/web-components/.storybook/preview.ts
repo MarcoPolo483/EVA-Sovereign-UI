@@ -2,7 +2,10 @@ import type { Preview } from '@storybook/web-components';
 import '../src/index.js';
 
 // Apply GC Design System tokens
-import '../src/utils/sovereign-profile.js';
+import '../src/tokens/gc-tokens.css';
+
+// Import locale manager for bilingual support
+import { setGlobalLocale, type SupportedLocale } from '../src/i18n/locale-manager.js';
 
 const preview: Preview = {
   parameters: {
@@ -64,6 +67,14 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    (story, context) => {
+      // Update global locale when toolbar changes
+      const locale = context.globals.locale as SupportedLocale;
+      setGlobalLocale(locale);
+      return story();
+    },
+  ],
 };
 
 export default preview;
