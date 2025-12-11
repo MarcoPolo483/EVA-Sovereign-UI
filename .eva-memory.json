@@ -38,8 +38,8 @@
         "severity": "CRITICAL",
         "impact": "Prevents Phase 4 refinement, violates SPEC-07 quality gates, contradicts memory file claim of '0 errors'",
         "discoveredAt": "2025-12-11T19:40:00Z",
-        "status": "PARTIALLY RESOLVED",
-        "resolution": "gc-pagination syntax error fixed (commit 7afc587). Remaining: 646 test failures need investigation and fixes before proceeding with Phase 4 i18n migration work."
+        "status": "ACKNOWLEDGED - User chose Option B (proceed despite failures)",
+        "resolution": "gc-pagination syntax error fixed (commit 7afc587). User decision: Proceed with Phase 4 refinement work despite 646 test failures. Risk accepted: building on partially broken foundation. Phase 4 i18n migration will proceed, test remediation deferred."
       }
     ]
   },
