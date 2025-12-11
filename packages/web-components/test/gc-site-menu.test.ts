@@ -1,4 +1,4 @@
-import { expect, fixture, html, oneEvent, waitUntil } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent, waitUntil, expect as wcExpect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import '../src/components/gc-patterns/gc-site-menu.ts';
 import { GCSiteMenu } from '../src/components/gc-patterns/gc-site-menu.js';

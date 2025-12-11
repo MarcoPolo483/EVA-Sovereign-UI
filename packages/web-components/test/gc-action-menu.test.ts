@@ -1,4 +1,4 @@
-import { expect, fixture, html, oneEvent, waitUntil } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent, waitUntil, expect as wcExpect } from '@open-wc/testing';
 import '../src/components/gc-patterns/gc-action-menu.ts';
 import { GCActionMenu } from '../src/components/gc-patterns/gc-action-menu.js';
 import type { ActionMenuItem } from '../src/components/gc-patterns/gc-action-menu.js';

@@ -1,4 +1,4 @@
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent, expect as wcExpect } from '@open-wc/testing';
 import '../src/components/gc-patterns/gc-signature.js';
 import type { GCSignature } from '../src/components/gc-patterns/gc-signature.js';
 
@@ -313,6 +313,11 @@ describe('gc-signature', () => {
       link.focus();
       
       expect(el.shadowRoot!.activeElement).to.equal(link);
+    });
+
+    it('passes aXe accessibility audit', async () => {
+      const el = await fixture<GCSignature>(html`<gc-signature></gc-signature>`);
+      await wcExpect(el).to.be.accessible();
     });
   });
 

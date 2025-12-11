@@ -1,4 +1,4 @@
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent, expect as wcExpect } from '@open-wc/testing';
 import '../src/components/gc-patterns/gc-pagination.ts';
 import { GCPagination } from '../src/components/gc-patterns/gc-pagination.js';
 
