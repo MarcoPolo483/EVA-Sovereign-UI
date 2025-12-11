@@ -1,339 +1,304 @@
 import { html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { EVAElement } from '../EVAElement.js';
-import { registerMessages } from '../../utils/i18n.js';
+import { registerMessages } from '../../i18n/locale-manager.js';
 
-// Register translations for gc-pagination
-registerMessages('gc-pagination', {
-  'pagination.previous': {
-    'en-CA': 'Previous',
-    'fr-CA': 'Précédent',
-  },
-  'pagination.next': {
-    'en-CA': 'Next',
-    'fr-CA': 'Suivant',
-  },
-  'pagination.page': {
-    'en-CA': 'Page',
-    'fr-CA': 'Page',
-  },
-  'pagination.currentPage': {
-    'en-CA': 'Current page',
-    'fr-CA': 'Page actuelle',
-  },
-  'pagination.goToPage': {
-    'en-CA': 'Go to page',
-    'fr-CA': 'Aller à la page',
-  },
-  'pagination.pageOf': {
-    'en-CA': 'Page {current} of {total}',
-    'fr-CA': 'Page {current} de {total}',
-  },
-});
-
-/**
- * GC Pagination Component
- * MANDATORY Government of Canada pagination pattern
- *
- * Implements: https://design.canada.ca/common-design-patterns/pagination.html
- *
- * Features:
- * - Previous/Next navigation buttons
- * - Numbered page links (with ellipsis for long lists)
- * - First/Last page quick jumps
- * - Current page indicator
- * - Keyboard accessible
- * - Screen reader optimized
- * - Bilingual support
- *
- * @element gc-pagination
- *
- * @fires gc-page-change - Fires when page changes
- *
- * @example
- * ```html
- * <gc-pagination
- *   current-page="5"
- *   total-pages="20"
- * ></gc-pagination>
- * ```
- */
 @customElement('gc-pagination')
 export class GCPagination extends EVAElement {
-  protected override componentName = 'gc-pagination';
+  static override styles = css`
+    :host {
+      display: block;
+    }
 
-  /**
-   * Current page number (1-indexed)
-   */
-  @property({ type: Number, attribute: 'current-page' })
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--eva-spacing-sm, 0.5rem);
+      margin: var(--eva-spacing-lg, 1.5rem) 0;
+      font-family: var(--eva-fonts-body);
+    }
+
+    .pagination-button {
+      min-width: 40px;
+      height: 40px;
+      padding: var(--eva-spacing-xs, 0.25rem) var(--eva-spacing-sm, 0.5rem);
+      background: var(--eva-colors-white, #fff);
+      border: 1px solid var(--eva-colors-border, #ccc);
+      border-radius: 4px;
+      color: var(--eva-colors-text, #333);
+      font-family: var(--eva-fonts-body);
+      font-size: var(--eva-font-size-md, 1rem);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pagination-button:hover:not(:disabled) {
+      background: var(--eva-colors-background-light, #f5f5f5);
+      border-color: var(--eva-colors-primary, #26374a);
+    }
+
+    .pagination-button:focus {
+      outline: 3px solid var(--eva-colors-focus, #269abc);
+      outline-offset: 2px;
+    }
+
+    .pagination-button:disabled {
+      background: var(--eva-colors-background-light, #f5f5f5);
+      border-color: var(--eva-colors-border-light, #e8e8e8);
+      color: var(--eva-colors-text-light, #999);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .pagination-button.active {
+      background: var(--eva-colors-primary, #26374a);
+      border-color: var(--eva-colors-primary, #26374a);
+      color: var(--eva-colors-white, #fff);
+      cursor: default;
+    }
+
+    .pagination-button.active:hover {
+      background: var(--eva-colors-primary, #26374a);
+      border-color: var(--eva-colors-primary, #26374a);
+    }
+
+    .pagination-ellipsis {
+      min-width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--eva-colors-text, #333);
+      font-weight: 600;
+    }
+
+    .pagination-info {
+      margin-left: var(--eva-spacing-md, 1rem);
+      color: var(--eva-colors-text, #333);
+      font-size: var(--eva-font-size-sm, 0.875rem);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    @media (max-width: 768px) {
+      .pagination {
+        gap: var(--eva-spacing-xs, 0.25rem);
+      }
+
+      .pagination-button {
+        min-width: 36px;
+        height: 36px;
+        font-size: var(--eva-font-size-sm, 0.875rem);
+      }
+
+      .pagination-ellipsis {
+        min-width: 36px;
+        height: 36px;
+      }
+
+      .pagination-info {
+        display: none;
+      }
+    }
+
+    @media print {
+      .pagination {
+        display: none;
+      }
+    }
+  `;
+
+  @property({ type: Number })
   currentPage = 1;
 
-  /**
-   * Total number of pages
-   */
-  @property({ type: Number, attribute: 'total-pages' })
+  @property({ type: Number })
   totalPages = 1;
 
-  /**
-   * Maximum number of visible page buttons before using ellipsis
-   * @default 7
-   */
-  @property({ type: Number, attribute: 'max-visible' })
+  @property({ type: Number })
   maxVisible = 7;
 
-  /**
-   * Show first/last page buttons
-   */
-  @property({ type: Boolean, attribute: 'show-first-last' })
-  showFirstLast = true;
-
-  /**
-   * Show previous/next buttons
-   */
-  @property({ type: Boolean, attribute: 'show-prev-next' })
-  showPrevNext = true;
-
-  /**
-   * Compact mode (fewer page numbers shown)
-   */
   @property({ type: Boolean })
-  compact = false;
+  showInfo = false;
 
-  /**
-   * Navigate to a specific page
-   */
-  private _goToPage(page: number): void {
+  @property({ type: Number })
+  totalItems = 0;
+
+  @property({ type: Number })
+  itemsPerPage = 10;
+
+  private handlePageChange(page: number) {
     if (page < 1 || page > this.totalPages || page === this.currentPage) {
       return;
     }
 
     this.currentPage = page;
-    this.dispatchEvent(
-      new CustomEvent('gc-page-change', {
-        detail: { page },
-        bubbles: true,
-        composed: true,
-      })
-    );
+
+    this.emitEvent('gc-page-change', {
+      page,
+      totalPages: this.totalPages,
+      timestamp: new Date().toISOString()
+    });
   }
 
-  /**
-   * Handle page button click
-   */
-  private _handlePageClick(page: number, event: MouseEvent): void {
-    event.preventDefault();
-    this._goToPage(page);
-  }
-
-  /**
-   * Handle keyboard navigation
-   */
-  private _handleKeyDown(page: number, event: KeyboardEvent): void {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      this._goToPage(page);
+  private getPageNumbers(): Array<number | 'ellipsis'> {
+    if (this.totalPages <= this.maxVisible) {
+      return Array.from({ length: this.totalPages }, (_, i) => i + 1);
     }
-  }
 
-  /**
-   * Generate array of page numbers to display
-   * Implements ellipsis logic for long page lists
-   */
-  private _getPageNumbers(): Array<number | 'ellipsis'> {
     const pages: Array<number | 'ellipsis'> = [];
-    const { currentPage, totalPages, maxVisible, compact } = this;
+    const sidePages = Math.floor((this.maxVisible - 3) / 2);
 
-    // If total pages fits in maxVisible, show all
-    if (totalPages <= maxVisible) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-      return pages;
-    }
-
-    // Calculate range around current page
-    const effectiveMax = compact ? Math.floor(maxVisible / 2) : maxVisible;
-    const sidePages = Math.floor(effectiveMax / 2);
-
-    // Always show first page
     pages.push(1);
 
-    // Calculate start and end of middle range
-    let start = Math.max(2, currentPage - sidePages);
-    let end = Math.min(totalPages - 1, currentPage + sidePages);
-
-    // Adjust if we're near the beginning
-    if (currentPage <= sidePages + 2) {
-      end = Math.min(totalPages - 1, effectiveMax - 1);
-      start = 2;
-    }
-
-    // Adjust if we're near the end
-    if (currentPage >= totalPages - sidePages - 1) {
-      start = Math.max(2, totalPages - effectiveMax + 2);
-      end = totalPages - 1;
-    }
-
-    // Add starting ellipsis if needed
-    if (start > 2) {
+    if (this.currentPage <= sidePages + 2) {
+      for (let i = 2; i <= Math.min(this.maxVisible - 1, this.totalPages - 1); i++) {
+        pages.push(i);
+      }
+      if (this.totalPages > this.maxVisible) {
+        pages.push('ellipsis');
+      }
+    } else if (this.currentPage >= this.totalPages - sidePages - 1) {
+      pages.push('ellipsis');
+      for (let i = this.totalPages - (this.maxVisible - 2); i < this.totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push('ellipsis');
+      for (let i = this.currentPage - sidePages; i <= this.currentPage + sidePages; i++) {
+        pages.push(i);
+      }
       pages.push('ellipsis');
     }
 
-    // Add middle page numbers
-    for (let i = start; i <= end; i++) {
-      pages.push(i);
-    }
-
-    // Add ending ellipsis if needed
-    if (end < totalPages - 1) {
-      pages.push('ellipsis');
-    }
-
-    // Always show last page
-    if (totalPages > 1) {
-      pages.push(totalPages);
+    if (pages[pages.length - 1] !== this.totalPages) {
+      pages.push(this.totalPages);
     }
 
     return pages;
   }
 
-  /**
-   * Render a page button
-   */
-  private _renderPageButton(page: number | 'ellipsis', index: number): unknown {
-    if (page === 'ellipsis') {
-      return html`
-        <li class="page-item ellipsis" aria-hidden="true">
-          <span class="ellipsis-text">...</span>
-        </li>
-      `;
+  private renderPrevButton() {
+    const isDisabled = this.currentPage === 1;
+    const prevLabel = this.getMessage('previous');
+
+    return html`
+      <button
+        class="pagination-button"
+        type="button"
+        ?disabled="${isDisabled}"
+        @click="${() => this.handlePageChange(this.currentPage - 1)}"
+        aria-label="${prevLabel}"
+      >
+        ‹
+      </button>
+    `;
+  }
+
+  private renderNextButton() {
+    const isDisabled = this.currentPage === this.totalPages;
+    const nextLabel = this.getMessage('next');
+
+    return html`
+      <button
+        class="pagination-button"
+        type="button"
+        ?disabled="${isDisabled}"
+        @click="${() => this.handlePageChange(this.currentPage + 1)}"
+        aria-label="${nextLabel}"
+      >
+        ›
+      </button>
+    `;
+  }
+
+  private renderPageButton(page: number) {
+    const isActive = page === this.currentPage;
+    const pageLabel = this.getMessage('page').replace('{page}', String(page));
+
+    return html`
+      <button
+        class="pagination-button ${isActive ? 'active' : ''}"
+        type="button"
+        aria-label="${pageLabel}"
+        aria-current="${isActive ? 'page' : 'false'}"
+        @click="${() => this.handlePageChange(page)}"
+      >
+        ${page}
+      </button>
+    `;
+  }
+
+  private renderInfo() {
+    if (!this.showInfo || this.totalItems === 0) {
+      return null;
     }
 
-    const isCurrent = page === this.currentPage;
-    const classes = {
-      'page-link': true,
-      'current': isCurrent,
-    };
+    const start = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const end = Math.min(this.currentPage * this.itemsPerPage, this.totalItems);
+    const infoText = this.getMessage('info')
+      .replace('{start}', String(start))
+      .replace('{end}', String(end))
+      .replace('{total}', String(this.totalItems));
 
     return html`
-      <li class="page-item" role="none">
-        <a
-          href="#"
-          class="${classMap(classes)}"
-          role="button"
-          aria-label="${isCurrent
-            ? `${this.t('pagination.currentPage')} ${page}`
-            : `${this.t('pagination.goToPage')} ${page}`}"
-          aria-current="${isCurrent ? 'page' : 'false'}"
-          @click="${(e: MouseEvent) => this._handlePageClick(page, e)}"
-          @keydown="${(e: KeyboardEvent) => this._handleKeyDown(page, e)}"
-          part="page-link"
-        >
-          ${page}
-        </a>
-      </li>
+      <span class="pagination-info" aria-live="polite">
+        ${infoText}
+      </span>
     `;
   }
 
-  /**
-   * Render previous button
-   */
-  private _renderPrevButton(): unknown {
-    if (!this.showPrevNext) return '';
-
-    const disabled = this.currentPage <= 1;
-    const classes = {
-      'nav-link': true,
-      'prev': true,
-      'disabled': disabled,
-    };
+  protected override render() {
+    const pages = this.getPageNumbers();
+    const navLabel = this.getMessage('navigation');
 
     return html`
-      <li class="nav-item prev" role="none">
-        <a
-          href="#"
-          class="${classMap(classes)}"
-          role="button"
-          aria-label="${this.t('pagination.previous')}"
-          aria-disabled="${disabled ? 'true' : 'false'}"
-          @click="${(e: MouseEvent) => {
-            if (!disabled) this._handlePageClick(this.currentPage - 1, e);
-            else e.preventDefault();
-          }}"
-          part="nav-link prev-link"
-        >
-          <span class="nav-icon" aria-hidden="true">‹</span>
-          <span class="nav-text">${this.t('pagination.previous')}</span>
-        </a>
-      </li>
-    `;
-  }
-
-  /**
-   * Render next button
-   */
-  private _renderNextButton(): unknown {
-    if (!this.showPrevNext) return '';
-
-    const disabled = this.currentPage >= this.totalPages;
-    const classes = {
-      'nav-link': true,
-      'next': true,
-      'disabled': disabled,
-    };
-
-    return html`
-      <li class="nav-item next" role="none">
-        <a
-          href="#"
-          class="${classMap(classes)}"
-          role="button"
-          aria-label="${this.t('pagination.next')}"
-          aria-disabled="${disabled ? 'true' : 'false'}"
-          @click="${(e: MouseEvent) => {
-            if (!disabled) this._handlePageClick(this.currentPage + 1, e);
-            else e.preventDefault();
-          }}"
-          part="nav-link next-link"
-        >
-          <span class="nav-text">${this.t('pagination.next')}</span>
-          <span class="nav-icon" aria-hidden="true">›</span>
-        </a>
-      </li>
-    `;
-  }
-
-  protected override render(): unknown {
-    const pages = this._getPageNumbers();
-
-    return html`
-      <nav
-        class="pagination"
-        role="navigation"
-        aria-label="${this.t('pagination.page')} navigation"
-        part="container"
-      >
-        <ul class="pagination-list" role="list">
-          ${this._renderPrevButton()}
-          ${pages.map((page, index) => this._renderPageButton(page, index))}
-          ${this._renderNextButton()}
-        </ul>
-        <div class="sr-only" aria-live="polite" aria-atomic="true">
-          ${this.t('pagination.pageOf')
-            .replace('{current}', String(this.currentPage))
-            .replace('{total}', String(this.totalPages))}
-        </div>
+      <nav class="pagination" role="navigation" aria-label="${navLabel}">
+        ${this.renderPrevButton()}
+        
+        ${pages.map(page => 
+          page === 'ellipsis'
+            ? html`<span class="pagination-ellipsis" aria-hidden="true">…</span>`
+            : this.renderPageButton(page as number)
+        )}
+        
+        ${this.renderNextButton()}
+        ${this.renderInfo()}
       </nav>
     `;
   }
+}
 
-  static override styles = css`
-    :host {
-      display: block;
-      font-family: Lato, sans-serif;
-    }
-
+registerMessages('gc-pagination', {
+  'en-CA': {
+    previous: 'Previous page',
+    next: 'Next page',
+    page: 'Page {page}',
+    navigation: 'Pagination',
+    info: 'Showing {start} to {end} of {total} items'
+  },
+  'fr-CA': {
+    previous: 'Page précédente',
+    next: 'Page suivante',
+    page: 'Page {page}',
+    navigation: 'Pagination',
+    info: 'Affichage de {start} à {end} sur {total} éléments'
+  }
+});
     .sr-only {
       position: absolute;
       width: 1px;
