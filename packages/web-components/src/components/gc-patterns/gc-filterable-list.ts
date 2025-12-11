@@ -272,8 +272,8 @@ export class GCFilterableList extends EVAElement {
     // Apply sorting
     if (this.sortBy) {
       filtered.sort((a, b) => {
-        const aVal = a[this.sortBy];
-        const bVal = b[this.sortBy];
+        const aVal = a[this.sortBy] as string | number;
+        const bVal = b[this.sortBy] as string | number;
         
         if (aVal < bVal) return this.sortOrder === 'asc' ? -1 : 1;
         if (aVal > bVal) return this.sortOrder === 'asc' ? 1 : -1;
