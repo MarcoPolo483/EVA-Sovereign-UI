@@ -131,7 +131,7 @@ export class GCTabbedInterface extends EVAElement {
     this.selectTab(id);
   }
 
-  private handleKeyDown(event: KeyboardEvent, currentIndex: number): void {
+  private handleKeyDown(event: KeyboardEvent): void {
     const enabledTabs = this.tabs.filter(tab => !tab.disabled);
     const currentEnabledIndex = enabledTabs.findIndex(tab => tab.id === this.selectedTabId);
     
@@ -176,7 +176,7 @@ export class GCTabbedInterface extends EVAElement {
     return html`
       <div class="tabs-container">
         <div role="tablist" aria-label="${tabbedInterface}" class="tablist">
-          ${this.tabs.map((tab, index) => html`
+          ${this.tabs.map(tab => html`
             <button
               role="tab"
               aria-selected="${tab.id === this.selectedTabId}"
@@ -187,7 +187,7 @@ export class GCTabbedInterface extends EVAElement {
               tabindex="${tab.id === this.selectedTabId ? 0 : -1}"
               class="tab"
               @click="${() => this.handleTabClick(tab.id)}"
-              @keydown="${(e: KeyboardEvent) => this.handleKeyDown(e, index)}"
+              @keydown="${(e: KeyboardEvent) => this.handleKeyDown(e)}"
             >
               ${tab.label}
             </button>
