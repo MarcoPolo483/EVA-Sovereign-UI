@@ -5,7 +5,7 @@ import { registerMessages } from '../../i18n/locale-manager.js';
 
 export interface StepFormData {
   currentStep: number;
-  formData: Record<string, any>;
+  formData: Record<string, unknown>;
 }
 
 export interface Step {
@@ -220,7 +220,7 @@ export class GCStepsForm extends EVAElement {
   private currentStep: number = 0;
 
   @state()
-  private formData: Record<string, any> = {};
+  private formData: Record<string, unknown> = {};
 
   @state()
   private validationErrors: string[] = [];
