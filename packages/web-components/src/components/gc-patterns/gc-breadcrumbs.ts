@@ -3,11 +3,68 @@ import { customElement, property } from 'lit/decorators.js';
 import { EVAElement } from '../EVAElement.js';
 import { registerMessages } from '../../i18n/locale-manager.js';
 
+/**
+ * Breadcrumb navigation item
+ */
 interface BreadcrumbItem {
+  /** Display text for the breadcrumb */
   text: string;
+  /** Optional link URL (omit for current page) */
   href?: string;
 }
 
+/**
+ * GC Breadcrumbs Component
+ * MANDATORY Government of Canada breadcrumb navigation pattern
+ * 
+ * Provides hierarchical navigation trail showing user's current location
+ * in the site structure. Implements WCAG 2.2 AAA accessibility standards
+ * with proper ARIA landmarks and semantic HTML.
+ * 
+ * Implements: https://design.canada.ca/common-design-patterns/breadcrumb-trail.html
+ * 
+ * @element gc-breadcrumbs
+ * 
+ * @fires gc-breadcrumb-click - Fires when a breadcrumb link is clicked. Detail: { item: BreadcrumbItem, index: number }
+ * 
+ * @example
+ * ```html
+ * <!-- Basic breadcrumb trail -->
+ * <gc-breadcrumbs
+ *   .items="${[
+ *     { text: 'Home', href: '/' },
+ *     { text: 'Services', href: '/services' },
+ *     { text: 'Current Page' }
+ *   ]}"
+ * ></gc-breadcrumbs>
+ * ```
+ * 
+ * @example
+ * ```html
+ * <!-- With custom ARIA label -->
+ * <gc-breadcrumbs
+ *   aria-label="Site navigation"
+ *   .items="${[
+ *     { text: 'Canada.ca', href: 'https://canada.ca' },
+ *     { text: 'Benefits', href: '/benefits' },
+ *     { text: 'Employment Insurance' }
+ *   ]}"
+ * ></gc-breadcrumbs>
+ * ```
+ * 
+ * @example
+ * ```html
+ * <!-- French locale -->
+ * <gc-breadcrumbs
+ *   locale="fr-CA"
+ *   .items="${[
+ *     { text: 'Accueil', href: '/' },
+ *     { text: 'Services', href: '/services' },
+ *     { text: 'Page actuelle' }
+ *   ]}"
+ * ></gc-breadcrumbs>
+ * ```
+ */
 @customElement('gc-breadcrumbs')
 export class GCBreadcrumbs extends EVAElement {
   static override styles = css`
@@ -82,9 +139,17 @@ export class GCBreadcrumbs extends EVAElement {
     }
   `;
 
+  /**
+   * Array of breadcrumb items to display in navigation trail.
+   * Last item (without href) is treated as current page.
+   */
   @property({ type: Array })
   items: BreadcrumbItem[] = [];
 
+  /**
+   * Character or string used to separate breadcrumb items
+   * @default '›'
+   */
   @property({ type: String })
   separator = '›';
 
