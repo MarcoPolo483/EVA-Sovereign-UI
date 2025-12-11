@@ -603,6 +603,17 @@ describe('gc-site-menu', () => {
       expect(toggle!.getAttribute('aria-expanded')).to.exist;
       expect(toggle!.getAttribute('aria-controls')).to.equal('site-menu');
     });
+
+    it('passes aXe accessibility audit', async () => {
+      const items: MenuItem[] = [
+        { text: 'Home', href: '/' },
+        { text: 'Services', href: '/services' },
+      ];
+      const el = await fixture<GCSiteMenu>(html`
+        <gc-site-menu .items="${items}"></gc-site-menu>
+      `);
+      await wcExpect(el).to.be.accessible();
+    });
   });
 
   describe('Bilingual Support', () => {

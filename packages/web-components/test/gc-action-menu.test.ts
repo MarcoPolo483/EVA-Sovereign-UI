@@ -537,6 +537,13 @@ describe('gc-action-menu', () => {
       const divider = el.shadowRoot!.querySelector('.divider');
       expect(divider!.getAttribute('role')).to.equal('separator');
     });
+
+    it('passes aXe accessibility audit', async () => {
+      const el = await fixture<GCActionMenu>(html`
+        <gc-action-menu></gc-action-menu>
+      `);
+      await wcExpect(el).to.be.accessible();
+    });
   });
 
   describe('Bilingual Support', () => {

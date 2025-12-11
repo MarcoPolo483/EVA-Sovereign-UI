@@ -421,6 +421,13 @@ describe('gc-pagination', () => {
       const srOnly = el.shadowRoot!.querySelector('.sr-only[aria-live="polite"]');
       expect(srOnly!.textContent!.trim().length).to.be.greaterThan(0);
     });
+
+    it('passes aXe accessibility audit', async () => {
+      const el = await fixture<GCPagination>(html`
+        <gc-pagination total-pages="10" current-page="5"></gc-pagination>
+      `);
+      await wcExpect(el).to.be.accessible();
+    });
   });
 
   describe('Bilingual Support', () => {

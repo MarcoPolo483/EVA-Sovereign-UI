@@ -513,6 +513,17 @@ describe('gc-side-nav', () => {
       const groups = el.shadowRoot!.querySelectorAll('[role="group"]');
       expect(groups.length).to.be.greaterThan(0);
     });
+
+    it('passes aXe accessibility audit', async () => {
+      const items: SideNavItem[] = [
+        { text: 'Home', href: '/' },
+        { text: 'About', href: '/about' },
+      ];
+      const el = await fixture<GCSideNav>(html`
+        <gc-side-nav .items="${items}"></gc-side-nav>
+      `);
+      await wcExpect(el).to.be.accessible();
+    });
   });
 
   describe('Bilingual Support', () => {
