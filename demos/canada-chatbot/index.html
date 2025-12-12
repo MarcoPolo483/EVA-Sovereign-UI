@@ -439,6 +439,11 @@
       }
       
       render() {
+        const isFrench = this.locale === 'fr-CA';
+        const sendLabel = isFrench ? 'Envoyer' : 'Send';
+        const typingLabel = isFrench ? 'En train d\'écrire...' : 'Typing...';
+        const placeholder = isFrench ? 'Tapez votre question ici...' : this.placeholderText;
+        
         return html`
           <div class="chat-panel">
             <div class="messages" id="messages">
@@ -447,17 +452,17 @@
                   ${msg.content}
                 </div>
               `)}
-              ${this.isTyping ? html`<div class="message typing">Typing...</div>` : ''}
+              ${this.isTyping ? html`<div class="message typing">${typingLabel}</div>` : ''}
             </div>
             <div class="input-area">
               <input
                 type="text"
-                placeholder="${this.placeholderText}"
+                placeholder="${placeholder}"
                 @keypress="${this.handleKeyPress}"
                 id="input"
               />
               <button @click="${this.sendMessage}" ?disabled="${this.isTyping}">
-                Send
+                ${sendLabel}
               </button>
             </div>
           </div>
@@ -498,19 +503,32 @@
       
       generateResponse(query) {
         const lowerQuery = query.toLowerCase();
+        const isFrench = this.locale === 'fr-CA';
         
-        if (lowerQuery.includes('passport')) {
-          return 'To apply for a Canadian passport, you need proof of citizenship, two passport photos, and valid ID. You can apply in person at Service Canada or by mail. Processing takes 10-20 business days. Visit canada.ca/passport for more details.';
-        } else if (lowerQuery.includes('benefit') || lowerQuery.includes('prestation')) {
-          return 'Canada offers many benefits including Canada Child Benefit (CCB), Employment Insurance (EI), Old Age Security (OAS), and more. Visit canada.ca/benefits to check your eligibility.';
-        } else if (lowerQuery.includes('tax') || lowerQuery.includes('impôt')) {
-          return 'You can file your taxes online using CRA My Account and NETFILE-certified software. The deadline is April 30 for most individuals. Visit canada.ca/taxes for more information.';
+        if (lowerQuery.includes('passport') || lowerQuery.includes('passeport')) {
+          return isFrench 
+            ? 'Pour demander un passeport canadien, vous avez besoin d\'une preuve de citoyenneté, de deux photos de passeport et d\'une pièce d\'identité valide. Vous pouvez faire une demande en personne à Service Canada ou par la poste. Le traitement prend de 10 à 20 jours ouvrables. Visitez canada.ca/passeport pour plus de détails.'
+            : 'To apply for a Canadian passport, you need proof of citizenship, two passport photos, and valid ID. You can apply in person at Service Canada or by mail. Processing takes 10-20 business days. Visit canada.ca/passport for more details.';
+        } else if (lowerQuery.includes('benefit') || lowerQuery.includes('prestation') || lowerQuery.includes('prestations')) {
+          return isFrench
+            ? 'Le Canada offre de nombreuses prestations, notamment l\'Allocation canadienne pour enfants (ACE), l\'Assurance-emploi (AE), la Sécurité de la vieillesse (SV) et plus encore. Visitez canada.ca/prestations pour vérifier votre admissibilité.'
+            : 'Canada offers many benefits including Canada Child Benefit (CCB), Employment Insurance (EI), Old Age Security (OAS), and more. Visit canada.ca/benefits to check your eligibility.';
+        } else if (lowerQuery.includes('tax') || lowerQuery.includes('impôt') || lowerQuery.includes('revenus')) {
+          return isFrench
+            ? 'Vous pouvez produire votre déclaration de revenus en ligne en utilisant Mon dossier de l\'ARC et un logiciel certifié IMPÔTNET. La date limite est le 30 avril pour la plupart des particuliers. Visitez canada.ca/impots pour plus d\'informations.'
+            : 'You can file your taxes online using CRA My Account and NETFILE-certified software. The deadline is April 30 for most individuals. Visit canada.ca/taxes for more information.';
         } else if (lowerQuery.includes('health') || lowerQuery.includes('santé')) {
-          return 'Each province has its own health insurance plan. Contact your provincial health ministry for your health card. For emergencies, call 911. Visit canada.ca/health for more resources.';
-        } else if (lowerQuery.includes('license') || lowerQuery.includes('permis')) {
-          return 'You can renew your driver\'s license online through your province\'s motor vehicle website. You\'ll need your license number and payment method. Visit your provincial website for specific instructions.';
+          return isFrench
+            ? 'Chaque province a son propre régime d\'assurance maladie. Communiquez avec le ministère de la Santé de votre province pour obtenir votre carte d\'assurance maladie. En cas d\'urgence, composez le 911. Visitez canada.ca/sante pour plus de ressources.'
+            : 'Each province has its own health insurance plan. Contact your provincial health ministry for your health card. For emergencies, call 911. Visit canada.ca/health for more resources.';
+        } else if (lowerQuery.includes('license') || lowerQuery.includes('licence') || lowerQuery.includes('permis')) {
+          return isFrench
+            ? 'Vous pouvez renouveler votre permis de conduire en ligne sur le site Web des véhicules automobiles de votre province. Vous aurez besoin de votre numéro de permis et d\'un mode de paiement. Visitez le site Web de votre province pour des instructions spécifiques.'
+            : 'You can renew your driver\'s license online through your province\'s motor vehicle website. You\'ll need your license number and payment method. Visit your provincial website for specific instructions.';
         } else {
-          return `Thank you for your question. For detailed information about "${query}", please visit canada.ca or contact Service Canada at 1-800-O-Canada (1-800-622-6232).`;
+          return isFrench
+            ? `Merci pour votre question. Pour des informations détaillées sur "${query}", veuillez visiter canada.ca ou contacter Service Canada au 1-800-O-Canada (1-800-622-6232).`
+            : `Thank you for your question. For detailed information about "${query}", please visit canada.ca or contact Service Canada at 1-800-O-Canada (1-800-622-6232).`;
         }
       }
     }
