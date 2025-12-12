@@ -401,10 +401,20 @@ export class WBAccordionPanel extends EVAElement {
   }
 
   override render() {
-    const HeadingTag = `h${this.headingLevel}` as keyof HTMLElementTagNameMap;
+    // Use a template based approach rather than dynamic tag names
+    const renderHeading = (content: any) => {
+      switch (this.headingLevel) {
+        case 2: return html`<h2 style="margin: 0;">${content}</h2>`;
+        case 3: return html`<h3 style="margin: 0;">${content}</h3>`;
+        case 4: return html`<h4 style="margin: 0;">${content}</h4>`;
+        case 5: return html`<h5 style="margin: 0;">${content}</h5>`;
+        case 6: return html`<h6 style="margin: 0;">${content}</h6>`;
+        default: return html`<h3 style="margin: 0;">${content}</h3>`;
+      }
+    };
 
     return html`
-      <${HeadingTag} style="margin: 0;">
+      ${renderHeading(html`
         <button
           class="panel-header"
           part="header"
@@ -417,7 +427,7 @@ export class WBAccordionPanel extends EVAElement {
             ${this.expanded ? '▲' : '▼'}
           </span>
         </button>
-      </${HeadingTag}>
+      `)}
 
       <div
         class="panel-content"

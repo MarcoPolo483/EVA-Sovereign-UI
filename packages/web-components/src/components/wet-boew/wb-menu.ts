@@ -512,12 +512,10 @@ export class WBMenuItem extends EVAElement {
   }
 
   override render() {
-    const TagName = this.href ? 'a' : 'button';
-
-    return html`
-      <${TagName}
+    return this.href ? html`
+      <a
         class="menu-item ${this.disabled ? 'disabled' : ''}"
-        href="${this.href || undefined}"
+        href="${this.href}"
         target="${this.target || undefined}"
         role="menuitem"
         tabindex="${this.disabled ? '-1' : '0'}"
@@ -527,7 +525,20 @@ export class WBMenuItem extends EVAElement {
       >
         <slot></slot>
         ${this.hasSubmenu ? html`<span class="submenu-indicator" aria-hidden="true">▶</span>` : ''}
-      </${TagName}>
+      </a>
+    ` : html`
+      <button
+        class="menu-item ${this.disabled ? 'disabled' : ''}"
+        role="menuitem"
+        tabindex="${this.disabled ? '-1' : '0'}"
+        aria-disabled="${this.disabled}"
+        @click="${this.handleClick}"
+        @keydown="${this.handleKeydown}"
+      >
+        <slot></slot>
+        ${this.hasSubmenu ? html`<span class="submenu-indicator" aria-hidden="true">▶</span>` : ''}
+      </button>
+    `;
     `;
   }
 }
