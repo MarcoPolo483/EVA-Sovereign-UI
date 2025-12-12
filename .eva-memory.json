@@ -38,8 +38,8 @@
         "severity": "CRITICAL",
         "impact": "Prevents Phase 4 refinement, violates SPEC-07 quality gates, contradicts memory file claim of '0 errors'",
         "discoveredAt": "2025-12-11T19:40:00Z",
-        "status": "ACKNOWLEDGED - User chose Option B (proceed despite failures)",
-        "resolution": "gc-pagination syntax error fixed (commit 7afc587). User decision: Proceed with Phase 4 refinement work despite 646 test failures. Risk accepted: building on partially broken foundation. Phase 4 i18n migration will proceed, test remediation deferred."
+        "status": "IN PROGRESS - Major improvements achieved (82% reduction in failures)",
+        "resolution": "Multiple fixes applied: (1) gc-pagination syntax error fixed (commit 7afc587), (2) i18n registration corrected in gc-report-problem and gc-breadcrumbs (commit 2e7d02e), (3) EVAElement updated to check both i18n systems. Progress: 646→117 test failures (82% improvement). Remaining: axe-core HTMLCanvasElement errors (canvas package needs GTK), component logic failures. Working toward SPEC-07 Gate 1 (100% tests passing)."
       }
     ]
   },
@@ -114,6 +114,13 @@
         "summary": "Dec 11, 2025: Established comprehensive JSDoc pattern across all 10 mandatory GC components. Pattern: class-level JSDoc with description, @element tag, @fires tags for events, multiple @example blocks (basic, advanced, French locale), property JSDoc for all @property fields, method JSDoc with @param/@private tags, design.canada.ca specification references. Applied to gc-pagination (commit afb9651) and gc-breadcrumbs (commit ea73e4f). Other 8 components already had excellent JSDoc.",
         "impact": "HIGH - Documentation pattern established, ensures consistent developer experience. All mandatory components now have comprehensive API documentation.",
         "reference": "gc-pagination.ts, gc-breadcrumbs.ts"
+      },
+      {
+        "id": "LESSON-010",
+        "title": "Dual i18n System Integration - EVAElement Compatibility Layer",
+        "summary": "Dec 12, 2025: Discovered two separate i18n systems coexisting: utils/i18n.ts (newer) and i18n/locale-manager.ts (legacy). Components used different systems causing getMessage() failures. Solution: Updated EVAElement.t() to check both registries. Fixed gc-report-problem and gc-breadcrumbs by correcting registerMessages() format and adding componentName property. Result: Major test improvement from 646→117 failures (82% reduction).",
+        "impact": "CRITICAL - Enables components to work regardless of i18n system used. Backward compatibility maintained while fixing widespread test failures.",
+        "reference": "EVAElement.ts, gc-report-problem.ts, gc-breadcrumbs.ts, commit 2e7d02e"
       }
     ],
     "tools": [],
@@ -142,8 +149,8 @@
     "createdBy": "EVA-Sovereign-UI Memory Fix (Dec 7, 2025)",
     "createdAt": "2025-12-07T18:45:00Z",
     "templateVersion": "1.0.0",
-    "lastModifiedBy": "Phase 4 COMPLETE (8/8 tasks). JSDoc added to all 10 mandatory components. Commits: 7afc587, 258bd35, e1789c5, 2def817, 850217f, afb9651, ea73e4f",
-    "lastModifiedAt": "2025-12-11T21:30:00Z",
-    "sessionContext": "Phase 4 COMPLETE (100%): (1) gc-pagination syntax error FIXED (7afc587), (2) axe-core tests added to all 10 mandatory components (e1789c5, 2def817, 850217f), (3) Storybook a11y + bilingual toolbar verified complete, (4) GC assets verified (FIP red #af3c43), (5) JSDoc complete for all 10 mandatory components (afb9651, ea73e4f). User chose Option B: proceed despite 646/3021 test failures. BLOCKER-002 acknowledged. i18n migration deferred. Ready for Phase 5 (GC Page Templates)."
+    "lastModifiedBy": "BLOCKER-002 remediation: 82% test failure reduction (646→117). i18n dual-system integration complete.",
+    "lastModifiedAt": "2025-12-12T07:05:00Z",
+    "sessionContext": "Actively remediating BLOCKER-002 test suite integrity. Major progress: (1) gc-pagination syntax fixed (7afc587), (2) Dual i18n system integration via EVAElement (2e7d02e), (3) Fixed gc-report-problem + gc-breadcrumbs i18n registration. Test failures reduced from 646→117 (82% improvement). Remaining issues: axe-core HTMLCanvasElement errors (canvas requires GTK), component logic failures. Target: SPEC-07 Gate 1 (100% tests passing). Next: disable color-contrast rule or fix remaining component logic."
   }
 }
