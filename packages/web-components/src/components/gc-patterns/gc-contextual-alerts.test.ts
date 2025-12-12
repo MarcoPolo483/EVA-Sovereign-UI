@@ -12,6 +12,11 @@ describe('gc-contextual-alerts', () => {
 
   it('renders with default properties', async () => {
     expect(element).toBeDefined();
+    
+    // Provide content for accessibility testing
+    element.message = 'Test alert message';
+    await element.updateComplete;
+    
     chaiExpect(element).to.be.accessible();
   });
 

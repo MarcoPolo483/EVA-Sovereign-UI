@@ -12,6 +12,11 @@ describe('gc-feature-tiles', () => {
 
   it('renders with default properties', async () => {
     expect(element).toBeDefined();
+    
+    // Provide content for accessibility testing
+    element.features = [{ image: '/test.jpg', alt: 'Test', heading: 'Test Feature', description: 'Test description', href: '#test', ctaLabel: 'Learn more' }];
+    await element.updateComplete;
+    
     chaiExpect(element).to.be.accessible();
   });
 

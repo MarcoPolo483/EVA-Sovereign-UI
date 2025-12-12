@@ -13,9 +13,12 @@ describe('gc-subway-nav', () => {
   describe('Rendering', () => {
     it('renders with default properties', async () => {
       expect(element).toBeDefined();
-      chaiExpect(element).to.be.accessible();
-    });
-
+    
+    // Provide content for accessibility testing
+    element.steps = [{ label: 'Step 1', description: 'Test step', status: 'current' }];
+    await element.updateComplete;
+    
+    chaiExpected(element).to.be.accessible();
     it('renders navigation element', async () => {
       const nav = element.shadowRoot!.querySelector('nav');
       expect(nav).toBeDefined();

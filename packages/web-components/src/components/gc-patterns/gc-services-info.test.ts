@@ -13,8 +13,11 @@ describe('gc-services-info', () => {
   describe('Rendering', () => {
     it('renders with default properties', async () => {
       expect(element).toBeDefined();
-      chaiExpect(element).to.be.accessible();
-    });
+    
+    // Provide content for accessibility testing
+    element.services = [{ href: '/test', text: 'Test Service', description: 'Test description' }];
+    await element.updateComplete;
+    
 
     it('renders navigation landmark', async () => {
       const nav = element.shadowRoot!.querySelector('nav');

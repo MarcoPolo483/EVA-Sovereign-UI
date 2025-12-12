@@ -55,6 +55,9 @@ registerMessages('wb-accordion', {
  */
 @customElement('wb-accordion')
 export class WBAccordion extends EVAElement {
+  /** Component name for i18n message lookup */
+  protected override componentName = 'wb-accordion';
+
   /** Allow multiple panels to be expanded simultaneously */
   @property({ type: Boolean, attribute: 'multi-expand' })
   multiExpand = false;
@@ -235,7 +238,21 @@ export class WBAccordion extends EVAElement {
    */
   private handleKeydown = (e: KeyboardEvent): void => {
     const panels = this.getPanels();
-    const currentIndex = panels.findIndex(p => p.contains(e.target as Node));
+    
+    // Find the currently focused panel by checking document.activeElement
+    let currentIndex = -1;
+    for (let i = 0; i < panels.length; i++) {
+      const panelButton = panels[i].shadowRoot?.querySelector('.panel-header');
+      if (panelButton === document.activeElement || panels[i] === document.activeElement) {
+        currentIndex = i;
+        break;
+      }
+    }
+    
+    // If no panel is focused, look at the event target
+    if (currentIndex === -1) {
+      currentIndex = panels.findIndex(p => p.contains(e.target as Node));
+    }
     
     if (currentIndex === -1) return;
 
@@ -303,6 +320,9 @@ export class WBAccordion extends EVAElement {
  */
 @customElement('wb-accordion-panel')
 export class WBAccordionPanel extends EVAElement {
+  /** Component name for i18n message lookup */
+  protected override componentName = 'wb-accordion';
+
   /** Panel heading text */
   @property({ type: String })
   heading = '';
