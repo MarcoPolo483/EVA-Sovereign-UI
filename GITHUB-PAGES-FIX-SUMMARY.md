@@ -37,14 +37,20 @@
 
 **Live Content**:
 1. **Landing Page** - Beautiful gradient design with component badges and navigation
-2. **[Canada.ca Chatbot Demo](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/canada-chatbot/)** - RAG integration showcase
-3. **[GC Design Lab](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/gc-design-lab/)** - Interactive component playground
-4. **[DevKit](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/devkit/)** - 5-minute developer onboarding
+2. **[Canada.ca Chatbot Demo](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/canada-chatbot/)** - ✅ **WORKING** - RAG integration showcase with inline Lit component
+3. **[GC Design Lab](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/gc-design-lab/)** - 🚧 Placeholder (components not loaded)
+4. **[DevKit](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/devkit/)** - 🚧 Placeholder (components not loaded)
 
 **Deployment Workflow**: `.github/workflows/deploy-simple.yml`
 - Runs on every push to `main`/`master`
 - Manual trigger available via `workflow_dispatch`
 - Deploys demos and documentation automatically
+
+**Latest Fix** (December 12, 2025):
+- Canada Chatbot now uses inline Lit component loaded from CDN (jsdelivr)
+- Component implements basic chat functionality with mock RAG responses
+- Fully functional bilingual chat interface (EN-CA / FR-CA)
+- No external dependencies - works standalone on GitHub Pages
 
 ---
 
