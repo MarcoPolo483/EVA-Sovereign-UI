@@ -93,6 +93,7 @@
     "axe-core": "^4.8.3",
     "jsdom": "^24.0.0",
     "storybook": "^8.6.14",
+    "terser": "^5.44.1",
     "typedoc": "^0.28.15",
     "typescript": "^5.7.2",
     "vite": "^5.0.11",

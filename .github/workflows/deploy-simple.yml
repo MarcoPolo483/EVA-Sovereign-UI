@@ -25,11 +25,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies and build components
+        run: |
+          npm install
+          cd packages/web-components
+          npm install
+          npm run build
+      
       - name: Create deployment structure
         run: |
           mkdir -p public
           mkdir -p public/demos
           mkdir -p public/docs
+          mkdir -p public/components
+          
+          # Copy built web components
+          cp -r packages/web-components/dist/* public/components/
           
           # Copy demos
           cp -r demos/* public/demos/
