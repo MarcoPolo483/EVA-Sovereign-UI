@@ -540,8 +540,12 @@ describe('gc-action-menu', () => {
 
     it('passes aXe accessibility audit', async () => {
       const el = await fixture<GCActionMenu>(html`
-        <gc-action-menu></gc-action-menu>
+        <gc-action-menu .items="${simpleItems}" trigger-text="Actions"></gc-action-menu>
       `);
+      
+      // Provide content for accessibility testing
+      await el.updateComplete;
+      
       await wcExpect(el).to.be.accessible();
     });
   });
