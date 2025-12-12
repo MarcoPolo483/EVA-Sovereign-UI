@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { fixture, html, expect as wcExpect } from '@open-wc/testing';
+import { fixture, html, beAccessible } from './vitest-helpers-clean';
 import type { BreadcrumbItem } from '../src/components/gc-patterns/gc-breadcrumbs.js';
 import { GCBreadcrumbs } from '../src/components/gc-patterns/gc-breadcrumbs.js';
 import '../src/components/gc-patterns/gc-breadcrumbs.js';
@@ -368,7 +368,7 @@ describe('GC Breadcrumbs', () => {
         <gc-breadcrumbs .items="${sampleItems}"></gc-breadcrumbs>
       `);
       
-      await wcExpect(el).to.be.accessible();
+      await beAccessible(el);
     });
   });
 

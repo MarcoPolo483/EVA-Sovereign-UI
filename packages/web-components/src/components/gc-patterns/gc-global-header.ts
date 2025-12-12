@@ -411,7 +411,7 @@ export class GCGlobalHeader extends EVAElement {
               ${menuLabel}
             </button>
 
-            <div class="nav-menu" role="list">
+            <div class="nav-menu">
               <slot></slot>
             </div>
 

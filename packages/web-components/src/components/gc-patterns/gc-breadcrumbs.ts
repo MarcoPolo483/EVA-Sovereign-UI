@@ -137,6 +137,73 @@ export class GCBreadcrumbs extends EVAElement {
       }
     }
 
+    /* Compact mode */
+    :host([compact]) nav {
+      padding: var(--eva-spacing-sm, 0.75rem) 0;
+    }
+
+    :host([compact]) .breadcrumbs {
+      font-size: var(--eva-font-size-sm, 0.875rem);
+    }
+
+    /* Inverted colors */
+    :host([inverted]) .breadcrumb-link {
+      color: var(--eva-colors-link-inverted, #fff);
+    }
+
+    :host([inverted]) .breadcrumb-link:hover {
+      color: var(--eva-colors-link-inverted-hover, #ccc);
+    }
+
+    :host([inverted]) .breadcrumb-current {
+      color: var(--eva-colors-text-inverted, #fff);
+    }
+
+    :host([inverted]) .breadcrumb-separator {
+      color: var(--eva-colors-text-inverted-muted, #ccc);
+    }
+
+    /* Ellipsis button for collapsed breadcrumbs */
+    .breadcrumb-ellipsis {
+      background: none;
+      border: none;
+      color: var(--eva-colors-link, #295376);
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0;
+      font: inherit;
+    }
+
+    .breadcrumb-ellipsis:hover {
+      color: var(--eva-colors-link-hover, #0535d2);
+    }
+
+    .breadcrumb-ellipsis:focus {
+      outline: 3px solid var(--eva-colors-focus, #269abc);
+      outline-offset: 2px;
+    }
+
+    :host([inverted]) .breadcrumb-ellipsis {
+      color: var(--eva-colors-link-inverted, #fff);
+    }
+
+    :host([inverted]) .breadcrumb-ellipsis:hover {
+      color: var(--eva-colors-link-inverted-hover, #ccc);
+    }
+
+    /* Hidden screen reader text */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     @media print {
       :host {
         display: none;
@@ -158,59 +225,190 @@ export class GCBreadcrumbs extends EVAElement {
   @property({ type: String })
   separator = '›';
 
+  /**
+   * Whether to automatically collapse breadcrumbs when exceeding maxItems
+   * @default true
+   */
+  @property({ type: Boolean, attribute: 'auto-collapse' })
+  autoCollapse = true;
+
+  /**
+   * Maximum number of breadcrumb items to show before collapsing
+   * @default 3
+   */
+  @property({ type: Number, attribute: 'max-items' })
+  maxItems = 3;
+
+  /**
+   * Whether to use compact styling
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  compact = false;
+
+  /**
+   * Whether to use inverted color scheme
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  inverted = false;
+
+  /**
+   * Whether to include structured data (JSON-LD) for breadcrumbs
+   * @default true
+   */
+  @property({ type: Boolean, attribute: 'show-structured-data' })
+  showStructuredData = true;
+
+  /**
+   * Locale for i18n messages
+   * @default 'en-CA'
+   */
+  @property({ type: String })
+  locale = 'en-CA';
+
+  /**
+   * Internal state for collapsed breadcrumbs
+   */
+  private _isExpanded = false;
+
   protected override render() {
     const hasItems = this.items.length > 0;
-    const breadcrumbItems = hasItems ? this.items : [
-      { text: this.getMessage('home'), href: '/' }
-    ];
+    
+    if (!hasItems) {
+      // Return empty for no items
+      return html``;
+    }
+
+    const breadcrumbItems = this.items;
+    const shouldCollapse = this.autoCollapse && breadcrumbItems.length > this.maxItems && !this._isExpanded;
+    
+    let displayItems = breadcrumbItems;
+    if (shouldCollapse) {
+      // Show first item, ellipsis, and last 2 items
+      const firstItem = breadcrumbItems[0];
+      const lastItems = breadcrumbItems.slice(-2);
+      displayItems = [firstItem, ...lastItems];
+    }
 
     return html`
+      <span class="sr-only">${this.getMessage('youAreHere')}</span>
       <nav aria-label="${this.getMessage('breadcrumbLabel')}">
         <ol class="breadcrumbs">
-          ${breadcrumbItems.map((item, index) => {
-            const isLast = index === breadcrumbItems.length - 1;
+          ${displayItems.map((item, index, array) => {
+            const isLast = index === array.length - 1;
+            const isFirst = index === 0;
+            const shouldShowEllipsis = shouldCollapse && isFirst && breadcrumbItems.length > this.maxItems;
             
             return html`
-              <li class="breadcrumb-item">
+              <li class="breadcrumb-item ${isLast ? 'current' : ''}">
                 ${!isLast && item.href
                   ? html`
-                      <a href="${item.href}" class="breadcrumb-link">
-                        ${item.text}
+                      <a 
+                        href="${item.href}" 
+                        class="breadcrumb-link"
+                        @click="${this._handleLinkClick}"
+                        data-index="${this._getOriginalIndex(item)}"
+                      >
+                        ${item.text.trim()}
                       </a>
                     `
-                  : html`
-                      <span 
+                  : html`<span 
                         class="breadcrumb-current" 
                         aria-current="${isLast ? 'page' : 'false'}"
-                      >
-                        ${item.text}
-                      </span>
-                    `
+                      >${item.text.trim()}</span>`
                 }
-                ${!isLast
+                ${shouldShowEllipsis
                   ? html`
-                      <span class="breadcrumb-separator" aria-hidden="true">
-                        ${this.separator}
-                      </span>
+                      <span class="breadcrumb-separator" aria-hidden="true">${this.separator}</span>
+                      <li class="breadcrumb-item">
+                        <button 
+                          class="breadcrumb-ellipsis"
+                          aria-label="${this.getMessage('showAllLevels')}"
+                          @click="${this._toggleExpanded}"
+                        >
+                          …
+                        </button>
+                      </li>
+                      <span class="breadcrumb-separator" aria-hidden="true">${this.separator}</span>
                     `
-                  : null
+                  : !isLast
+                    ? html`
+                        <span class="breadcrumb-separator" aria-hidden="true">
+                          ${this.separator}
+                        </span>
+                      `
+                    : null
                 }
               </li>
             `;
           })}
         </ol>
       </nav>
+      ${this.showStructuredData ? this._renderStructuredData() : ''}
+    `;
+  }
+
+  private _getOriginalIndex(item: BreadcrumbItem): number {
+    return this.items.findIndex(originalItem => originalItem === item);
+  }
+
+  private _handleLinkClick(event: Event) {
+    const link = event.target as HTMLAnchorElement;
+    const index = parseInt(link.dataset.index || '0');
+    const item = this.items[index];
+    
+    const clickEvent = new CustomEvent('gc-breadcrumb-click', {
+      detail: { item, index },
+      bubbles: true,
+      composed: true
+    });
+    
+    this.dispatchEvent(clickEvent);
+  }
+
+  private _toggleExpanded() {
+    this._isExpanded = !this._isExpanded;
+    // When expanding, disable autoCollapse as per test expectations
+    if (this._isExpanded) {
+      this.autoCollapse = false;
+    }
+    this.requestUpdate();
+  }
+
+  private _renderStructuredData() {
+    if (!this.items.length) return '';
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      'itemListElement': this.items.map((item, index) => ({
+        '@type': 'ListItem',
+        'position': index + 1,
+        'name': item.text,
+        ...(item.href && { 'item': item.href })
+      }))
+    };
+
+    return html`
+      <script type="application/ld+json">
+        ${JSON.stringify(structuredData)}
+      </script>
     `;
   }
 }
 
 registerMessages('gc-breadcrumbs', {
   'en-CA': {
-    breadcrumbLabel: 'Breadcrumb navigation',
-    home: 'Home'
+    breadcrumbLabel: 'You are here:',
+    home: 'Home',
+    youAreHere: 'You are here:',
+    showAllLevels: 'Show all breadcrumb levels'
   },
   'fr-CA': {
-    breadcrumbLabel: 'Navigation par fil d\'Ariane',
-    home: 'Accueil'
+    breadcrumbLabel: 'Vous êtes ici :',
+    home: 'Accueil', 
+    youAreHere: 'Vous êtes ici :',
+    showAllLevels: 'Afficher tous les niveaux'
   }
 });

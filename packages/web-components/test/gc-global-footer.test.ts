@@ -1,12 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { fixture, html, expect as wcExpect } from '@open-wc/testing';
-
-// Helper function to replace oneEvent
-const oneEvent = (element: EventTarget, eventType: string) => {
-  return new Promise(resolve => {
-    element.addEventListener(eventType, resolve, { once: true });
-  });
-};
+import { fixture, html, oneEvent, beAccessible } from './vitest-helpers-clean';
 import '../src/components/gc-patterns/gc-global-footer.js';
 import type { GCGlobalFooter } from '../src/components/gc-patterns/gc-global-footer.js';
 
@@ -433,7 +426,7 @@ describe('gc-global-footer', () => {
         <gc-global-footer></gc-global-footer>
       `);
       
-      await wcExpect(el).to.be.accessible();
+      await beAccessible(el);
     });
 
     it('passes aXe audit with context band', async () => {
@@ -444,7 +437,7 @@ describe('gc-global-footer', () => {
         </gc-global-footer>
       `);
       
-      await wcExpect(el).to.be.accessible();
+      await beAccessible(el);
     });
 
     it('passes aXe audit with all features enabled', async () => {
@@ -456,7 +449,7 @@ describe('gc-global-footer', () => {
         </gc-global-footer>
       `);
       
-      await wcExpect(el).to.be.accessible();
+      await beAccessible(el);
     });
   });
 
