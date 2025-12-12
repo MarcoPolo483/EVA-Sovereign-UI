@@ -67,17 +67,17 @@ function App() {
 
 ### Complete Documentation
 
-- **Storybook** (Coming Soon) - 40+ interactive stories
-- **API Docs** (Coming Soon) - TypeDoc reference
-- **[Quick Start Guide](demos/devkit/index.html)** - 5-minute onboarding (local demo)
+- **Storybook** (Coming Soon - Build in progress) - 40+ interactive stories
+- **API Docs** (Coming Soon - Build in progress) - TypeDoc reference
+- **[Quick Start Guide](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/devkit/)** - 5-minute onboarding
 - **[React Integration](packages/web-components/docs/examples/REACT.md)** - Complete guide
 - **[Vue Integration](packages/web-components/docs/examples/VUE.md)** - Complete guide
 
 ### Production Demos
 
-- **[Canada.ca Chatbot](demos/canada-chatbot/index.html)** - RAG integration demo (local)
-- **[GC Design Lab](demos/gc-design-lab/index.html)** - Component showcase (local)
-- **[DevKit](demos/devkit/index.html)** - Developer onboarding (local)
+- **[Canada.ca Chatbot](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/canada-chatbot/)** - RAG integration demo
+- **[GC Design Lab](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/gc-design-lab/)** - Component showcase
+- **[DevKit](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/devkit/)** - Developer onboarding
 
 ---
 
@@ -109,17 +109,17 @@ function App() {
 ## 📚 Documentation
 
 ### For Developers
-- **[Quick Start](demos/devkit/index.html)** - Get started in 5 minutes (local demo)
-- **Storybook** (Coming Soon) - Interactive component playground
-- **API Reference** (Coming Soon) - Complete TypeScript API
+- **[Quick Start](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/devkit/)** - Get started in 5 minutes
+- **Storybook** (Coming Soon - Build in progress) - Interactive component playground
+- **API Reference** (Coming Soon - Build in progress) - Complete TypeScript API
 - **[React Guide](packages/web-components/docs/examples/REACT.md)** - Integration patterns
 - **[Vue Guide](packages/web-components/docs/examples/VUE.md)** - Composition API examples
 - **[Migration Guide](packages/web-components/docs/MIGRATION.md)** - React to Web Components
 - **[Troubleshooting](packages/web-components/docs/TROUBLESHOOTING.md)** - Common issues + solutions
 
 ### For Stakeholders
-- **[Canada.ca Chatbot Demo](demos/canada-chatbot/index.html)** - Production example (local)
-- **[GC Design Lab](demos/gc-design-lab/index.html)** - All components showcase (local)
+- **[Canada.ca Chatbot Demo](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/canada-chatbot/)** - Production example
+- **[GC Design Lab](https://marcopolo483.github.io/EVA-Sovereign-UI/demos/gc-design-lab/)** - All components showcase
 - **[Project Summary](PROJECT-SUMMARY.md)** - Complete overview
 
 ---
@@ -323,11 +323,11 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 ## 📞 Support
 
-- **Documentation**: See local files in `docs/` and `packages/web-components/docs/`
+- **Documentation**: [GitHub Pages](https://marcopolo483.github.io/EVA-Sovereign-UI/)
 - **Issues**: [GitHub Issues](https://github.com/MarcoPolo483/EVA-Sovereign-UI/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/MarcoPolo483/EVA-Sovereign-UI/discussions)
 
-> **Note**: GitHub Pages deployment coming soon. All demos currently available as local HTML files in `demos/` directory.
+> **Note**: Storybook and API documentation builds are in progress. Demos are fully functional!
 
 ---
 
