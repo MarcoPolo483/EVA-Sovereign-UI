@@ -481,32 +481,16 @@ function initializeChatPanel() {
       const [enQuestion, frQuestion] = questionData.split('|').map(q => q.split(':')[1]);
       const question = currentLocale === 'en-CA' ? enQuestion : frQuestion;
       
-      // Add user message
-      const userMessage = {
-        role: 'user',
-        content: question,
-        timestamp: new Date().toISOString()
-      };
-      
-      chatPanel.addMessage(userMessage);
-      
-      // Trigger send event
-      chatPanel.dispatchEvent(new CustomEvent('eva-message-send', {
-        detail: { message: question }
-      }));
+      // Send the suggested question to the chat panel
+      const chatPanel = document.getElementById('chatPanel');
+      if (chatPanel && chatPanel.sendQuestionFromSuggestion) {
+        chatPanel.sendQuestionFromSuggestion(question);
+      }
     });
   });
   
-  // Add welcome message
-  const welcomeMessage = {
-    role: 'assistant',
-    content: currentLocale === 'en-CA'
-      ? 'Hello! I\'m the Canada.ca AI Assistant. How can I help you today?'
-      : 'Bonjour! Je suis l\'assistant IA de Canada.ca. Comment puis-je vous aider aujourd\'hui?',
-    timestamp: new Date().toISOString()
-  };
-  
-  chatPanel.addMessage(welcomeMessage);
+  // Note: Welcome message would be added here if the component supported it
+  // For now, users can start chatting immediately or click a suggested question
 }
 
 // Initialize app when DOM is ready

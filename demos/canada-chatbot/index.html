@@ -501,6 +501,13 @@
         }, 1500);
       }
       
+      // Public method to send a message programmatically
+      sendQuestionFromSuggestion(question) {
+        const input = this.shadowRoot.getElementById('input');
+        input.value = question;
+        this.sendMessage();
+      }
+      
       generateResponse(query) {
         const lowerQuery = query.toLowerCase();
         const isFrench = this.locale === 'fr-CA';
