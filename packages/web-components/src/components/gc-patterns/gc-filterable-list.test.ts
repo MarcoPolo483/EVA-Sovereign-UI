@@ -239,7 +239,9 @@ describe('gc-filterable-list', () => {
   it('should be accessible', async () => {
     const el = await fixture<GCFilterableList>(html`
       <gc-filterable-list .items="${mockItems}" .filters="${mockFilters}"></gc-filterable-list>
-    `);
-    await chaiExpect(el).to.be.accessible();
+    `);    
+    // Content already provided via mockItems and mockFilters
+    await el.updateComplete;
+        await chaiExpect(el).to.be.accessible();
   });
 });

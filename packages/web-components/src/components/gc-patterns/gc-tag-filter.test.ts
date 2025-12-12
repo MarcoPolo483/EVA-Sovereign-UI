@@ -193,7 +193,9 @@ describe('gc-tag-filter', () => {
   it('should be accessible', async () => {
     const el = await fixture<GCTagFilter>(html`
       <gc-tag-filter .tags="${mockTags}"></gc-tag-filter>
-    `);
-    await chaiExpect(el).to.be.accessible();
+    `);    
+    // Content already provided via mockTags
+    await el.updateComplete;
+        await chaiExpect(el).to.be.accessible();
   });
 });

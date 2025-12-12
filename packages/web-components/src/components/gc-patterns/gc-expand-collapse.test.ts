@@ -246,6 +246,10 @@ describe('gc-expand-collapse', () => {
     const el = await fixture<GCExpandCollapse>(html`
       <gc-expand-collapse .panels="${mockPanels}"></gc-expand-collapse>
     `);
+    
+    // Content already provided via mockPanels
+    await el.updateComplete;
+    
     await chaiExpect(el).to.be.accessible();
   });
 

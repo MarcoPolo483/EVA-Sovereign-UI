@@ -237,6 +237,12 @@ describe('gc-feedback-widget', () => {
     const el = await fixture<GCFeedbackWidget>(html`
       <gc-feedback-widget></gc-feedback-widget>
     `);
+    
+    // Provide content for accessibility testing by clicking button to show form
+    const yesBtn = el.shadowRoot!.querySelectorAll('.btn')[0] as HTMLButtonElement;
+    yesBtn.click();
+    await el.updateComplete;
+    
     await chaiExpect(el).to.be.accessible();
   });
 
