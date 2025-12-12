@@ -5,6 +5,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./test/setup.ts'],
+    // Add pool and isolate settings to help with environment issues
+    pool: 'forks',
+    isolate: true,
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],

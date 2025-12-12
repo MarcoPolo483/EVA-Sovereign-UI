@@ -1,4 +1,24 @@
-import { expect, fixture, html, oneEvent, waitUntil, expect as wcExpect } from '@open-wc/testing';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { fixture, html, expect as wcExpect } from '@open-wc/testing';
+
+// Helper functions to replace oneEvent and waitUntil
+const oneEvent = (element: EventTarget, eventType: string) => {
+  return new Promise(resolve => {
+    element.addEventListener(eventType, resolve, { once: true });
+  });
+};
+
+const waitUntil = (condition: () => boolean, timeout = 1000) => {
+  return new Promise((resolve, reject) => {
+    const start = Date.now();
+    const check = () => {
+      if (condition()) resolve(true);
+      else if (Date.now() - start > timeout) reject(new Error('waitUntil timeout'));
+      else setTimeout(check, 10);
+    };
+    check();
+  });
+};
 import '../src/components/gc-patterns/gc-action-menu.ts';
 import { GCActionMenu } from '../src/components/gc-patterns/gc-action-menu.js';
 import type { ActionMenuItem } from '../src/components/gc-patterns/gc-action-menu.js';

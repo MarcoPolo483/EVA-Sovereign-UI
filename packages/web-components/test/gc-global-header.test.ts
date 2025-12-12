@@ -1,4 +1,12 @@
-import { expect, fixture, html, oneEvent, expect as wcExpect } from '@open-wc/testing';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { fixture, html, expect as wcExpect } from '@open-wc/testing';
+
+// Helper function to replace oneEvent
+const oneEvent = (element: EventTarget, eventType: string) => {
+  return new Promise(resolve => {
+    element.addEventListener(eventType, resolve, { once: true });
+  });
+};
 import '../src/components/gc-patterns/gc-global-header.js';
 import type { GCGlobalHeader } from '../src/components/gc-patterns/gc-global-header.js';
 
