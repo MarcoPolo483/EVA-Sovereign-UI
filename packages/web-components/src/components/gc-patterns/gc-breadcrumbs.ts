@@ -67,6 +67,11 @@ interface BreadcrumbItem {
  */
 @customElement('gc-breadcrumbs')
 export class GCBreadcrumbs extends EVAElement {
+  /**
+   * Component name for i18n lookup
+   */
+  protected override componentName = 'gc-breadcrumbs';
+
   static override styles = css`
     :host {
       display: block;

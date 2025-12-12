@@ -2,50 +2,43 @@ import { LitElement, html, css } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { EVAElement } from '../EVAElement';
-import { registerMessages, t } from '../../utils/i18n';
+import { registerMessages } from '../../utils/i18n';
 
 // Register translations
-registerMessages('en-CA', {
-  reportProblem: {
-    heading: 'Report a problem on this page',
-    intro: 'Please select all that apply:',
-    categories: {
-      incorrect: 'Something is broken or incorrect',
-      unclear: 'The information is unclear',
-      missing: 'Something is missing',
-      outdated: 'The information is outdated',
-      other: 'Other issue'
-    },
-    descriptionLabel: 'Describe the problem (required)',
-    descriptionPlaceholder: 'Please describe the issue you found...',
-    privacyNote: 'Do not include personal information (telephone, email, SIN, financial, medical, or work details).',
-    submitButton: 'Submit',
-    cancelButton: 'Cancel',
-    successMessage: 'Thank you for your feedback!',
-    errorMessage: 'Please select at least one issue and provide a description.',
-    requiredField: 'This field is required'
-  }
-});
-
-registerMessages('fr-CA', {
-  reportProblem: {
-    heading: 'Signaler un problème sur cette page',
-    intro: 'Veuillez sélectionner toutes les options pertinentes :',
-    categories: {
-      incorrect: 'Quelque chose est brisé ou incorrect',
-      unclear: 'L\'information n\'est pas claire',
-      missing: 'Il manque quelque chose',
-      outdated: 'L\'information est désuète',
-      other: 'Autre problème'
-    },
-    descriptionLabel: 'Décrivez le problème (obligatoire)',
-    descriptionPlaceholder: 'Veuillez décrire le problème que vous avez trouvé...',
-    privacyNote: 'N\'incluez pas de renseignements personnels (téléphone, courriel, NAS, renseignements financiers, médicaux ou professionnels).',
-    submitButton: 'Soumettre',
-    cancelButton: 'Annuler',
-    successMessage: 'Merci pour vos commentaires!',
-    errorMessage: 'Veuillez sélectionner au moins un problème et fournir une description.',
-    requiredField: 'Ce champ est obligatoire'
+registerMessages('gc-report-problem', {
+  'en-CA': {
+    'reportProblem.heading': 'Report a problem on this page',
+    'reportProblem.intro': 'Please select all that apply:',
+    'reportProblem.categories.incorrect': 'Something is broken or incorrect',
+    'reportProblem.categories.unclear': 'The information is unclear',
+    'reportProblem.categories.missing': 'Something is missing',
+    'reportProblem.categories.outdated': 'The information is outdated',
+    'reportProblem.categories.other': 'Other issue',
+    'reportProblem.descriptionLabel': 'Describe the problem (required)',
+    'reportProblem.descriptionPlaceholder': 'Please describe the issue you found...',
+    'reportProblem.privacyNote': 'Do not include personal information (telephone, email, SIN, financial, medical, or work details).',
+    'reportProblem.submitButton': 'Submit',
+    'reportProblem.cancelButton': 'Cancel',
+    'reportProblem.successMessage': 'Thank you for your feedback!',
+    'reportProblem.errorMessage': 'Please select at least one issue and provide a description.',
+    'reportProblem.requiredField': 'This field is required'
+  },
+  'fr-CA': {
+    'reportProblem.heading': 'Signaler un problème sur cette page',
+    'reportProblem.intro': 'Veuillez sélectionner toutes les options pertinentes :',
+    'reportProblem.categories.incorrect': 'Quelque chose est brisé ou incorrect',
+    'reportProblem.categories.unclear': 'L\'information n\'est pas claire',
+    'reportProblem.categories.missing': 'Il manque quelque chose',
+    'reportProblem.categories.outdated': 'L\'information est désuète',
+    'reportProblem.categories.other': 'Autre problème',
+    'reportProblem.descriptionLabel': 'Décrivez le problème (obligatoire)',
+    'reportProblem.descriptionPlaceholder': 'Veuillez décrire le problème que vous avez trouvé...',
+    'reportProblem.privacyNote': 'N\'incluez pas de renseignements personnels (téléphone, courriel, NAS, renseignements financiers, médicaux ou professionnels).',
+    'reportProblem.submitButton': 'Soumettre',
+    'reportProblem.cancelButton': 'Annuler',
+    'reportProblem.successMessage': 'Merci pour vos commentaires!',
+    'reportProblem.errorMessage': 'Veuillez sélectionner au moins un problème et fournir une description.',
+    'reportProblem.requiredField': 'Ce champ est obligatoire'
   }
 });
 
@@ -78,6 +71,11 @@ export interface ProblemReport {
  */
 @customElement('gc-report-problem')
 export class GCReportProblem extends EVAElement {
+  /**
+   * Component name for i18n lookup
+   */
+  protected override componentName = 'gc-report-problem';
+
   /**
    * Page URL for the report (defaults to current page)
    */

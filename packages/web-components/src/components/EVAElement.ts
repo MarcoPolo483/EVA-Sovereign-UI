@@ -1,6 +1,7 @@
 import { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 import { getMessage, Locale } from '../utils/i18n.js';
+import { getMessage as getMessageFromLocaleManager } from '../i18n/locale-manager.js';
 import { getGlobalLocale, subscribeToLocale } from '../utils/locale-context.js';
 import { getLiveRegionManager } from '../utils/accessibility.js';
 
@@ -102,12 +103,22 @@ export class EVAElement extends LitElement {
 
   /**
    * Get localized message from component's message registry
+   * Checks both i18n systems (utils/i18n and i18n/locale-manager)
    * @param key Message key
    * @param fallback Fallback text if key not found
    * @returns Localized message
    */
   protected t(key: string, fallback?: string): string {
-    return getMessage(this.componentName, key, this.locale, fallback);
+    // Try utils/i18n first (newer system)
+    let message = getMessage(this.componentName, key, this.locale, '');
+    
+    // If not found, try locale-manager (legacy system)
+    if (!message || message === key) {
+      message = getMessageFromLocaleManager(this.componentName, key, this.locale as any, '');
+    }
+    
+    // Return message, fallback, or key
+    return message || fallback || key;
   }
 
   /**
