@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { SkipLink } from '../src/components/gc-patterns/gc-skip-links.js';
-import '../src/components/gc-patterns/gc-skip-links.ts';
+import type { SkipLink } from './gc-skip-links.js';
+import './gc-skip-links.js';
 
 /**
  * GC Skip Links Component

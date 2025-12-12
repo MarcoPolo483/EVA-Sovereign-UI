@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../src/components/gc-patterns/gc-global-header.js';
+import './gc-global-header.js';
 
 /**
  * GC Global Header Component

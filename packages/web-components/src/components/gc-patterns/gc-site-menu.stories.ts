@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { MenuItem } from '../src/components/gc-patterns/gc-site-menu.js';
-import '../src/components/gc-patterns/gc-site-menu.ts';
+import type { MenuItem } from './gc-site-menu.js';
+import './gc-site-menu.js';
 
 /**
  * GC Site Menu Component

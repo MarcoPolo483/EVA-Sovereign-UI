@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../src/components/gc-patterns/gc-pagination.ts';
+import '../src/components/gc-patterns/gc-pagination.js';
 
 /**
  * # GC Pagination Component

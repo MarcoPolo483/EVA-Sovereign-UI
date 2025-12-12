@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../src/components/gc-patterns/gc-side-nav.ts';
+import '../src/components/gc-patterns/gc-side-nav.js';
 import type { SideNavItem } from '../src/components/gc-patterns/gc-side-nav.js';
 
 /**

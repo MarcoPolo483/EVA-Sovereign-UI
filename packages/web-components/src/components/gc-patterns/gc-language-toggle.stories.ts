@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../src/components/gc-patterns/gc-language-toggle.ts';
+import './gc-language-toggle.js';
 
 /**
  * GC Language Toggle Component

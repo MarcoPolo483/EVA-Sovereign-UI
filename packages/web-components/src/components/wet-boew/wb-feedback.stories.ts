@@ -10,9 +10,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-export default meta;
-type Story = StoryObj;
-
 export const BasicFeedback: Story = {
   render: () => html`
     <div style="padding: 2rem;">
