@@ -11,6 +11,12 @@ export { EVAModal } from './components/eva-modal.js';
 export { EVATabs, EVATab } from './components/eva-tabs.js';
 export { EVAChatPanel, type ChatMessage } from './components/eva-chat-panel.js';
 
+// Export new customization backstage components (REQ-2025-12-12-002 Phase 1)
+export { EVANavShell, type NavItem } from './components/eva-nav-shell.js';
+export { EVABackstageShell } from './components/eva-backstage-shell.js';
+export { EVAA11yPanel, type A11ySettings, type A11yChangeEvent } from './components/eva-a11y-panel.js';
+export { EVALivePreview, type PreviewMessage } from './components/eva-live-preview.js';
+
 // Export utilities
 export * from './utils/i18n.js';
 export * from './utils/locale-context.js';
