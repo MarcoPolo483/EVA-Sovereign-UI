@@ -1,6 +1,11 @@
 // Canada.ca Chatbot Demo - Application Logic
 // Demonstrates EVA Chat Panel with RAG backend integration
 
+// 🧪 Knowledge Base Validation on Load
+console.log('═══════════════════════════════════════════════════');
+console.log('📦 EVA Chat Demo - Knowledge Base Validation');
+console.log('═══════════════════════════════════════════════════');
+
 // i18n translations
 const translations = {
   'en-CA': {
@@ -86,8 +91,197 @@ window.toggleLanguage = function() {
 };
 
 // Mock RAG backend responses
+// Includes: Government services + EVA Sovereign UI documentation
 const ragKnowledgeBase = {
   'en-CA': {
+    'eva-components': {
+      answer: `**EVA Sovereign UI Components**
+
+EVA Sovereign UI is a production-ready Web Components library implementing the Government of Canada Design System with WCAG 2.2 AAA accessibility compliance.
+
+**Installation:**
+\`\`\`bash
+npm install @eva-suite/sovereign-ui
+\`\`\`
+
+**Quick Start:**
+\`\`\`html
+<!-- Import from CDN -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/@eva-suite/sovereign-ui@latest/dist/eva-sovereign-ui.js"></script>
+
+<!-- Use components -->
+<eva-gc-button variant="primary">Get Started</eva-gc-button>
+<eva-gc-alert severity="info">Welcome to EVA Sovereign UI</eva-gc-alert>
+\`\`\`
+
+**70+ Components Including:**
+- **Forms:** text-field, select, checkbox, radio, file-upload
+- **Buttons:** button, icon-button, button-group
+- **Navigation:** header, footer, tabs, breadcrumbs, pagination
+- **GC Compliance:** citation-card, ai-disclaimer, ai-content-indicator
+
+**Key Features:**
+- ✅ WCAG 2.2 AAA accessibility
+- ✅ Bilingual EN-CA/FR-CA support
+- ✅ GC Design System compliant
+- ✅ Framework wrappers (React, Vue, Angular, Svelte)
+- ✅ Dark mode support
+
+**Documentation:** https://marcopolo483.github.io/EVA-Sovereign-UI/`,
+      sources: ['EVA Sovereign UI Book - Getting Started', 'EVA Sovereign UI Book - Components Overview']
+    },
+    'eva-accessibility': {
+      answer: `**EVA Sovereign UI - Accessibility (WCAG 2.2 AAA)**
+
+All components are built with accessibility as a core principle:
+
+**Keyboard Navigation:**
+- Tab: Move between interactive elements
+- Enter/Space: Activate buttons and controls
+- Escape: Close dialogs and overlays
+- Arrow keys: Navigate lists, tabs, menus
+
+**Screen Reader Support:**
+- Tested with NVDA, JAWS, VoiceOver, TalkBack
+- Proper ARIA roles, labels, and states
+- Live regions for dynamic updates
+- Semantic HTML structure
+
+**Visual Accessibility:**
+- Color contrast: 7:1 minimum (AAA level)
+- Focus indicators: 2px solid outline
+- Resizable text: up to 200% zoom
+- High contrast themes available
+
+**Example - Accessible Button:**
+\`\`\`html
+<eva-gc-button 
+  variant="primary"
+  aria-label="Submit application form"
+  disabled="false">
+  Submit
+</eva-gc-button>
+\`\`\`
+
+**Testing Tools:**
+- axe DevTools (automated)
+- Lighthouse (performance + a11y)
+- WAVE (web accessibility evaluation)
+- Manual keyboard testing
+
+**Documentation:** https://marcopolo483.github.io/EVA-Sovereign-UI/book/06-accessibility/`,
+      sources: ['EVA Sovereign UI Book - Accessibility']
+    },
+    'eva-i18n': {
+      answer: `**EVA Sovereign UI - Bilingual Support (EN-CA/FR-CA)**
+
+Built-in internationalization service for seamless language switching:
+
+**Language Detection:**
+\`\`\`html
+<html lang="en-CA"> <!-- or lang="fr-CA" -->
+\`\`\`
+
+**i18n Service API:**
+\`\`\`javascript
+import { I18nService } from '@eva-suite/sovereign-ui/utils';
+
+const i18n = I18nService.getInstance();
+
+// Switch language
+i18n.setLanguage('fr-CA');
+
+// Get translation
+const text = i18n.t('common.submit'); // → "Soumettre"
+
+// Add custom translations
+i18n.addTranslations('en-CA', {
+  'myapp.welcome': 'Welcome to our service'
+});
+
+i18n.addTranslations('fr-CA', {
+  'myapp.welcome': 'Bienvenue à notre service'
+});
+\`\`\`
+
+**Bilingual Form Example:**
+\`\`\`html
+<eva-gc-text-field
+  label="en:Email|fr:Courriel"
+  placeholder="en:Enter your email|fr:Entrez votre courriel"
+  type="email"
+  required>
+</eva-gc-text-field>
+
+<eva-gc-button variant="primary">
+  <span data-i18n="common.submit"></span>
+</eva-gc-button>
+\`\`\`
+
+**Date/Number Formatting:**
+Uses Intl API for locale-specific formats:
+- EN-CA: December 13, 2025 | 1,234.56
+- FR-CA: 13 décembre 2025 | 1 234,56
+
+**Documentation:** https://marcopolo483.github.io/EVA-Sovereign-UI/book/07-internationalization/`,
+      sources: ['EVA Sovereign UI Book - Internationalization']
+    },
+    'eva-theming': {
+      answer: `**EVA Sovereign UI - Theming & Customization**
+
+Fully themeable using CSS custom properties:
+
+**GC Official Theme (Default):**
+\`\`\`css
+:root {
+  --eva-primary-color: #d93f0b; /* GC Red */
+  --eva-font-family: 'Noto Sans', sans-serif;
+  --eva-spacing-unit: 8px;
+}
+\`\`\`
+
+**Create Custom Theme:**
+\`\`\`css
+/* ESDC Departmental Theme */
+:root {
+  --eva-primary-color: #26374a; /* ESDC Blue */
+  --eva-primary-color-dark: #1a2633;
+  --eva-primary-color-light: #3d4f63;
+}
+\`\`\`
+
+**Dark Mode Support:**
+\`\`\`css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --eva-bg-color: #121212;
+    --eva-text-color: #f5f5f5;
+    --eva-primary-color: #e8755d; /* Lighter red for dark mode */
+  }
+}
+\`\`\`
+
+**Component-Level Customization:**
+\`\`\`css
+eva-gc-button {
+  --eva-button-bg: #26374a;
+  --eva-button-hover-bg: #1a2633;
+  --eva-button-border-radius: 4px;
+  --eva-button-padding: 12px 24px;
+}
+\`\`\`
+
+**Available Themes:**
+- GC Design System (default)
+- ESDC Departmental
+- High Contrast AAA
+- Large Text Accessibility
+- Service Canada
+- Treasury Board
+
+**Documentation:** https://marcopolo483.github.io/EVA-Sovereign-UI/book/08-theming/`,
+      sources: ['EVA Sovereign UI Book - Theming']
+    },
     'passport': {
       answer: `To apply for a Canadian passport:
 
@@ -220,6 +414,66 @@ Check your provincial motor vehicle department website for specific instructions
     }
   },
   'fr-CA': {
+    'eva-components': {
+      answer: `**EVA Sovereign UI - Composants**
+
+Bibliothèque de composants Web prêts pour la production mettant en œuvre le Système de design du gouvernement du Canada avec conformité WCAG 2.2 AAA.
+
+**Installation :**
+\`\`\`bash
+npm install @eva-suite/sovereign-ui
+\`\`\`
+
+**Démarrage Rapide :**
+\`\`\`html
+<!-- Importer depuis CDN -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/@eva-suite/sovereign-ui@latest/dist/eva-sovereign-ui.js"></script>
+
+<!-- Utiliser les composants -->
+<eva-gc-button variant="primary">Commencer</eva-gc-button>
+<eva-gc-alert severity="info">Bienvenue à EVA Sovereign UI</eva-gc-alert>
+\`\`\`
+
+**Plus de 70 Composants :**
+- **Formulaires :** text-field, select, checkbox, radio, file-upload
+- **Boutons :** button, icon-button, button-group
+- **Navigation :** header, footer, tabs, breadcrumbs, pagination
+- **Conformité GC :** citation-card, ai-disclaimer, ai-content-indicator
+
+**Caractéristiques Clés :**
+- ✅ Accessibilité WCAG 2.2 AAA
+- ✅ Soutien bilingue EN-CA/FR-CA
+- ✅ Conforme au Système de design GC
+- ✅ Wrappers de framework (React, Vue, Angular, Svelte)
+- ✅ Support du mode sombre
+
+**Documentation :** https://marcopolo483.github.io/EVA-Sovereign-UI/`,
+      sources: ['EVA Sovereign UI Book - Getting Started', 'EVA Sovereign UI Book - Components Overview']
+    },
+    'eva-accessibility': {
+      answer: `**EVA Sovereign UI - Accessibilité (WCAG 2.2 AAA)**
+
+Tous les composants sont construits avec l'accessibilité comme principe fondamental.
+
+**Documentation :** https://marcopolo483.github.io/EVA-Sovereign-UI/book/06-accessibility/`,
+      sources: ['EVA Sovereign UI Book - Accessibility']
+    },
+    'eva-i18n': {
+      answer: `**EVA Sovereign UI - Soutien Bilingue (EN-CA/FR-CA)**
+
+Service d'internationalisation intégré pour un changement de langue transparent.
+
+**Documentation :** https://marcopolo483.github.io/EVA-Sovereign-UI/book/07-internationalization/`,
+      sources: ['EVA Sovereign UI Book - Internationalization']
+    },
+    'eva-theming': {
+      answer: `**EVA Sovereign UI - Thématisation**
+
+Entièrement thématisable avec des propriétés personnalisées CSS.
+
+**Documentation :** https://marcopolo483.github.io/EVA-Sovereign-UI/book/08-theming/`,
+      sources: ['EVA Sovereign UI Book - Theming']
+    },
     'passeport': {
       answer: `Pour demander un passeport canadien :
 
@@ -353,6 +607,17 @@ Consultez le site web du ministère des véhicules automobiles de votre province
   }
 };
 
+// Validate knowledge base after definition
+console.log('✅ Knowledge Base Loaded');
+console.log('📊 EN-CA Keys:', Object.keys(ragKnowledgeBase['en-CA']));
+console.log('📊 FR-CA Keys:', Object.keys(ragKnowledgeBase['fr-CA']));
+console.log('🔍 EVA Components exists:', !!ragKnowledgeBase['en-CA']['eva-components']);
+console.log('🔍 EVA Accessibility exists:', !!ragKnowledgeBase['en-CA']['eva-accessibility']);
+console.log('🔍 EVA i18n exists:', !!ragKnowledgeBase['en-CA']['eva-i18n']);
+console.log('🔍 EVA Theming exists:', !!ragKnowledgeBase['en-CA']['eva-theming']);
+console.log('📏 Components answer length:', ragKnowledgeBase['en-CA']['eva-components']?.answer?.length || 0, 'chars');
+console.log('═══════════════════════════════════════════════════\n');
+
 // Simulate RAG backend query
 async function queryRAG(userMessage, locale) {
   // Simulate network delay
@@ -360,10 +625,27 @@ async function queryRAG(userMessage, locale) {
   
   // Simple keyword matching for demo
   const message = userMessage.toLowerCase();
-  const lang = locale === 'fr-CA' ? 'fr-CA' : 'en-CA';
+  const lang = (locale && locale.toLowerCase() === 'fr-ca') ? 'fr-CA' : 'en-CA';
+  
+  console.log('Query:', message, '| Locale:', locale, '| Lang:', lang); // Debug
   
   // Match keywords to knowledge base
   if (lang === 'en-CA') {
+    // EVA Sovereign UI questions
+    if (message.includes('eva') || message.includes('component') || message.includes('web component') || message.includes('sovereign ui')) {
+      if (message.includes('accessibility') || message.includes('a11y') || message.includes('wcag') || message.includes('screen reader')) {
+        return ragKnowledgeBase['en-CA']['eva-accessibility'];
+      }
+      if (message.includes('bilingual') || message.includes('i18n') || message.includes('translation') || message.includes('french')) {
+        return ragKnowledgeBase['en-CA']['eva-i18n'];
+      }
+      if (message.includes('theme') || message.includes('styling') || message.includes('css') || message.includes('customize') || message.includes('dark mode')) {
+        return ragKnowledgeBase['en-CA']['eva-theming'];
+      }
+      return ragKnowledgeBase['en-CA']['eva-components'];
+    }
+    
+    // Government services questions
     if (message.includes('passport') || message.includes('travel document')) {
       return ragKnowledgeBase['en-CA']['passport'];
     }
@@ -380,6 +662,21 @@ async function queryRAG(userMessage, locale) {
       return ragKnowledgeBase['en-CA']['license'];
     }
   } else {
+    // Questions EVA Sovereign UI
+    if (message.includes('eva') || message.includes('composant') || message.includes('composants web') || message.includes('sovereign ui')) {
+      if (message.includes('accessibilité') || message.includes('a11y') || message.includes('wcag') || message.includes('lecteur d\'écran')) {
+        return ragKnowledgeBase['fr-CA']['eva-accessibility'];
+      }
+      if (message.includes('bilingue') || message.includes('i18n') || message.includes('traduction')) {
+        return ragKnowledgeBase['fr-CA']['eva-i18n'];
+      }
+      if (message.includes('thème') || message.includes('style') || message.includes('css') || message.includes('personnaliser') || message.includes('mode sombre')) {
+        return ragKnowledgeBase['fr-CA']['eva-theming'];
+      }
+      return ragKnowledgeBase['fr-CA']['eva-components'];
+    }
+    
+    // Questions sur les services gouvernementaux
     if (message.includes('passeport') || message.includes('document de voyage')) {
       return ragKnowledgeBase['fr-CA']['passeport'];
     }
@@ -398,6 +695,7 @@ async function queryRAG(userMessage, locale) {
   }
   
   // Default response
+  console.log('⚠️ No keyword match - returning fallback');
   return {
     answer: lang === 'en-CA' 
       ? `Thank you for your question. I'm still learning about this topic. For immediate assistance, please:\n\n- Visit canada.ca for comprehensive information\n- Call Service Canada at 1-800-622-6232\n- Contact your local Service Canada office\n\nIs there another way I can help you today?`
@@ -422,12 +720,17 @@ function initializeChatPanel() {
   chatPanel.addEventListener('eva-message-send', async (event) => {
     const userMessage = event.detail.message;
     
+    console.log('🔵 Message received:', userMessage);
+    console.log('🔵 Current locale:', currentLocale);
+    
     // Show typing indicator
     chatPanel.setAttribute('is-typing', 'true');
     
     try {
       // Query RAG backend
       const response = await queryRAG(userMessage, currentLocale);
+      
+      console.log('🟢 RAG response:', response);
       
       // Add assistant response with sources
       const assistantMessage = {
@@ -508,3 +811,5 @@ if (document.readyState === 'loading') {
     initializeChatPanel();
   });
 }
+// Expose queryRAG globally for web component access
+window.queryRAG = queryRAG;

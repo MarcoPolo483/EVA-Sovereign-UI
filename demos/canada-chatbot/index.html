@@ -107,6 +107,46 @@
       color: #666;
       line-height: 1.5;
     }
+    
+    /* EVA Book Link Banner */
+    .book-link-banner {
+      background: linear-gradient(135deg, #d93f0b 0%, #a73008 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(217, 63, 11, 0.3);
+    }
+    
+    .book-link-banner h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .book-link-banner p {
+      margin-bottom: 1rem;
+      opacity: 0.95;
+    }
+    
+    .book-link-btn {
+      background: white;
+      color: #d93f0b;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .book-link-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
 
     /* Chat Container */
     .chat-container {
@@ -286,6 +326,15 @@
         </div>
       </div>
     </section>
+    
+    <!-- EVA Sovereign UI Documentation Link -->
+    <section class="book-link-banner">
+      <h2>📚 EVA Sovereign UI Documentation</h2>
+      <p>Complete guide: 70+ components, WCAG 2.2 AAA accessibility, bilingual EN-CA/FR-CA support, GC Design System compliance</p>
+      <a href="../../site/book/index.html" class="book-link-btn" target="_blank">
+        📖 Read the Full Documentation
+      </a>
+    </section>
 
     <!-- Chat Interface -->
     <section class="chat-container">
@@ -304,6 +353,18 @@
       <div class="suggestions">
         <h3 class="suggestions-title" data-i18n="suggestions-title">Popular Questions:</h3>
         <div class="suggestion-chips">
+          <!-- EVA Sovereign UI Questions -->
+          <button class="suggestion-chip" data-question="en:Tell me about EVA Sovereign UI components|fr:Parlez-moi des composants EVA Sovereign UI">
+            <span>📦 EVA Components</span>
+          </button>
+          <button class="suggestion-chip" data-question="en:How accessible are EVA components?|fr:Dans quelle mesure les composants EVA sont-ils accessibles?">
+            <span>♿ Accessibility</span>
+          </button>
+          <button class="suggestion-chip" data-question="en:How does EVA handle bilingual support?|fr:Comment EVA gère-t-il le soutien bilingue?">
+            <span>🌐 Bilingual Support</span>
+          </button>
+          
+          <!-- Government Services Questions -->
           <button class="suggestion-chip" data-question="en:How do I apply for a Canadian passport?|fr:Comment puis-je demander un passeport canadien?">
             <span data-i18n="suggestion-1">How do I apply for a passport?</span>
           </button>
@@ -312,12 +373,6 @@
           </button>
           <button class="suggestion-chip" data-question="en:How do I file my taxes online?|fr:Comment puis-je produire ma déclaration de revenus en ligne?">
             <span data-i18n="suggestion-3">How do I file my taxes online?</span>
-          </button>
-          <button class="suggestion-chip" data-question="en:Where can I find health services?|fr:Où puis-je trouver des services de santé?">
-            <span data-i18n="suggestion-4">Where can I find health services?</span>
-          </button>
-          <button class="suggestion-chip" data-question="en:How do I renew my driver's license?|fr:Comment puis-je renouveler mon permis de conduire?">
-            <span data-i18n="suggestion-5">How do I renew my driver's license?</span>
           </button>
         </div>
       </div>
@@ -486,9 +541,10 @@
         this.isTyping = true;
         this.requestUpdate();
         
-        // Simulate AI response
-        setTimeout(() => {
-          const response = this.generateResponse(text);
+        // Query RAG backend
+        setTimeout(async () => {
+          const ragResponse = await this.generateResponse(text);
+          const response = ragResponse.answer; // Extract answer from RAG response
           this.messages = [...this.messages, { role: 'assistant', content: response }];
           this.isTyping = false;
           this.requestUpdate();
@@ -508,35 +564,9 @@
         this.sendMessage();
       }
       
-      generateResponse(query) {
-        const lowerQuery = query.toLowerCase();
-        const isFrench = this.locale === 'fr-CA';
-        
-        if (lowerQuery.includes('passport') || lowerQuery.includes('passeport')) {
-          return isFrench 
-            ? 'Pour demander un passeport canadien, vous avez besoin d\'une preuve de citoyenneté, de deux photos de passeport et d\'une pièce d\'identité valide. Vous pouvez faire une demande en personne à Service Canada ou par la poste. Le traitement prend de 10 à 20 jours ouvrables. Visitez canada.ca/passeport pour plus de détails.'
-            : 'To apply for a Canadian passport, you need proof of citizenship, two passport photos, and valid ID. You can apply in person at Service Canada or by mail. Processing takes 10-20 business days. Visit canada.ca/passport for more details.';
-        } else if (lowerQuery.includes('benefit') || lowerQuery.includes('prestation') || lowerQuery.includes('prestations')) {
-          return isFrench
-            ? 'Le Canada offre de nombreuses prestations, notamment l\'Allocation canadienne pour enfants (ACE), l\'Assurance-emploi (AE), la Sécurité de la vieillesse (SV) et plus encore. Visitez canada.ca/prestations pour vérifier votre admissibilité.'
-            : 'Canada offers many benefits including Canada Child Benefit (CCB), Employment Insurance (EI), Old Age Security (OAS), and more. Visit canada.ca/benefits to check your eligibility.';
-        } else if (lowerQuery.includes('tax') || lowerQuery.includes('impôt') || lowerQuery.includes('revenus')) {
-          return isFrench
-            ? 'Vous pouvez produire votre déclaration de revenus en ligne en utilisant Mon dossier de l\'ARC et un logiciel certifié IMPÔTNET. La date limite est le 30 avril pour la plupart des particuliers. Visitez canada.ca/impots pour plus d\'informations.'
-            : 'You can file your taxes online using CRA My Account and NETFILE-certified software. The deadline is April 30 for most individuals. Visit canada.ca/taxes for more information.';
-        } else if (lowerQuery.includes('health') || lowerQuery.includes('santé')) {
-          return isFrench
-            ? 'Chaque province a son propre régime d\'assurance maladie. Communiquez avec le ministère de la Santé de votre province pour obtenir votre carte d\'assurance maladie. En cas d\'urgence, composez le 911. Visitez canada.ca/sante pour plus de ressources.'
-            : 'Each province has its own health insurance plan. Contact your provincial health ministry for your health card. For emergencies, call 911. Visit canada.ca/health for more resources.';
-        } else if (lowerQuery.includes('license') || lowerQuery.includes('licence') || lowerQuery.includes('permis')) {
-          return isFrench
-            ? 'Vous pouvez renouveler votre permis de conduire en ligne sur le site Web des véhicules automobiles de votre province. Vous aurez besoin de votre numéro de permis et d\'un mode de paiement. Visitez le site Web de votre province pour des instructions spécifiques.'
-            : 'You can renew your driver\'s license online through your province\'s motor vehicle website. You\'ll need your license number and payment method. Visit your provincial website for specific instructions.';
-        } else {
-          return isFrench
-            ? `Merci pour votre question. Pour des informations détaillées sur "${query}", veuillez visiter canada.ca ou contacter Service Canada au 1-800-O-Canada (1-800-622-6232).`
-            : `Thank you for your question. For detailed information about "${query}", please visit canada.ca or contact Service Canada at 1-800-O-Canada (1-800-622-6232).`;
-        }
+      async generateResponse(query) {
+        // Call the RAG backend (globally exposed from app.js)
+        return await window.queryRAG(query, this.locale);
       }
     }
     
