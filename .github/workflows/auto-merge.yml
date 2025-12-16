@@ -36,7 +36,7 @@ jobs:
         id: gate1
         run: |
           cd packages/web-components
-          npm test -- --coverage --run
+          npm test -- --coverage
           
           # Check coverage is 100%
           COVERAGE=$(node -e "
