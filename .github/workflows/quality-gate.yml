@@ -48,7 +48,7 @@ jobs:
       - name: Generate coverage and test results
         run: |
           if [ -f "package.json" ] && grep -q '"test"' package.json; then
-            npm run test -- --coverage --run --reporter=json --outputFile=.eva/evidence/quality/test-results-raw.json || echo '{"numTotalTests":0,"numPassedTests":0,"numFailedTests":0}' > .eva/evidence/quality/test-results-raw.json
+            npm run test -- --coverage --reporter=json --outputFile=.eva/evidence/quality/test-results-raw.json || echo '{"numTotalTests":0,"numPassedTests":0,"numFailedTests":0}' > .eva/evidence/quality/test-results-raw.json
 
             # Extract test results
             if [ -f ".eva/evidence/quality/test-results-raw.json" ]; then
